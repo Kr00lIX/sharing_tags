@@ -29,7 +29,8 @@ TODO: Write usage instructions here
 helper method `sharing_tags` generate meta tags for different social networks
 
 ### Example configuration
-```ruby initializers/sharings_tags.rb
+```ruby 
+# initializers/sharings_tags.rb
 SharingTags.configure do
 
     # global configuration
@@ -49,7 +50,8 @@ end
 
 ### Advanced configuration
 
-```ruby  initializers/sharings_tags.rb
+```ruby  
+# initializers/sharings_tags.rb
 SharingTags.configure do
 
   facebook do
@@ -84,8 +86,8 @@ SharingTags.configure do
       title         "Twitter title"
     end
   end
-
 end
+
 ```
 
 ## Tools for testing
@@ -93,7 +95,6 @@ end
 Facebook Debugger (https://developers.facebook.com/tools/debug)
 
 Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/richsnippets)
-
 
 
 ## Contributing
