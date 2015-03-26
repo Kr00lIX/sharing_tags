@@ -21,12 +21,14 @@ Or install it yourself as:
 ## Usage
 
 ### Views
-For the simplest way of using this gem, add this helper method to your views:
+For the simplest way of using this gem, add this helper method to head in your views:
+    # generate meta tags for different social networks
     = render_sharing_tags
+
+
 
 TODO: Write usage instructions here
 
-helper method `sharing_tags` generate meta tags for different social networks
 
 ### Example configuration
 ```ruby 
@@ -108,3 +110,6 @@ Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/rich
 
 
 
+## TODO:
+* add config generator
+* render sharing buttons
