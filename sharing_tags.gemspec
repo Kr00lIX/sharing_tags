@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kr00lix@gmail.com"]
   spec.summary       = %q{ Generate sharing tags for different contexts }
   spec.description   = %q{ Describe your sharing information for different contexts in one simple configuration file. }
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/Kr00lIX/sharing_tags"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -29,6 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-html-matchers'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'slim'
 
 end
