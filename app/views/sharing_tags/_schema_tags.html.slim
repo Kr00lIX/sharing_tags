@@ -1,3 +1,8 @@
-meta itemprop="name"        content=meta.title
-meta itemprop="description" content=meta.description
-meta itemprop="image"       content=meta.image
+- if meta.title
+  meta itemprop="name"        content=meta.title
+
+- if meta.description
+  meta itemprop="description" content=meta.description
+
+- if meta.image
+  meta itemprop="image"       content=meta.image

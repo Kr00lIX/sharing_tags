@@ -1,6 +1,10 @@
 meta name="twitter:card"         content="summary"
-meta name="twitter:title"        content=meta.title
-meta name="twitter:description"  content=meta.description
+
+- if meta.title
+  meta name="twitter:title"        content=meta.title
+
+- if meta.description
+  meta name="twitter:description"  content=meta.description
 
 /meta name="twitter:creator"     content="@aviasales"
 /meta name="twitter:image:src"   content=asset_url(sharing[:image])
