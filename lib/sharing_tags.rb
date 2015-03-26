@@ -1,3 +1,5 @@
+require "sharing_tags/engine"
+
 module SharingTags
 
   #extend ActiveSupport::Autoload
@@ -7,7 +9,6 @@ module SharingTags
   autoload :Configuration,  'sharing_tags/configuration'
   autoload :Network,        'sharing_tags/network'
   autoload :Context,        'sharing_tags/context'
-
   autoload :MetaHelper,     'sharing_tags/helpers/meta_helper'
 
   def configure(&block)
