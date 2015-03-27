@@ -12,6 +12,7 @@ module SharingTags
   autoload :MetaHelper,     'sharing_tags/helpers/meta_helper'
 
   def configure(&block)
+    config.clear! # cleanup config before calling configure
     config.instance_exec(&block)
   end
   module_function :configure

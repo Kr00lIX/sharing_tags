@@ -1,4 +1,4 @@
-# SocialMetaTags
+# sharing_tags [![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master)]
 
 TODO: Write a gem description
 

@@ -2,6 +2,8 @@ Dir.chdir(File.expand_path("../dummy", __FILE__)) { require File.expand_path("co
 
 require 'rspec/rails'
 require 'pry'
+require 'rspec-html-matchers'
+require 'slim'
 
 RSpec.configure do |config|
   config.include RSpecHtmlMatchers
