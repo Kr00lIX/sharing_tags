@@ -7,16 +7,13 @@ TODO: Write a gem description
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sharing_tags'
+gem 'sharing_tags', github: 'Kr00lIX/sharing_tags'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sharing_tags
 
 ## Usage
 
@@ -27,9 +24,6 @@ For the simplest way of using this gem, add this helper method to head in your v
 
 
 
-TODO: Write usage instructions here
-
-
 ### Example configuration
 ```ruby 
 # initializers/sharings_tags.rb
@@ -37,14 +31,14 @@ SharingTags.configure do
 
     # global configuration
     title         "Global site title"
-    description  "Global site description" }
+    description  "Global site description"
     page_url     "http://a.b"
     image        "http://img.jpg"
 
     # for switch context call `sharing_tags.switch_context_to(:user)` in controller action
     context :user do
         title         "User site title"
-        description  "User site description" }
+        description  "User site description"
         page_url     "http://user.link"
     end
 end
