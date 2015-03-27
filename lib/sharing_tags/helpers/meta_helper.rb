@@ -1,7 +1,7 @@
 module SharingTags::MetaHelper
 
   def sharing_tags
-    SharingTags.config.params
+    SharingTags.config.within_context_params(self)
   end
 
   def render_sharing_tags

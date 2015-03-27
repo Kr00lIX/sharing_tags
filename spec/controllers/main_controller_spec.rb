@@ -14,7 +14,7 @@ RSpec.describe MainController, :type => :controller  do
 
       title "Sharing title for all networks"
       description "Change me at /path"
-      image { image_url("social/default.jpg") }
+      image { image_url("http://test.host/images/social/default.jpg") }
 
       facebook do
         title "Facebook title"
@@ -43,7 +43,7 @@ RSpec.describe MainController, :type => :controller  do
       sharing_tags.facebook.tap do |facebook|
         expect(facebook.title).to eq("Facebook title")
         expect(facebook.description).to eq("Change me at /path")
-        expect(facebook.image).to eq("social/default.jpg")
+        expect(facebook.image).to eq("http://test.host/images/social/default.jpg")
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe MainController, :type => :controller  do
       sharing_tags.google.tap do |google|
         expect(google.title).to eq("Sharing title for all networks")
         expect(google.description).to eq("Google description")
-        expect(google.image).to eq("social/default.jpg")
+        expect(google.image).to eq("http://test.host/images/social/default.jpg")
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe MainController, :type => :controller  do
       sharing_tags.twitter.tap do |twitter|
         expect(twitter.title).to eq("Sharing title for all networks")
         expect(twitter.description).to eq("Change me at /path")
-        expect(twitter.image).to eq("social/default.jpg")
+        expect(twitter.image).to eq("http://test.host/images/social/default.jpg")
       end
     end
   end

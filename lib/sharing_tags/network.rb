@@ -72,7 +72,12 @@ module SharingTags
 
     def get_value(value, context_params)
       if value.is_a?(Proc)
-        value.call(context_params)
+        if running_context = @context.configuraton.running_context
+          # execute proc within the view context with context_params
+          running_context.instance_exec(*context_params, &value)
+        else
+          value.call(context_params)
+        end
       else
         value
       end

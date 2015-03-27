@@ -1,5 +1,5 @@
 language: ruby
 sudo: false
-
+before_install: gem install bundler
 rvm:
   - 2.1.3

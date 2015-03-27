@@ -9,12 +9,14 @@ module SharingTags
 
     def context(name, &block)
       raise "please define context block params" unless block_given?
-      (@contexts[name] ||= Context.new(name)).instance_exec(&block)
+      (@contexts[name] ||= Context.new(name, self)).instance_exec(&block)
     end
 
     def switch_context(name = nil, *args)
       clean_params!
       @current_context_params = args
+      @prev_context = current_context
+
       @current_context =
         if name
            @contexts[name]
@@ -25,14 +27,24 @@ module SharingTags
 
     def clear!
       @contexts = {}
-      @default_context = Context.new(:default)
+      @default_context = Context.new(:default, self)
       @current_context = nil
+      @running_context = nil
       clean_params!
     end
 
     def params
       # @params ||= fetch_params
       @params = fetch_params
+    end
+
+    def within_context_params(running_context_instance)
+      @running_context = running_context_instance
+      params
+    end
+
+    def running_context
+      @running_context
     end
 
     def clean_params!

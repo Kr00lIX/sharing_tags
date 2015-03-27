@@ -1,4 +1,4 @@
-# sharing_tags [![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master)]
+# sharing_tags ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master)
 
 TODO: Write a gem description
 
@@ -32,14 +32,14 @@ SharingTags.configure do
     # global configuration
     title         "Global site title"
     description  "Global site description"
-    page_url     "http://a.b"
-    image        "http://img.jpg"
+    page_url     { root_url }
+    image        { image_url('img.jpg') }
 
     # for switch context call `sharing_tags.switch_context_to(:user)` in controller action
     context :user do
         title         "User site title"
         description  "User site description"
-        page_url     "http://user.link"
+        page_url     { profile_url }
     end
 end
 ```

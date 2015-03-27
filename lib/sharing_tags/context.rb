@@ -2,10 +2,12 @@ module  SharingTags
   class Context
 
     attr_reader :name
+    attr_reader :configuraton
 
-    def initialize(name)
+    def initialize(name, configuraton)
       @name = name
       @networks = {}
+      @configuraton = configuraton
 
       Network.lists.each do |name|
         self.send(name)
@@ -51,7 +53,7 @@ module  SharingTags
     end
 
     def default_network
-      @default_network ||= Network.new(:default)
+      @default_network ||= Network.new(:default, self)
     end
 
   end
