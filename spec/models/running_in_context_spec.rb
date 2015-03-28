@@ -49,7 +49,6 @@ describe SharingTags::Configuration do
     end
 
     it "expect get twitter title from calling in running_context" do
-      pending "copy default context for switched contexts"
       expect(params.twitter.page_url).to eql("context url")
     end
   end

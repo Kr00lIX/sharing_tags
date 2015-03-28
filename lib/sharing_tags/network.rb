@@ -1,9 +1,12 @@
 module SharingTags
   class Network
 
-    NETWORKS = %i( facebook google twitter )
+    class Error < StandardError
+    end
 
-    #ATTRIBUTES = %i{ title description page_url share_url image_url}
+    NETWORKS = %i( facebook google twitter vkontakte ) #
+
+    ATTRIBUTES = %i( share_url title description image_url image page_url share_url_params )
 
     attr_reader :name
 
@@ -18,6 +21,10 @@ module SharingTags
       @context = context
       @attributes = {}
       @share_url_params = nil
+    end
+
+    def self.available_attributes
+      ATTRIBUTES
     end
 
     def share_url(url = nil, &block)
