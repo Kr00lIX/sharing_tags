@@ -86,4 +86,17 @@ RSpec.describe MainController, :type => :controller  do
   #     expect(response).to render_template('sharing_tags/meta_tags')
   #   end
   # end
+
+  describe "GET profile with switching context" do
+    before do
+      get :profile
+    end
+
+    it "expect render meta_tags" do
+      expect(response.status).to eq(200)
+      expect(response).to render_template(:profile)
+      expect(response).to render_template('sharing_tags/meta_tags')
+    end
+
+  end
 end

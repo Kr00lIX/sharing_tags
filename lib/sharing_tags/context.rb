@@ -67,22 +67,8 @@ module  SharingTags
     end
 
     def fetch_default_context_params(context_args = nil, default_config_params = Config.new)
-      config_network_defaults = default_config_params && default_config_params.dup || Config.new
-      config_network_defaults = default_config_params
-      context_default_params =  Config.new
-
-      # todo: context_default_params, config_network_defaults = default_config_params.divide_by { |network, _| Network.lists.include?(network) }
-
       # divide networks_default_params into to groups default network params and context params
-      Network.lists.each do |network|
-        context_default_params[network] =
-          if config_network_defaults.key?(network)
-             config_network_defaults.delete(network)
-          else
-             Config.new
-          end
-      end
-
+      context_default_params, config_network_defaults = default_config_params.divide_by_keys(Network.lists)
 
       context_network_defaults = default_network.attributes_for(context_args, config_network_defaults)
 

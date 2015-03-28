@@ -6,7 +6,7 @@ module SharingTags
 
     NETWORKS = %i( facebook google twitter vkontakte ) #
 
-    ATTRIBUTES = %i( share_url title description image_url image page_url share_url_params )
+    ATTRIBUTES = %i( share_url title description image_url image page_url share_url_params link_params )
 
     attr_reader :name
 

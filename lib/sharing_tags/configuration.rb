@@ -24,6 +24,7 @@ module SharingTags
           default_context
         end
     end
+    alias switch_context_to switch_context
 
     def clear!
       @contexts = {}

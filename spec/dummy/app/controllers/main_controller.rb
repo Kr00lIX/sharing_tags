@@ -5,6 +5,7 @@ class MainController < ApplicationController
 
   def photo
     @photo = ::Hashie::Mash.new(photo: "best_photo")
+    sharing_tags.switch_context_to(:photo, @photo)
 
     # view_context.sharing_tags.switch_context_to(:gallery, @photo)
     # sharing_tags(:photo, @photo)
@@ -17,7 +18,7 @@ class MainController < ApplicationController
 
   def profile
     @user = ::Hashie::Mash.new(birthday: Date.parse("1969-12-28"), name: "Linus")
-    view_context.sharing_tags.switch_context_to(:profile, @user)
+    sharing_tags.switch_context_to(:profile, @user)
 
   end
 

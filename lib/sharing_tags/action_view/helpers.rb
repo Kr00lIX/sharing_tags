@@ -1,4 +1,4 @@
-module SharingTags::MetaHelper
+module SharingTags::ActionView::Helpers
 
   def sharing_tags
     SharingTags.config.within_context_params(self)

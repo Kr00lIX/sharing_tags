@@ -9,7 +9,15 @@ module SharingTags
   autoload :Configuration,  'sharing_tags/configuration'
   autoload :Network,        'sharing_tags/network'
   autoload :Context,        'sharing_tags/context'
-  autoload :MetaHelper,     'sharing_tags/helpers/meta_helper'
+
+
+  module ActionView
+    autoload :Helpers, 'sharing_tags/action_view/helpers'
+  end
+
+  module ActionController
+    autoload :Helpers, 'sharing_tags/action_controller/helpers'
+  end
 
   def configure(&block)
     config.clear! # cleanup config before calling configure
@@ -22,8 +30,8 @@ module SharingTags
   end
   module_function :config
 
-  ActiveSupport.on_load(:action_view) do
-    include ::SharingTags::MetaHelper
-  end
+end
 
+if defined?(Rails::Railtie)
+  require 'sharing_tags/railtie'
 end
