@@ -7,6 +7,7 @@ module SharingTags
 
     # note: temporary code for working construction sharing_tags.switch_context_to
     def switch_context_to(name, *attrs)
+      Rails.logger.debug "SharingTags: switch context from #{SharingTags.config.current_context.name} to #{name}"
       SharingTags.config.switch_context(name, *attrs)
     end
 

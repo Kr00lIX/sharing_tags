@@ -97,6 +97,9 @@ RSpec.describe MainController, :type => :controller  do
       expect(response).to render_template(:profile)
       expect(response).to render_template('sharing_tags/meta_tags')
     end
+  end
 
+  describe "Clear current context for each request to default" do
+    pending "clear context to default"
   end
 end

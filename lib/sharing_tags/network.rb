@@ -8,7 +8,7 @@ module SharingTags
 
     ATTRIBUTES = %i( share_url title description image_url image page_url share_url_params link_params )
 
-    attr_reader :name
+    attr_reader :name, :attributes
 
     autoload :Facebook,   'sharing_tags/network/facebook'
 
@@ -54,17 +54,15 @@ module SharingTags
     alias :link_params :share_url_params
 
     def attributes_for(context_params = nil, default_params = Config.new)
+      # todo: merge default params after get all values of attributes
       @attributes.inject(default_params.dup) do |result, (name, value)|
         result[name] = get_value(value, context_params)
         result
       end.tap do |attrs|
+        #todo: fix assign share_url from page_url
         attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
         attrs[:share_url] = ("#{attrs[:share_url]}?" + @share_url_params.to_query) if attrs[:share_url] && @share_url_params
       end
-    end
-
-    def attributes
-      @attributes
     end
 
     protected

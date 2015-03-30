@@ -105,5 +105,6 @@ Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/rich
 
 
 ## TODO:
+* set image sizes
 * add config generator
 * render sharing buttons

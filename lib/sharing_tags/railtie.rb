@@ -10,6 +10,10 @@ module SharingTags
 
       ActiveSupport.on_load :action_controller do
         include SharingTags::ActionController::Helpers
+        include SharingTags::ActionController::Filters
+
+        # todo add filter for clear context
+        # append_filter :clear_context!
       end
     end
 

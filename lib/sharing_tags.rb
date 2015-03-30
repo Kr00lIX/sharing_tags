@@ -17,6 +17,7 @@ module SharingTags
 
   module ActionController
     autoload :Helpers, 'sharing_tags/action_controller/helpers'
+    autoload :Filters, 'sharing_tags/action_controller/filters'
   end
 
   def configure(&block)

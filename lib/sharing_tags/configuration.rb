@@ -48,8 +48,16 @@ module SharingTags
       @running_context
     end
 
+    def current_context
+      @current_context || default_context
+    end
+
     def clean_params!
       @params = nil
+    end
+
+    def clear_context!
+      @current_context = nil
     end
 
     private
@@ -58,10 +66,6 @@ module SharingTags
       default_context_params = default_context.params(@current_context_params)
       return default_context_params unless @current_context
       @current_context.params(@current_context_params, default_context_params)
-    end
-
-    def current_context
-      @current_context || default_context
     end
 
     def method_missing(method_name, *arguments, &block)
