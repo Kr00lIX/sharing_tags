@@ -24,6 +24,7 @@ For the simplest way of using this gem, add this helper method to head in your v
 
 
 
+
 ### Example configuration
 ```ruby 
 # initializers/sharings_tags.rb
