@@ -42,6 +42,12 @@ module  SharingTags
       end
     end
 
+    def odnoklassniki(&block)
+      (@networks[:odnoklassniki] ||=  Network.new(:odnoklassniki, self)).tap do |vkontakte|
+        vkontakte.instance_exec(&block) if block_given?
+      end
+    end
+
     def params(context_args = nil, default_config_params = Config.new)
       @context_params = fetch_params(context_args, default_config_params)
     end

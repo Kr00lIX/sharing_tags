@@ -4,7 +4,7 @@ module SharingTags
     class Error < StandardError
     end
 
-    NETWORKS = %i( facebook google twitter vkontakte ) #
+    NETWORKS = %i( facebook google twitter vkontakte odnoklassniki )
 
     ATTRIBUTES = %i( share_url title description image_url image page_url share_url_params link_params )
 
@@ -62,6 +62,8 @@ module SharingTags
         #todo: fix assign share_url from page_url
         attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
         attrs[:share_url] = ("#{attrs[:share_url]}?" + @share_url_params.to_query) if attrs[:share_url] && @share_url_params
+
+        attrs[:network] = name if attrs.present?
       end
     end
 
