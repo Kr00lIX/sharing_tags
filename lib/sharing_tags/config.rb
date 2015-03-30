@@ -26,5 +26,8 @@ module SharingTags
       [second_part, self]
     end
 
+    def get(*keys)
+      dup.select { |key, _| keys.include?(key.to_sym) }
+    end
   end
 end
