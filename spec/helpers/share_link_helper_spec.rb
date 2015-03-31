@@ -107,6 +107,23 @@ RSpec.describe SharingTags::ActionView::Helpers, :type => :helper do
     it "generate default text sharing link for block" do
       expect(helper.link_to_odnoklassniki_share { "Text block" }).to have_tag "a", text: "Text block", with: {href: "http://od.share", role: "sharing_tags_share"}
     end
+
+    it "generate default text sharing link for block" do
+      pending
+      expect(
+          helper.link_to_odnoklassniki_share(role: "ya-target", data: {target: "main"}) { "Text" }
+        ).to have_tag("a", text: "Text block",
+                        with: {href: "http://od.share", role: "ya-target sharing_tags_share"})
+
+      expect(helper.link_to_odnoklassniki_share).to have_tag("a", with: {
+                                                                    "data-share-url"   =>   "http://od.share?utm_source=od",
+                                                                    "data-title"       =>   "od title",
+                                                                    "data-description" =>   "od desc",
+                                                                    'data-target'      =>   "main"
+                                                                })
+    end
+
+
   end
 
   describe "#link_to_twitter_share" do

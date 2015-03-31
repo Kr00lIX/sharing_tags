@@ -27,13 +27,25 @@ module SharingTags::ActionView::Helpers
 
   private
 
-  def share_link_to(name = nil, network = nil, data_params = [], &block)
+  def share_link_to(name_or_options = nil, network = nil, data_params = [], &block)
     params = sharing_tags[network]
-    data_attrs = params.get *(data_params +[:network, :share_url])
+    data_attrs = params.get(*(data_params +[:network, :share_url]))
+
     if block_given?
-      link_to params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
+      name_or_options = {} if !name_or_options || name_or_options.is_a?(String)
+      data_attrs.merge!(name_or_options.delete(:data)) if name_or_options[:data]
+
+      if name_or_options[:role]
+        name_or_options[:role] += " sharing_tags_share"
+      else
+        name_or_options[:role] = "sharing_tags_share"
+      end
+
+      name_or_options.merge!(data: data_attrs, target: "_blank")
+
+      link_to params.page_url, name_or_options, &block
     else
-      link_to name, params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
+      link_to name_or_options, params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
     end
   end
 
