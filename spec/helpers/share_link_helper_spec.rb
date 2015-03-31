@@ -96,4 +96,32 @@ RSpec.describe SharingTags::ActionView::Helpers, :type => :helper do
                                                                 })
     end
   end
+
+  describe "#link_to_twitter_share" do
+    before do
+      SharingTags.configure do
+        twitter do
+          link_params utm_source: "tw"
+
+          title        "tw title"
+          description  "tw desc"
+          page_url     "http://tw.share"
+          image        "http://img.png"
+        end
+      end
+    end
+
+
+    it "generate default text share link" do
+      expect(helper.link_to_twitter_share).to have_tag "a", text: "Twitter", with: {href: "http://tw.share", role: "sharing_tags_share"}
+      expect(helper.link_to_twitter_share).to have_tag("a", with: {
+                                                             "data-share-url"   =>   "http://tw.share?utm_source=tw",
+                                                             "data-title"       =>   "tw title",
+                                                             "data-description" =>   "tw desc"
+                                                         })
+      expect(helper.link_to_twitter_share).to have_tag("a", without: {
+                                                                    "data-image" => "http://img.png"
+                                                                })
+    end
+  end
 end

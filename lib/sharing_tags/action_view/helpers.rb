@@ -21,6 +21,10 @@ module SharingTags::ActionView::Helpers
     share_link_to name, :odnoklassniki, [:title, :description]
   end
 
+  def link_to_twitter_share(name = "Twitter")
+    share_link_to name, :twitter, [:title, :description]
+  end
+
   private
 
   def share_link_to(name, network, data_params = [])
