@@ -9,29 +9,32 @@ module SharingTags::ActionView::Helpers
     render template: "sharing_tags/meta_tags"
   end
 
-  def link_to_facebook_share(name = "Facebook")
-    share_link_to name, :facebook
+  def link_to_facebook_share(name = "Facebook", &block)
+    share_link_to name, :facebook, [], &block
   end
 
-  def link_to_vkontakte_share(name = "Vkontakte")
-    share_link_to name, :vkontakte, [:title, :description, :image]
+  def link_to_vkontakte_share(name = "Vkontakte", &block)
+    share_link_to name, :vkontakte, [:title, :description, :image], &block
   end
 
-  def link_to_odnoklassniki_share(name = "Odnoklassniki")
-    share_link_to name, :odnoklassniki, [:title, :description]
+  def link_to_odnoklassniki_share(name = "Odnoklassniki", &block)
+    share_link_to name, :odnoklassniki, [:title, :description], &block
   end
 
-  def link_to_twitter_share(name = "Twitter")
-    share_link_to name, :twitter, [:title, :description]
+  def link_to_twitter_share(name = "Twitter", &block)
+    share_link_to name, :twitter, [:title, :description], &block
   end
 
   private
 
-  def share_link_to(name, network, data_params = [])
+  def share_link_to(name = nil, network = nil, data_params = [], &block)
     params = sharing_tags[network]
     data_attrs = params.get *(data_params +[:network, :share_url])
-
-    link_to name, params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank"
+    if block_given?
+      link_to params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
+    else
+      link_to name, params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
+    end
   end
 
 end

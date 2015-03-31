@@ -44,6 +44,10 @@ RSpec.describe SharingTags::ActionView::Helpers, :type => :helper do
                                                                 "data-image"       =>   "http://img.png"
                                                             })
     end
+
+    it "generate default text sharing link for block" do
+      expect(helper.link_to_facebook_share { "Text block" }).to have_tag "a", text: "Text block", with: {href: "http://a.b", role: "sharing_tags_share"}
+    end
   end
 
   describe "#link_to_vkontakte_share" do
@@ -67,6 +71,10 @@ RSpec.describe SharingTags::ActionView::Helpers, :type => :helper do
                                                              "data-description" =>   "vk desc",
                                                              "data-image"       =>   "http://img.png"
                                                          })
+    end
+
+    it "generate default text sharing link for block" do
+      expect(helper.link_to_vkontakte_share { "Text block" }).to have_tag "a", text: "Text block", with: {href: "http://vk.share", role: "sharing_tags_share"}
     end
   end
 
@@ -94,6 +102,10 @@ RSpec.describe SharingTags::ActionView::Helpers, :type => :helper do
       expect(helper.link_to_odnoklassniki_share).to have_tag("a", without: {
                                                                     "data-image" => "http://img.png"
                                                                 })
+    end
+
+    it "generate default text sharing link for block" do
+      expect(helper.link_to_odnoklassniki_share { "Text block" }).to have_tag "a", text: "Text block", with: {href: "http://od.share", role: "sharing_tags_share"}
     end
   end
 
@@ -123,5 +135,10 @@ RSpec.describe SharingTags::ActionView::Helpers, :type => :helper do
                                                                     "data-image" => "http://img.png"
                                                                 })
     end
+
+    it "generate default text sharing link for block" do
+      expect(helper.link_to_twitter_share { "Twitter block" }).to have_tag "a", text: "Twitter block", with: {href: "http://tw.share", role: "sharing_tags_share"}
+    end
+
   end
 end
