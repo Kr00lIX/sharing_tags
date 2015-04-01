@@ -39,8 +39,14 @@ module SharingTags
       attributes[:description] = store_value(value, &block)
     end
 
-    def image_url(new_image = nil, &block)
+    def image_url(new_image = nil, size = nil, content_type = nil, &block)
       attributes[:image] = store_value(new_image, &block)
+
+      # add size and content type for block value
+      size, content_type = new_image, size if block_given?
+
+      attributes[:image_size] = store_value(size.split("x"), &block) if size
+      attributes[:image_content_type] = store_value(content_type, &block) if content_type
     end
     alias :image :image_url
 

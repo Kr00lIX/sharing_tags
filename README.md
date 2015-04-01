@@ -65,7 +65,7 @@ SharingTags.configure do
   facebook do
     title       { "Facebook title" }
     share_url   { "http://c.d" }
-    image       {  "http://img.png" }
+    image       "http://img.png", "100x200", "image/jpeg"
   end
 
   google do

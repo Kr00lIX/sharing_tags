@@ -63,4 +63,5 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
     expect(rendered).to_not have_tag('meta')
   end
 
+
 end
