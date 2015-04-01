@@ -45,8 +45,8 @@ module SharingTags
       # add size and content type for block value
       size, content_type = new_image, size if block_given?
 
-      attributes[:image_size] = store_value(size.split("x"), &block) if size
-      attributes[:image_content_type] = store_value(content_type, &block) if content_type
+      attributes[:image_size] = store_value(size.split("x")) if size
+      attributes[:image_content_type] = store_value(content_type) if content_type
     end
     alias :image :image_url
 
