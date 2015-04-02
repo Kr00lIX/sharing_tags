@@ -1,7 +1,7 @@
 class @SharingTags
 
-  @share: (network, attributes)->
-    SharingTags.Share[network]?(attributes)
+  @share: (network, attributes, callback)->
+    SharingTags.Share[network]?(attributes, callback)
 
   class @Share
 
@@ -38,12 +38,11 @@ class @SharingTags
 
     @_share: (api_url, params, callback) ->
       share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
+      share_window = window.open share_url, 'Sharing', 'width=740,height=440'
 
-      @window = window.open share_url, 'Sharing', 'width=740,height=440'
-      self = @
       clearInterval(@interval)
-      @interval = setInterval((->
-        if self.window.closed
-          clearInterval self.interval
+      @interval = setInterval((=>
+        if share_window.closed
+          clearInterval @interval
           callback() if callback
       ), 500)
