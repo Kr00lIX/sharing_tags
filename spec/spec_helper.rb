@@ -1,6 +1,7 @@
 Dir.chdir(File.expand_path("../dummy", __FILE__)) { require File.expand_path("config/environment") }
 
 require 'rspec/rails'
+require 'rspec/autorun'
 require 'pry'
 require 'rspec-html-matchers'
 require 'slim'

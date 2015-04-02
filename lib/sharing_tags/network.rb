@@ -50,6 +50,9 @@ module SharingTags
     end
     alias :image :image_url
 
+    # todo: add image_size
+    # todo: add_image_type
+
     def page_url(new_url = nil, &block)
       attributes[:page_url] = store_value(new_url, &block)
     end
