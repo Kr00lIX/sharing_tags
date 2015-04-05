@@ -15,6 +15,9 @@ if ENV['CODECLIMATE_REPO_TOKEN']
   CodeClimate::TestReporter.start
 end
 
+require 'coveralls'
+Coveralls.wear!
+
 RSpec.configure do |config|
   config.include RSpecHtmlMatchers
   config.include GeneratorSupport, type: :generator

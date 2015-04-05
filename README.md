@@ -1,4 +1,5 @@
-# sharing_tags ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master) ![Code Climate](https://codeclimate.com/github/Kr00lIX/sharing_tags/badges/gpa.svg)  ![Security](https://hakiri.io/github/Kr00lIX/sharing_tags/master.svg)
+# sharing_tags ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master) ![Code Climate](https://codeclimate.com/github/Kr00lIX/sharing_tags/badges/gpa.svg) ![Security](https://hakiri.io/github/Kr00lIX/sharing_tags/master.svg)  [![Coverage Status](https://coveralls.io/repos/Kr00lIX/sharing_tags/badge.svg)](https://coveralls.io/r/Kr00lIX/sharing_tags)
+
 
 **sharing_tags** is a gem for adding social sharing buttons to your Rails app. 
 
@@ -12,19 +13,22 @@ Add this line to your application's Gemfile:
 gem 'sharing_tags', github: 'Kr00lIX/sharing_tags'
 ```
 
-And then execute:
+Run the bundle command to install it.
 
-    $ bundle
+After you install SharingTags and add it to your Gemfile, you need to run the generator:
 
+```ruby
+rails generate sharing_tags:install
+```
 
 ## Usage
 
 ### Views
 For the simplest way of using this gem, add this helper method to head in your views:
+```haml
     # generate meta tags for different social networks
     = render_sharing_tags
-
-
+```
 
 
 ### Example configuration
@@ -104,3 +108,5 @@ Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/rich
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+## Copyright
+Copyright © 2015 Anatolii Kovalchuk. See LICENSE.txt for further details.

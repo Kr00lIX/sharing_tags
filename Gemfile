@@ -10,4 +10,4 @@ gem 'hashie'
 
 
 gem 'codeclimate-test-reporter', '~> 0.4.7'
-# gem "codeclimate-test-reporter", git: "https://github.com/codeclimate/ruby-test-reporter.git"
+gem 'coveralls', require: false
