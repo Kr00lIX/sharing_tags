@@ -5,6 +5,8 @@ require 'pry'
 require 'rspec-html-matchers'
 require 'slim'
 
+CodeClimate::TestReporter.start
+
 RSpec.configure do |config|
   config.include RSpecHtmlMatchers
 
