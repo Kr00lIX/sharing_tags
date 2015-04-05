@@ -104,10 +104,3 @@ Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/rich
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-
-
-
-## TODO:
-* set image sizes
-* add config generator
-* render sharing buttons
