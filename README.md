@@ -1,6 +1,8 @@
-# sharing_tags ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master) [![Code Climate](https://codeclimate.com/github/Kr00lIX/sharing_tags/badges/gpa.svg)
+# sharing_tags ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master) ![Code Climate](https://codeclimate.com/github/Kr00lIX/sharing_tags/badges/gpa.svg)
 
-TODO: Write a gem description
+**sharing_tags** is a gem for adding social sharing buttons to your Rails app. 
+
+Available for the following social networks: Facebook, Twitter, Odnoklassniki, Google Plus, Vkontakte
 
 ## Installation
 
