@@ -3,7 +3,11 @@ Dir.chdir(File.expand_path("../dummy", __FILE__)) { require File.expand_path("co
 require 'rspec/rails'
 require 'pry'
 require 'rspec-html-matchers'
+require 'ammeter/init'
 require 'slim'
+require 'rspec/support/spec'
+
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 if ENV['CODECLIMATE_REPO_TOKEN']
   require 'codeclimate-test-reporter'
@@ -13,6 +17,7 @@ end
 
 RSpec.configure do |config|
   config.include RSpecHtmlMatchers
+  config.include GeneratorSupport, type: :generator
 
   config.filter_run :focus
   config.run_all_when_everything_filtered = true

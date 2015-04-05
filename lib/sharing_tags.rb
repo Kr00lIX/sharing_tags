@@ -33,6 +33,5 @@ module SharingTags
 
 end
 
-if defined?(Rails::Railtie)
-  require 'sharing_tags/railtie'
-end
+require 'sharing_tags/railtie' if defined?(Rails::Railtie)
+require 'sharing_tags/engine' if defined?(Rails)
