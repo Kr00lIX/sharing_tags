@@ -1,7 +1,8 @@
 class @SharingTags
 
   @share: (network, attributes, callback)->
-    SharingTags.Share[network]?(attributes, callback)
+    share_object = if attributes.mobile then SharingTags.MobileShare else SharingTags.Share
+    share_object[network]?(attributes, callback)
 
   class @Share
 
@@ -31,8 +32,8 @@ class @SharingTags
       @_share('http://connect.mail.ru/share', url: url, title: title, description: message, imageurl: image, callback)
 
     @linkedin: ({url, title, message}, callback) ->
-      @_share('http://www.linkedin.com/shareArticle?mini=true',
-        url: url, title: title, summary: message,
+      @_share('http://www.linkedin.com/shareArticle',
+        mini: true, url: url, title: title, summary: message,
         callback
       )
 
@@ -41,8 +42,23 @@ class @SharingTags
       share_window = window.open share_url, 'Sharing', 'width=740,height=440'
 
       clearInterval(@interval)
+      iteration = 0
       @interval = setInterval((=>
-        if share_window.closed
+        iteration++
+        if @_checkSharing(share_url, share_window, iteration)
           clearInterval @interval
           callback() if callback
       ), 500)
+
+    @_checkSharing: (share_url, share_window, iteration)=>
+      # console.log("check desktop sharing", share_url, share_window, iteration)
+      share_window.closed || iteration >= 10
+
+  class @MobileShare extends @Share
+
+    @twitter: ({title, url, message}, callback) ->
+      super
+
+    @_checkSharing: (share_url, share_window, iteration)=>
+      # console.log("check mobile sharing", share_url, share_window, iteration)
+      return true if iteration >= 1
