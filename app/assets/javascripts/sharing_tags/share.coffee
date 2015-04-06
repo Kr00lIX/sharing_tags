@@ -1,7 +1,7 @@
 class @SharingTags
 
   @share: (network, attributes, callback)->
-    share_object = if attributes.mobile then SharingTags.MobileShare else SharingTags.Share
+    share_object = if attributes?.mobile then SharingTags.MobileShare else SharingTags.Share
     share_object[network]?(attributes, callback)
 
   class @Share
@@ -56,7 +56,18 @@ class @SharingTags
 
   class @MobileShare extends @Share
 
+    @facebook: ({url}, callback) ->
+      super
+
     @twitter: ({title, url, message}, callback) ->
+      # todo: fix adding hash tags
+      # text = "#{encodeURI(message)}%20%23aviasales%20%23avialove%20#{url}"
+#      text = "#{encodeURI(message)}%20#{url}"
+#      exportUrl = "twitter://post?message=#{text}"
+#      window.location.replace(exportUrl)
+#      setTimeout (->
+#        @_share("http://twitter.com/intent/tweet", text: message, url: url, callback)
+#      ), 1
       super
 
     @_checkSharing: (share_url, share_window, iteration)=>

@@ -23,6 +23,8 @@ rails generate sharing_tags:install
 
 ## Usage
 
+This gem is a Rails 4+ compatible engine and now automatically includes all the view helper modules into ActionView::Base
+
 ### Views
 For the simplest way of using this gem, add this helper method to head in your views:
 ```haml
@@ -107,6 +109,10 @@ Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/rich
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## References
+Icons made by [Jorge Calvo García](https://www.behance.net/gallery/FREE-Flat-Social-Icons-EPS/8786901)
+
 
 ## Copyright
 Copyright © 2015 Anatolii Kovalchuk. See LICENSE.txt for further details.
