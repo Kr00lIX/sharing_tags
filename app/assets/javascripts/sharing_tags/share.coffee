@@ -52,7 +52,7 @@ class @SharingTags
 
     @_checkSharing: (share_url, share_window, iteration)=>
       # console.log("check desktop sharing", share_url, share_window, iteration)
-      share_window.closed || iteration >= 10
+      share_window?.closed || iteration >= 15
 
   class @MobileShare extends @Share
 
