@@ -14,8 +14,11 @@ module SharingTags
     initializer "sharing_tags.configure_view_controller" do |app|
       ActiveSupport.on_load :action_view do
         include SharingTags::ActionView::MetaHelper
-        include SharingTags::ActionView::AssetHelper
         include SharingTags::ActionView::ButtonHelper
+
+        # @note: load AssetHelper after sprockets helper
+        include Sprockets::Rails::Helper if defined?(Sprockets::Rails::Helper) && !include?(Sprockets::Rails::Helper)
+        include SharingTags::ActionView::AssetHelper
       end
 
       ActiveSupport.on_load :action_controller do

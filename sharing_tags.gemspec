@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hashie', '~> 3.4'
   spec.add_dependency 'slim',   '~> 3.0'
   spec.add_dependency 'coffee-script', '~> 2.3'
+  spec.add_dependency 'non-stupid-digest-assets', '~> 1.0'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 10.0'
