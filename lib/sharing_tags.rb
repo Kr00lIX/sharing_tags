@@ -12,7 +12,9 @@ module SharingTags
 
 
   module ActionView
-    autoload :Helpers, 'sharing_tags/action_view/helpers'
+    autoload :MetaHelper,   'sharing_tags/action_view/meta_helper'
+    autoload :ButtonHelper, 'sharing_tags/action_view/button_helper'
+    autoload :AssetHelper,  'sharing_tags/action_view/asset_helper'
   end
 
   module ActionController

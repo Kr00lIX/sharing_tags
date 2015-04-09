@@ -1,13 +1,4 @@
-module SharingTags::ActionView::Helpers
-
-  def sharing_tags
-    SharingTags.config.within_context_params(self)
-  end
-
-  def render_sharing_tags
-    logger.debug "SharingTags: Render meta tags context=#{SharingTags.config.current_context.name}, params=#{sharing_tags.to_hash.inspect}"
-    render template: "sharing_tags/meta_tags"
-  end
+module SharingTags::ActionView::ButtonHelper
 
   def link_to_facebook_share(name = "Facebook", &block)
     share_link_to name, :facebook, [], &block
@@ -48,5 +39,4 @@ module SharingTags::ActionView::Helpers
       link_to name_or_options, params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
     end
   end
-
 end
