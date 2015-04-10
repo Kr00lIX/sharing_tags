@@ -1,6 +1,8 @@
 module SharingTags
   class Network
 
+    # todo: add default values
+
     class Error < StandardError
     end
 
@@ -39,13 +41,18 @@ module SharingTags
       attributes[:description] = store_value(value, &block)
     end
 
-    def image_url(new_image = nil, size = nil, content_type = nil, &block)
+    def image_url(new_image = nil, size = nil, content_type = nil, options = {digested: true}, &block)
+      if options[:digested] == false && !block_given?
+        block = lambda { without_digest_asset_url(new_image) }
+      end
+
+      # todo: add another class for storing image
       attributes[:image] = store_value(new_image, &block)
 
       # add size and content type for block value
       size, content_type = new_image, size if block_given?
 
-      attributes[:image_size] = store_value(size.split("x")) if size
+      attributes[:image_size] = store_value(size.split("x").map(&:to_i)) if size
       attributes[:image_content_type] = store_value(content_type) if content_type
     end
     alias :image :image_url
@@ -88,7 +95,8 @@ module SharingTags
 
     def get_value(value, context_params)
       if value.is_a?(Proc)
-        if running_context = @context.configuraton.running_context
+
+        if @context && running_context = @context.configuraton.running_context
           # execute proc within the view context with context_params
           running_context.instance_exec(*context_params, &value)
         else

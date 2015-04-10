@@ -3,6 +3,8 @@ module SharingTags
 
     NETWORKS = %i{ google facebook twitter }
 
+    attr_accessor :running_context
+
     def initialize
       clear!
     end
@@ -42,10 +44,6 @@ module SharingTags
     def within_context_params(running_context_instance)
       @running_context = running_context_instance
       params
-    end
-
-    def running_context
-      @running_context
     end
 
     def current_context

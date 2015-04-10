@@ -4,6 +4,8 @@ guard 'rspec', cmd: "bundle exec rspec" do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
 
+  watch(%r{^lib/sharing_tags/(.+)\.rb$}) { |m| "spec/models/#{m[1]}_spec.rb" }
+
 end
 
 guard :teaspoon do
@@ -11,5 +13,5 @@ guard :teaspoon do
   watch(%r{^app/assets/javascripts/sharing_tags/(.+).coffee}) { |m| "#{m[1]}_spec" }
 
   # Specs / Helpers
-  watch(%r{^spec/javascripts/**/(.*)})
+  watch(%r{^spec/javascripts/(.+)})
 end
