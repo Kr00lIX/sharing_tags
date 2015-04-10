@@ -21,6 +21,10 @@ module SharingTags
     def initialize(name, context = nil)
       @name = name
       @context = context
+      clear!
+    end
+
+    def clear!
       @attributes = {}
       @share_url_params = nil
     end
@@ -41,7 +45,11 @@ module SharingTags
       attributes[:description] = store_value(value, &block)
     end
 
-    def image_url(new_image = nil, size = nil, content_type = nil, options = {digested: true}, &block)
+    # def image_url(new_image = nil, size = nil, content_type = nil, options, &block)
+    def image_url(*arguments, &block)
+      options = arguments.extract_options!
+      new_image, size, content_type = arguments
+
       if options[:digested] == false && !block_given?
         block = lambda { without_digest_asset_url(new_image) }
       end

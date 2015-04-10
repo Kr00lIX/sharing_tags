@@ -1,15 +1,17 @@
 module SharingTags
 
   describe Network do
+    let!(:config)  { Configuration.new }
+    let!(:context) { Context.new(:test, config) }
+    let!(:network) { Network.new(:test, context) }
+
+    after do
+      network.clear!
+    end
 
     it "expect get's list of available networks" do
       expect(Network.lists).to include(:facebook, :twitter, :google, :vkontakte)
     end
-
-    # let(:params) { SharingTags.config.within_context_params(running_context.new) }
-    let!(:config)  { Configuration.new }
-    let!(:context) { Context.new(:test, config) }
-    let!(:network) { Network.new(:test, context) }
 
     it "expect network name is a test" do
       expect(network.name).to be_eql(:test)
@@ -47,20 +49,36 @@ module SharingTags
       end
 
       describe "non digested image" do
-        before do
+        it "expect non digested path for full image attributes" do
           network.image "sharing/image.png", "100x500", "image/jpeg", digested: false
-        end
 
-        it "expect non digested path " do
           expect(network.attributes_for.image).to be == "non_digested/sharing/image.png"
-        end
-
-        it "expect correct image size" do
           expect(network.attributes_for.image_size).to be == [100, 500]
+          expect(network.attributes_for.image_content_type).to be == "image/jpeg"
         end
 
-        it "expect correct image size" do
-          expect(network.attributes_for.image_content_type).to be == "image/jpeg"
+        it "expect correct image path without content type" do
+          network.image "sharing/image.png", "100x500", digested: false
+
+          expect(network.attributes_for.image).to be == "non_digested/sharing/image.png"
+          expect(network.attributes_for.image_size).to be == [100, 500]
+          expect(network.attributes_for.image_content_type).to be_nil
+        end
+
+        it "expect correct image path without content type and size" do
+          network.image "sharing/image.png", digested: false
+
+          expect(network.attributes_for.image).to be == "non_digested/sharing/image.png"
+          expect(network.attributes_for.image_size).to be_nil
+          expect(network.attributes_for.image_content_type).to be_nil
+        end
+
+        it "expect correct image path without content type and size" do
+          network.image "sharing/image.png", digested: false
+
+          expect(network.attributes_for.image).to be == "non_digested/sharing/image.png"
+          expect(network.attributes_for.image_size).to be_nil
+          expect(network.attributes_for.image_content_type).to be_nil
         end
       end
 
