@@ -1,4 +1,4 @@
-# sharing_tags [![Gem Version](https://badge.fury.io/rb/sharing_tags.svg)](http://badge.fury.io/rb/sharing_tags) ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master) ![Code Climate](https://codeclimate.com/github/Kr00lIX/sharing_tags/badges/gpa.svg) ![Security](https://hakiri.io/github/Kr00lIX/sharing_tags/master.svg)  [![Coverage Status](https://coveralls.io/repos/Kr00lIX/sharing_tags/badge.svg)](https://coveralls.io/r/Kr00lIX/sharing_tags)
+# sharing_tags [![Gem Version](https://badge.fury.io/rb/sharing_tags.svg)](http://badge.fury.io/rb/sharing_tags) ![Build Status](https://secure.travis-ci.org/Kr00lIX/sharing_tags.svg?branch=master) ![Code Climate](https://codeclimate.com/github/Kr00lIX/sharing_tags/badges/gpa.svg) [![Coverage Status](https://coveralls.io/repos/Kr00lIX/sharing_tags/badge.svg)](https://coveralls.io/r/Kr00lIX/sharing_tags)
 
 
 **sharing_tags** is a gem for adding social sharing buttons to your Rails app. 
