@@ -1,0 +1,15 @@
+{
+  "full": {
+    "url":         "http://full.url",
+    "title":       "Title full",
+    "description": "Description",
+    "app_id":      "123",
+    "return_url":  "http://return.url"
+  },
+
+  "partial": {
+    "url":         "http://partial.url",
+    "title":       "Partial title",
+    "description": "Description"
+  }
+}

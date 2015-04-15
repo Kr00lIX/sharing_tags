@@ -4,6 +4,10 @@ class @SharingTags
     share_object = if attributes?.mobile then SharingTags.MobileShare else SharingTags.Share
     share_object[network]?(attributes, callback)
 
+#=require sharing_tags/share/facebook
+  class @Error extends Error
+    constructor: -> super
+
   class @Share
 
     @facebook: ({url}, callback) ->
@@ -56,8 +60,12 @@ class @SharingTags
 
   class @MobileShare extends @Share
 
-    @facebook: ({url}, callback) ->
-      super
+    @facebook: ({url, return_url, app_id}, callback) ->
+      if app_id
+        return_url = url if !return_url
+        @_share("http://www.facebook.com/dialog/share", href: url, redirect_uri: return_url, app_id: app_id, display: 'touch', callback)
+      else
+        super
 
     @twitter: ({title, url, message}, callback) ->
       # todo: fix adding hash tags
@@ -68,6 +76,9 @@ class @SharingTags
 #      setTimeout (->
 #        @_share("http://twitter.com/intent/tweet", text: message, url: url, callback)
 #      ), 1
+      super
+
+    @_share: ->
       super
 
     @_checkSharing: (share_url, share_window, iteration)=>
