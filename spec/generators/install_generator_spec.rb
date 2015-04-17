@@ -9,11 +9,13 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
 
   before do
     prepare_destination
-    run_generator
   end
 
   describe 'initializer' do
-    let(:initializer) { content_for('config/initializers/sharing_tags.rb') }
+    before do
+      run_generator
+    end
+
     subject { file 'config/initializers/sharing_tags.rb' }
 
     it "creates a sharing_tags initializer" do
@@ -31,7 +33,19 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
   end
 
   describe 'assets' do
-    pending
+
+    describe "javascripts" do
+      pending
+    end
+
+    describe "stylesheets" do
+
+      it "expect add require styles for existing file"
+      it "expect skip if style added "
+      it "expect skip if file doesnot exists"
+
+    end
+
     # subject { file 'app/controllers/sessions_controller.rb'}
 
     # it { is_expected_to have_method :index }
@@ -42,7 +56,14 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
     # subject { file 'app/views/sessions/new.html.erb'}
     #
     # it { is_expected_to have_correct_syntax }
+  end
 
+  describe "after install" do
+    it "expect has a message" do
+      # expect { run_generator }.to output(/Congratulations/).to_stderr_from_any_process
+      # expect { run_generator }.to output(/Congratulations/).to_stdout_from_any_process
+      # expect { run_generator }.to output(/Congratulations/).to_stdout
+    end
   end
 end
 

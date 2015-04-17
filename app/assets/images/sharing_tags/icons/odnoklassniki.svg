@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<svg width="35px" height="35px" viewBox="0 0 116 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Odnoklassniki Share</title>
+    <desc>Odnoklassniki share social icon</desc>
+    <g name="Layer 1" opacity="1">
+        <g >
+            <desc shapeID="1" type="0" basicInfo-basicType="0" basicInfo-roundedRectRadius="12" basicInfo-polygonSides="6" basicInfo-starPoints="5" bounding="rect(-57.7161,-57.9851,115.432,115.97)" text="" font-familyName="" font-pixelSize="20" font-bold="0" font-underline="0" font-alignment="1" strokeStyle="0" markerStart="0" markerEnd="0" shadowEnabled="0" shadowOffsetX="0" shadowOffsetY="2" shadowBlur="4" shadowOpacity="160" blurEnabled="0" blurRadius="4" transform="matrix(1,0,0,1,57.9747,58.5361)" pers-center="0,0" pers-size="0,0" pers-start="0,0" pers-end="0,0" locked="0" mesh="" flag=""/>
+            <path id="shapePath1" d="M57.9768,0.551071 C26.1,0.551071 0.258617,26.5124 0.258617,58.5372 C0.258617,90.562 26.1,116.521 57.9768,116.521 C89.8515,116.521 115.691,90.562 115.691,58.5372 C115.691,26.5124 89.8515,0.551071 57.9768,0.551071 M36.905,35.9014 C38.6963,24.0332 50.1119,18.1194 59.7808,19.7779 C71.1666,21.7314 77.3658,32.251 75.9894,41.9435 C72.2729,68.1955 32.9523,62.0509 36.905,35.9014 M76.9255,93.8705 C73.0749,97.8094 68.9648,94.1846 65.9694,91.2908 C63.3953,88.803 60.3063,85.6847 57.613,83.5667 C50.5863,91.0087 44.8785,99.9467 39.1069,95.0011 C32.1929,89.068 45.7699,80.3736 49.0822,75.2485 C45.6337,74.4748 39.8238,72.594 37.0922,70.5059 C34.3522,68.4071 33.848,63.5918 37.1582,61.2024 C41.1279,58.3342 43.7914,61.4952 48.4802,63.0126 C66.2353,68.7533 73.1047,52.6683 78.3593,62.0979 C82.8396,70.1404 67.5926,73.6904 65.7673,74.9322 C73.0962,81.9766 82.4865,88.1917 76.9255,93.8705 M55.9239,31.1973 C45.2486,31.9518 46.0358,47.4747 56.7791,47.3401 C67.3139,47.2118 67.1884,30.4022 55.9239,31.1973 Z" style="stroke:none;fill-rule:evenodd;fill:#ed812b;fill-opacity:1;"/>
+        </g>
+    </g>
+</svg>

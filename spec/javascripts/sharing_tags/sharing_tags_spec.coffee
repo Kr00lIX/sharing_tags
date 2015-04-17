@@ -23,10 +23,10 @@ describe "Sharing Tags", ->
         SharingTags.share('facebook')
         expect(SharingTags.Share.facebook).toHaveBeenCalled()
 
-    it "vkontakte"
-    it "twitter"
-    it "google"
-    it "odnoklassniki"
-    it "mailru"
-    it "linkedin"
+#    it "vkontakte"
+#    it "twitter"
+#    it "google"
+#    it "odnoklassniki"
+#    it "mailru"
+#    it "linkedin"
 

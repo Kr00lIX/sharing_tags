@@ -1,11 +1,11 @@
 / Open graph markup for Facebook
-= render "sharing_tags/open_graphs", meta: sharing_tags.facebook if sharing_tags.facebook.present?
+= render "sharing_tags/meta/open_graphs", meta: sharing_tags.facebook if sharing_tags.facebook.present?
 
 / Twitter Card data
-= render "sharing_tags/twitter_card", meta: sharing_tags.twitter if sharing_tags.twitter.present?
+= render "sharing_tags/meta/twitter_card", meta: sharing_tags.twitter if sharing_tags.twitter.present?
 
 / Schema.org markup for Google+
-= render "sharing_tags/schema_tags", meta: sharing_tags.google if sharing_tags.google.present?
+= render "sharing_tags/meta/schema_tags", meta: sharing_tags.google if sharing_tags.google.present?
 
 / Vkontakte https://vk.com/dev/share_details
 / TODO:

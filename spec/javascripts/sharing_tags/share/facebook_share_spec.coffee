@@ -7,16 +7,17 @@ describe "SharingTags.FacebookShare", ->
 
   subject = SharingTags.FacebookShare
 
+  beforeEach ->
+    @fb_fixture = fixture.load("facebook.json")[0]
+
   it "expect defined class", ->
     expect( SharingTags ).toBeDefined()
     expect( SharingTags.FacebookShare ).toBeDefined()
 
   describe "init sharing variables", ->
     beforeEach ->
-      @fb_fixture = fixture.load("facebook.json")[0]
       @fb_partial = @fb_fixture.partial
       expect(@fb_partial).toBeDefined()
-
       @fb_full = @fb_fixture.full
       expect(@fb_full).toBeDefined()
 
@@ -51,10 +52,19 @@ describe "SharingTags.FacebookShare", ->
       delete @fb_partial.description
       expect(=> new subject(@fb_partial)).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
 
-
   describe "share provider", ->
+    it "expect use default provider"
+    it "expect change default provider"
+    it "expect change provider on initialize"
 
 
+  describe "callback", ->
+    it "set global callback"
+    it "set callback with initializer"
+
+  describe "events", ->
+    it "expect trigger event start sharing"
+    it "expect trigger event after sharing"
 
 #  describe "mobile version", ->
 #    beforeEach ->
