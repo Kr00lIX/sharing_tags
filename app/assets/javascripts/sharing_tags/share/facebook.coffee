@@ -8,7 +8,24 @@ class @SharingTags.BaseShare
     unless @url && @title && @description
       throw new SharingTags.Error("Error could not initialize sharing class, with params:#{ " #{arg}: '#{val}'" for arg, val of arguments[0]}")
 
-  open_popup: ->
+  _open_popup: (api_url, params)->
+    share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
+    share_window = window.open share_url, 'Sharing', 'width=740,height=440'
+
+    clearInterval(@interval)
+    iteration = 0
+    @interval = setInterval((=>
+      iteration++
+      if @_checkSharing(share_url, share_window, iteration)
+        clearInterval @interval
+        callback() if callback
+        $.trigger("sharing_tags.shared")
+    ), 500)
+
+  _checkSharing: (share_url, share_window, iteration)=>
+    # console.log("check desktop sharing", share_url, share_window, iteration)
+    share_window?.closed || iteration >= 15
+
 
 class @SharingTags.FacebookShare extends @SharingTags.BaseShare
 
@@ -23,15 +40,33 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
   constructor: ({@app_id, @return_url, @provider})->
     super
 
-  share: ()->
+  @share: ()->
+    # todo: call sharing method for choised provider
+    @_sharer()
 
-  sharer: ->
-    #    @open_popup("http://www.facebook.com/sharer.php", u: @url)
+  _sharer: ->
+    @_open_popup("http://www.facebook.com/sharer.php", u: @url)
 
-  fb_ui: ->
+  _fb_ui: =>
+    return @_load_fb_ui().done(@_fb_ui) if !FB?
+    console.log "fb ui"
+    FB?.ui(
+      method: 'share',
+      href: @url
+    )
 
-  dialog: ->
+  _dialog: (display = 'page')->
+    @_open_popup("http://www.facebook.com/dialog/share", href: @url, redirect_uri: @return_url, app_id: @app_id, display: display)
 
-
-  # call trigger
+  _load_fb_ui: ->
+    jQuery.ajax(
+      url: '//connect.facebook.net/en_US/all.js'
+      dataType: "script"
+      cache: true
+    ).done =>
+      console.log "done 1", @app_id
+      FB.init(
+        appId:    @app_id,
+        version: 'v2.3'
+      )
 

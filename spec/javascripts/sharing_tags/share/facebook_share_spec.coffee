@@ -66,21 +66,57 @@ describe "SharingTags.FacebookShare", ->
     it "expect trigger event start sharing"
     it "expect trigger event after sharing"
 
-#  describe "mobile version", ->
-#    beforeEach ->
-#      spyOn(SharingTags.MobileShare, "_share")
-#      spyOn(SharingTags.Share, "_share")
-#
-#    it "expect call share mobile version when app_id defined", ->
-#      share_params = url: "share url", return_url: "return url", app_id: "app id"
-#      callback = -> "callback"
-#      SharingTags.MobileShare.facebook(share_params, callback)
-#      expect(SharingTags.MobileShare._share).toHaveBeenCalled()
-#      expect(SharingTags.MobileShare._share).toHaveBeenCalledWith("http://www.facebook.com/dialog/share", href: "share url", redirect_uri: "return url", app_id: "app id", display: 'touch', callback)
-#
-##    it "expect call share desktop version without app_id", ->
-##      SharingTags.MobileShare.facebook(url: "share_url")
-##      expect(SharingTags.Share._share).toHaveBeenCalled()
-##      expect(SharingTags.MobileShare._share).toHaveBeenCalled()
-##      spyOn(SharingTags.MobileShare, "_share")
-#
+  describe "#_sharer", ->
+    beforeEach ->
+      @fb = @fb_fixture.partial
+      @share = new subject(@fb)
+      spyOn(@share, "_open_popup")
+
+    it "expect call open popup with params", ->
+      @share._sharer()
+      expect(@share._open_popup).toHaveBeenCalled()
+      expect(@share._open_popup).toHaveBeenCalledWith("http://www.facebook.com/sharer.php", u: @fb.url)
+
+  describe "#_dialog", ->
+    beforeEach ->
+      @fb = @fb_fixture.full
+      @share = new subject(@fb)
+      spyOn(@share, "_open_popup")
+
+    it "expect call open popup with params", ->
+      @share._dialog()
+      expect(@share._open_popup).toHaveBeenCalled()
+      expect(@share._open_popup).toHaveBeenCalledWith(
+        "http://www.facebook.com/dialog/share",
+        jasmine.objectContaining(href: @fb.url, redirect_uri: @fb.return_url, app_id: @fb.app_id, display: 'page')
+      )
+
+  describe "#_fb_ui", ->
+    beforeEach ->
+      @fb = @fb_fixture.full
+      @share = new subject(@fb)
+      window.FB
+
+    afterEach ->
+      delete window.FB
+
+    describe "loaded FB js SDK", ->
+      beforeEach ->
+        window.FB = jasmine.createSpyObj "FB", ['ui']
+
+      it "expect call FB.ui method with params", ->
+        @share._fb_ui()
+        expect(FB.ui).toHaveBeenCalled()
+        expect(FB.ui).toHaveBeenCalledWith jasmine.objectContaining(href: @fb.url, method: 'share')
+
+    describe "loading FB.ui", ->
+      beforeEach ->
+        spyOn(@share, "_load_fb_ui").andCallThrough()
+        spyOn(@share, "_fb_ui").andCallThrough()
+
+      it "expect load FB.ui if FB undefined", ->
+        expect(typeof FB).toBe('undefined')
+
+        @share._fb_ui()
+        expect(@share._load_fb_ui).toHaveBeenCalled()
+        expect(@share._fb_ui).toHaveBeenCalled()
