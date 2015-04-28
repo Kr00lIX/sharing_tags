@@ -32,6 +32,7 @@ module SharingTags::ActionView::ButtonHelper
   def share_link_to(name_or_options = nil, network = nil, data_params = [], &block)
     params = sharing_tags[network]
     data_attrs = params.get(*(data_params +[:network, :share_url]))
+    data_attrs[:context] = SharingTags.config.current_context.name
 
     if block_given?
       name_or_options = {} if !name_or_options || name_or_options.is_a?(String)
