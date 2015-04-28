@@ -10,4 +10,5 @@ $(document).on 'click', "@sharing_tags_share", (event) ->
       title:   self.data 'title'
       message: self.data 'description'
       image:   self.data 'image'
+      app_id:  self.data 'app-id'
     )

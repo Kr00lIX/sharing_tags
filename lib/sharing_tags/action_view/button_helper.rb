@@ -8,7 +8,7 @@ module SharingTags::ActionView::ButtonHelper
   end
 
   def link_to_facebook_share(name_or_options = nil, &block)
-    share_link_to name_or_options, :facebook, [], &block
+    share_link_to name_or_options, :facebook, [:app_id], &block
   end
 
   def link_to_vkontakte_share(name_or_options = nil, &block)

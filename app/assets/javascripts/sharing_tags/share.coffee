@@ -4,14 +4,17 @@ class @SharingTags
     share_object = if attributes?.mobile then SharingTags.MobileShare else SharingTags.Share
     share_object[network]?(attributes, callback)
 
-#=require sharing_tags/share/facebook
   class @Error extends Error
     constructor: -> super
 
   class @Share
 
-    @facebook: ({url}, callback) ->
-      @_share("http://www.facebook.com/sharer.php", u: url, callback)
+    @facebook: ({url, app_id}, callback) ->
+      if app_id
+        social_share = new SharingTags.FacebookShare url: url, app_id: app_id
+        social_share.share()
+      else
+        @_share("http://www.facebook.com/sharer.php", u: url, callback)
 
     @twitter: ({url, message}, callback) ->
       @_share("http://twitter.com/intent/tweet", text: message, url: url, callback)
@@ -52,7 +55,7 @@ class @SharingTags
         if @_checkSharing(share_url, share_window, iteration)
           clearInterval @interval
           callback() if callback
-          $.trigger("sharing_tags.shared")
+          jQuery("body").trigger("sharing_tags.shared") if jQuery
       ), 500)
 
     @_checkSharing: (share_url, share_window, iteration)=>
@@ -62,11 +65,11 @@ class @SharingTags
   class @MobileShare extends @Share
 
     @facebook: ({url, return_url, app_id}, callback) ->
-      if app_id
-        return_url = url if !return_url
-        @_share("http://www.facebook.com/dialog/share", href: url, redirect_uri: return_url, app_id: app_id, display: 'touch', callback)
-      else
-        super
+#      if app_id
+#        return_url = url if !return_url
+#        @_share("http://www.facebook.com/dialog/share", href: url, redirect_uri: return_url, app_id: app_id, display: 'touch', callback)
+#      else
+      super
 
     @twitter: ({title, url, message}, callback) ->
       # todo: fix adding hash tags

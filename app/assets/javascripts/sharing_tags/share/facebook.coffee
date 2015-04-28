@@ -5,8 +5,7 @@ class @SharingTags.BaseShare
   description: null
 
   constructor: ({@url, @title, @description})->
-    unless @url && @title && @description
-      throw new SharingTags.Error("Error could not initialize sharing class, with params:#{ " #{arg}: '#{val}'" for arg, val of arguments[0]}")
+    @_assert_vars 'url'
 
   _open_popup: (api_url, params)->
     share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
@@ -19,43 +18,55 @@ class @SharingTags.BaseShare
       if @_checkSharing(share_url, share_window, iteration)
         clearInterval @interval
         callback() if callback
-        $.trigger("sharing_tags.shared")
+        jQuery("body").trigger("sharing_tags.shared") if jQuery
     ), 500)
 
   _checkSharing: (share_url, share_window, iteration)=>
     # console.log("check desktop sharing", share_url, share_window, iteration)
     share_window?.closed || iteration >= 15
 
+  _assert_vars: (vars...)->
+    for var_name in vars
+      if ! @[var_name]
+        arguments_list = ''
+        arguments_list += " #{var_name}: '#{@[var_name]}'" for arg, val in vars
+        throw new SharingTags.Error("Error could not initialize sharing class, with params: #{arguments_list}")
 
 class @SharingTags.FacebookShare extends @SharingTags.BaseShare
 
   # available providers: sharer, fb_ui, dialog
   @default_provider: "fb_ui"
-  @provider: "fb_ui"
 
   app_id:     null
   return_url: null
   provider:   null
 
   constructor: ({@app_id, @return_url, @provider})->
+    @provider = @_detect_provider() if !@provider
+
+    # todo: throw error for invalid provider
+    @_load_fb_ui() if @provider is 'fb_ui'
+
     super
 
-  @share: ()->
-    # todo: call sharing method for choised provider
-    @_sharer()
+  share: ()->
+    @["_#{@provider}"]()
 
   _sharer: ->
+    @_assert_vars "url"
     @_open_popup("http://www.facebook.com/sharer.php", u: @url)
 
   _fb_ui: =>
+    @_assert_vars "url", "app_id"
     return @_load_fb_ui().done(@_fb_ui) if !FB?
-    console.log "fb ui"
+
     FB?.ui(
       method: 'share',
       href: @url
     )
 
   _dialog: (display = 'page')->
+    @_assert_vars 'url', 'return_url'
     @_open_popup("http://www.facebook.com/dialog/share", href: @url, redirect_uri: @return_url, app_id: @app_id, display: display)
 
   _load_fb_ui: ->
@@ -64,9 +75,15 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
       dataType: "script"
       cache: true
     ).done =>
-      console.log "done 1", @app_id
       FB.init(
         appId:    @app_id,
         version: 'v2.3'
       )
 
+  _detect_provider: ->
+    # todo: detect provider by params
+    # try fb_ui url, app_id
+    # try dialog  url, return_url
+    # try sharer  url
+
+    @constructor.default_provider

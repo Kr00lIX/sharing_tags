@@ -11,5 +11,23 @@
     "url":         "http://partial.url",
     "title":       "Partial title",
     "description": "Description"
+  },
+
+  "fb_ui": {
+    "url":         "http://fb_ui.url",
+    "app_id":      "123",
+    "provider":    "fb_ui"
+  },
+
+  "dialog": {
+    "url":         "http://dialog/share.url",
+    "return_url":  "http://dialog/return.url",
+    "provider":    "dialog"
+  },
+
+  "sharer": {
+    "url":         "http://fb_ui.url",
+    "provider":    "sharer"
   }
+
 }

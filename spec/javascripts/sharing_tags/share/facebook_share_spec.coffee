@@ -44,23 +44,38 @@ describe "SharingTags.FacebookShare", ->
       delete @fb_partial.url
       expect(=> new subject(@fb_partial)).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
 
-    it "expect error if init without title", ->
-      delete @fb_partial.title
-      expect(=> new subject(@fb_partial)).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
+  describe "share", ->
 
-    it "expect error if init without description", ->
-      delete @fb_partial.description
-      expect(=> new subject(@fb_partial)).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
+    it "expect call fb_ui sharing", ->
+      @share = new subject(@fb_fixture.fb_ui)
+      spyOn(@share, "_fb_ui")
+
+      @share.share()
+      expect(@share._fb_ui).toHaveBeenCalled()
+
+    it "expect call sharer sharing", ->
+      @share = new subject(@fb_fixture.sharer)
+      spyOn(@share, "_sharer")
+
+      @share.share()
+      expect(@share._sharer).toHaveBeenCalled()
+
+    it "expect call _dialog sharing", ->
+      @share = new subject(@fb_fixture.dialog)
+      spyOn(@share, "_dialog")
+
+      @share.share()
+      expect(@share._dialog).toHaveBeenCalled()
 
   describe "share provider", ->
-    it "expect use default provider"
-    it "expect change default provider"
-    it "expect change provider on initialize"
 
+    it "expect fb_ui as default provider", ->
+      @share = new subject(@fb_fixture.full)
+      expect(@share.provider).toBe "fb_ui"
 
-  describe "callback", ->
-    it "set global callback"
-    it "set callback with initializer"
+    it "expect change provider to sharer on initialize", ->
+      @share = new subject(@fb_fixture.sharer)
+      expect(@share.provider).toBe "sharer"
 
   describe "events", ->
     it "expect trigger event start sharing"
@@ -68,7 +83,7 @@ describe "SharingTags.FacebookShare", ->
 
   describe "#_sharer", ->
     beforeEach ->
-      @fb = @fb_fixture.partial
+      @fb = @fb_fixture.sharer
       @share = new subject(@fb)
       spyOn(@share, "_open_popup")
 
@@ -77,9 +92,13 @@ describe "SharingTags.FacebookShare", ->
       expect(@share._open_popup).toHaveBeenCalled()
       expect(@share._open_popup).toHaveBeenCalledWith("http://www.facebook.com/sharer.php", u: @fb.url)
 
+    it "expect error if init without url", ->
+      delete @share.url
+      expect(=> @share._sharer()).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
+
   describe "#_dialog", ->
     beforeEach ->
-      @fb = @fb_fixture.full
+      @fb = @fb_fixture.dialog
       @share = new subject(@fb)
       spyOn(@share, "_open_popup")
 
@@ -91,9 +110,18 @@ describe "SharingTags.FacebookShare", ->
         jasmine.objectContaining(href: @fb.url, redirect_uri: @fb.return_url, app_id: @fb.app_id, display: 'page')
       )
 
+    it "expect error if init without return_url", ->
+      delete @share.return_url
+      expect(=> @share._dialog()).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
+
+    it "expect error if init without url", ->
+      delete @share.url
+      expect(=> @share._dialog()).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
+
+
   describe "#_fb_ui", ->
     beforeEach ->
-      @fb = @fb_fixture.full
+      @fb = @fb_fixture.fb_ui
       @share = new subject(@fb)
       window.FB
 
@@ -102,12 +130,16 @@ describe "SharingTags.FacebookShare", ->
 
     describe "loaded FB js SDK", ->
       beforeEach ->
-        window.FB = jasmine.createSpyObj "FB", ['ui']
+        window.FB = jasmine.createSpyObj "FB", ['ui', 'init']
 
       it "expect call FB.ui method with params", ->
         @share._fb_ui()
         expect(FB.ui).toHaveBeenCalled()
         expect(FB.ui).toHaveBeenCalledWith jasmine.objectContaining(href: @fb.url, method: 'share')
+
+      it "expect error if init without url", ->
+        delete @share.url
+        expect(=> @share._fb_ui()).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
 
     describe "loading FB.ui", ->
       beforeEach ->
@@ -120,3 +152,4 @@ describe "SharingTags.FacebookShare", ->
         @share._fb_ui()
         expect(@share._load_fb_ui).toHaveBeenCalled()
         expect(@share._fb_ui).toHaveBeenCalled()
+#        expect(FB.init).toHaveBeenCalledWith jasmine.objectContaining(app_id: @fb.app_id, version: 'v2.3')
