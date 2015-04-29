@@ -47,9 +47,17 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
     @provider = @_detect_provider() if !@provider
 
     # todo: throw error for invalid provider
-    @_load_fb_ui() if @provider is 'fb_ui'
+    @constructor.init() if not FB? if @provider is 'fb_ui'
 
     super
+
+  @init: (locale="en_US")->
+    if not FB?
+      jQuery.ajax(
+        url: "//connect.facebook.net/#{locale}/all.js"
+        dataType: "script"
+        cache: true
+      )
 
   share: ()->
     @["_#{@provider}"]()
@@ -60,27 +68,20 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
 
   _fb_ui: =>
     @_assert_vars "url", "app_id"
-    return @_load_fb_ui().done(@_fb_ui) if !FB?
+    return @constructor.init().done(@_fb_ui) if not FB?
 
-    FB?.ui(method: 'share', href: @url, (response)=>
+    FB?.ui(method: 'share', href: @url, app_id: @app_id, (response)=>
       @_after_callback(response)
-      # if response != null
+      # if response && !response.error_code
+      #  @_after_callback(response)
+      # else
+      #  # another callback
     )
 
   _dialog: (display = 'page')->
     @_assert_vars 'url', 'return_url'
     @_open_popup("http://www.facebook.com/dialog/share", href: @url, redirect_uri: @return_url, app_id: @app_id, display: display)
 
-  _load_fb_ui: ->
-    jQuery.ajax(
-      url: '//connect.facebook.net/en_US/all.js'
-      dataType: "script"
-      cache: true
-    ).done =>
-      FB.init(
-        appId:    @app_id,
-        version: 'v2.3'
-      )
 
   _detect_provider: ->
     # todo: detect provider by params

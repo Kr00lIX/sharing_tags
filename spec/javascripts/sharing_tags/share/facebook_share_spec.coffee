@@ -135,7 +135,10 @@ describe "SharingTags.FacebookShare", ->
       it "expect call FB.ui method with params", ->
         @share._fb_ui()
         expect(FB.ui).toHaveBeenCalled()
-        expect(FB.ui).toHaveBeenCalledWith jasmine.objectContaining(href: @fb.url, method: 'share')
+        expect(FB.ui).toHaveBeenCalledWith(
+          jasmine.objectContaining(app_id: @fb.app_id, href: @fb.url, method: 'share'),
+          jasmine.any(Function)
+        )
 
       it "expect error if init without url", ->
         delete @share.url
@@ -143,13 +146,12 @@ describe "SharingTags.FacebookShare", ->
 
     describe "loading FB.ui", ->
       beforeEach ->
-        spyOn(@share, "_load_fb_ui").andCallThrough()
+        spyOn(@share.constructor, "init").andCallThrough()
         spyOn(@share, "_fb_ui").andCallThrough()
 
       it "expect load FB.ui if FB undefined", ->
         expect(typeof FB).toBe('undefined')
 
         @share._fb_ui()
-        expect(@share._load_fb_ui).toHaveBeenCalled()
+        expect(@share.constructor.init).toHaveBeenCalled()
         expect(@share._fb_ui).toHaveBeenCalled()
-#        expect(FB.init).toHaveBeenCalledWith jasmine.objectContaining(app_id: @fb.app_id, version: 'v2.3')
