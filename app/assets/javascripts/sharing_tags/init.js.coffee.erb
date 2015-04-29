@@ -1,11 +1,2 @@
-<% params = SharingTags.config.params %>
-
-<% if params.facebook.app_id  %>
-@fbAsyncInit = ->
-  FB.init(
-    appId: '<%= params.facebook.app_id %>',
-    version: 'v2.3'
-  )
 @SharingTags.FacebookShare.init()
-<% end  %>
 
