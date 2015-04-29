@@ -47,7 +47,7 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
     @provider = @_detect_provider() if !@provider
 
     # todo: throw error for invalid provider
-    @constructor.init() if not FB? if @provider is 'fb_ui'
+    @constructor.init() if @provider is 'fb_ui' and not FB?
 
     super
 
