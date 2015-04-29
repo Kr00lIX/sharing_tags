@@ -95,6 +95,20 @@ end
 
 ```
 
+### Javascript
+
+You can subscribe to javascript events
+
+```coffeescript
+# click on sharing link
+jQuery("body").on "sharing_tags.click_action", ({network, context, target})->
+  # your code
+
+# after successful sharing
+jQuery("body").on "sharing_tags.shared", ({network, context, target})->
+  # your code
+```
+
 ## Tools for testing
 
 Facebook Debugger (https://developers.facebook.com/tools/debug)
