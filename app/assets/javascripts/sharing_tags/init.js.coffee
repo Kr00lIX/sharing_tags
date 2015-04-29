@@ -1,2 +1,0 @@
-
-@SharingTags.FacebookShare.init()

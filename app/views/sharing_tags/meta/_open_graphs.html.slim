@@ -19,3 +19,7 @@ meta property="og:type" content="website"
 - if meta.image_size
   meta property="og:image:width"  content=meta.image_size.first
   meta property="og:image:height" content=meta.image_size.last
+
+- if meta.app_id
+  meta property="fb:app_id" content=meta.app_id
+

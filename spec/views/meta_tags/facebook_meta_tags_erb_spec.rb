@@ -13,6 +13,7 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
           description     "Facebook description"
           page_url        "http://a.b"
           image_url       "http://img.jpg", "100x200", "image/jpeg"
+          app_id          "12345"
         end
       end
     end
@@ -26,6 +27,7 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
       expect(rendered).to have_tag "meta", with: {property: "og:image:width", content: "100"}
       expect(rendered).to have_tag "meta", with: {property: "og:image:height",content: "200"}
       expect(rendered).to have_tag "meta", with: {property: "og:url",         content: "http://a.b"}
+      expect(rendered).to have_tag "meta", with: {property: "fb:app_id",      content: "12345"}
     end
   end
 
