@@ -6,7 +6,7 @@ module SharingTags::ActionView::AssetHelper
     options.merge!(digested: false)
 
     add_image_to_non_digest_list(path)
-    asset_url(path, options)
+    url_to_image(path, options)
   end
 
   # redefine method Sprockets::Rails::Helper
