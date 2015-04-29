@@ -55,7 +55,7 @@ class @SharingTags
         if @_checkSharing(share_url, share_window, iteration)
           clearInterval @interval
           callback() if callback
-          jQuery("body").trigger("sharing_tags.shared") if jQuery
+          jQuery?("body").trigger("sharing_tags.shared")
       ), 500)
 
     @_checkSharing: (share_url, share_window, iteration)=>

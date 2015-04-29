@@ -17,13 +17,15 @@ class @SharingTags.BaseShare
       iteration++
       if @_checkSharing(share_url, share_window, iteration)
         clearInterval @interval
-        callback() if callback
         jQuery("body").trigger("sharing_tags.shared") if jQuery
     ), 500)
 
   _checkSharing: (share_url, share_window, iteration)=>
     # console.log("check desktop sharing", share_url, share_window, iteration)
     share_window?.closed || iteration >= 15
+
+  _after_callback: =>
+    jQuery?("body").trigger("sharing_tags.shared")
 
   _assert_vars: (vars...)->
     for var_name in vars
@@ -60,9 +62,9 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
     @_assert_vars "url", "app_id"
     return @_load_fb_ui().done(@_fb_ui) if !FB?
 
-    FB?.ui(
-      method: 'share',
-      href: @url
+    FB?.ui(method: 'share', href: @url, (response)=>
+      @_after_callback(response)
+      # if response != null
     )
 
   _dialog: (display = 'page')->
