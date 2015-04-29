@@ -3,7 +3,10 @@ module SharingTags::ActionView::ButtonHelper
   def sharing_tags_buttons(*networks)
     options = networks.extract_options!
     networks = SharingTags::Network.lists if networks.empty?
-    # todo: add params for switching context
+
+    # switching context
+    SharingTags.config.switch_context(*options[:context]) if options[:context].present?
+
     render template: "sharing_tags/buttons", locals: {networks: networks, options: options}
   end
 

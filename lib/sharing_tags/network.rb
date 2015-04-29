@@ -8,7 +8,8 @@ module SharingTags
 
     NETWORKS = %i( facebook google twitter vkontakte odnoklassniki )
 
-    ATTRIBUTES = %i( share_url title description image_url image page_url share_url_params link_params )
+    ATTRIBUTES = %i( share_url title description  page_url share_url_params link_params
+                      image_url image digested_image digested_image_url )
 
     attr_reader :name, :attributes
 
@@ -51,7 +52,7 @@ module SharingTags
       new_image, size, content_type = arguments
 
       if options[:digested] == false && !block_given?
-        block = lambda { without_digest_asset_url(new_image) }
+        block = proc { without_digest_asset_url(new_image) }
       end
 
       # todo: add another class for storing image
@@ -67,6 +68,15 @@ module SharingTags
 
     # todo: add image_size
     # todo: add_image_type
+
+    def digested_image_url(*arguments, &block)
+      options = arguments.extract_options!
+      options.merge!(:digested => false)
+
+      wrap_block = proc { |*args| without_digest_asset_url(block.call(*args)) } if block_given?
+      image_url(*arguments, options, &wrap_block)
+    end
+    alias :digested_image :digested_image_url
 
     def page_url(new_url = nil, &block)
       attributes[:page_url] = store_value(new_url, &block)
