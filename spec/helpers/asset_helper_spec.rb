@@ -18,7 +18,7 @@ RSpec.describe SharingTags::ActionView::AssetHelper, :type => :helper do
     end
 
     it "expect return non digested url" do
-      is_expected.to be_eql("http://test.host/image_path/image.png")
+      is_expected.to be_eql("http://test.host/images/image_path/image.png")
     end
 
     it "add to non digest gem" do

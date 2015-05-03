@@ -1,4 +1,5 @@
 #=require sharing_tags/share
+#=require sharing_tags/share/base
 #=require sharing_tags/share/facebook
 
 fixture.preload("facebook.json")
@@ -155,3 +156,28 @@ describe "SharingTags.FacebookShare", ->
         @share._fb_ui()
         expect(@share.constructor.init).toHaveBeenCalled()
         expect(@share._fb_ui).toHaveBeenCalled()
+
+  describe "#detect_provider", ->
+
+    it "expect to receive sharer provider for iOS Chrome browser", ->
+      @share = new subject(@fb_fixture.full)
+      ios_chrome_agent = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; en) AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3"
+      spyOn(@share, "_user_agent").andReturn ios_chrome_agent
+
+      expect(@share.detect_provider()).toBe "sharer"
+
+    it "expect to receive fb_ui provider for sharing with app_id params", ->
+      @share = new subject(@fb_fixture.full)
+      expect(@share.app_id).toBeDefined()
+      expect(@share.detect_provider()).toBe "fb_ui"
+
+    it "expect to receive dialog provider for sharing with app_id and return url params", ->
+      @share = new subject(@fb_fixture.returned)
+      expect(@share.app_id).toBeDefined()
+      expect(@share.return_url).toBeDefined()
+      expect(@share.detect_provider()).toBe "dialog"
+
+    it "expect to receive fb_ui provider for sharing with app_id params", ->
+      @share = new subject(@fb_fixture.partial)
+      expect(@share.detect_provider()).toBe "sharer"
+
