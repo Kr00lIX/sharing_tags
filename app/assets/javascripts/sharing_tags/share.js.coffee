@@ -20,13 +20,8 @@ class @SharingTags
       @_share("http://twitter.com/intent/tweet", text: message, url: url, callback)
 
     @vkontakte: ({title, url, message, image}, callback) ->
-      @_share('http://vk.com/share.php',
-        url: url,
-        title: title,
-        description: message,
-        image: image,
-        callback
-      )
+      social_share = new SharingTags.VkontakteShare url: url, title: title, description: message, image: image
+      social_share.share()
 
     @google: ({url}, callback) ->
       @_share("https://plus.google.com/share", url: url, callback)

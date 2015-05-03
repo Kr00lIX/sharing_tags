@@ -180,4 +180,3 @@ describe "SharingTags.FacebookShare", ->
     it "expect to receive fb_ui provider for sharing with app_id params", ->
       @share = new subject(@fb_fixture.partial)
       expect(@share.detect_provider()).toBe "sharer"
-

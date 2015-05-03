@@ -1,0 +1,8 @@
+{
+  "full": {
+    "url":         "http://full.url",
+    "title":       "Title full",
+    "description": "Description",
+    "image":       "http://image.url"
+  }
+}
