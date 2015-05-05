@@ -5,6 +5,6 @@ module SharingTags::ActionView::MetaHelper
   end
 
   def render_sharing_tags
-    render template: "sharing_tags/meta_tags"
+    render template: "sharing_tags/meta_tags.html.slim"
   end
 end

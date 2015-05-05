@@ -15,7 +15,6 @@ module SharingTags
                    desc: "Copy links partial"
 
       def copy_initializer_file
-
         if File.exists?("config/initializers/sharing_tags.rb")
           say_skipped("create initializer sharing_tags.rb")
         else
@@ -25,44 +24,47 @@ module SharingTags
 
       def add_javascripts
         source_file = "app/assets/javascripts/application.js"
-        skip_js = false
+        match_string = "sharing_tags"
 
-        # todo: move to method
-        if File.exists? source_file
-          original_js = File.binread(source_file)
-
-          update_application_js = ->(source) do
-            if original_js.include?(source)
-              skip_js = true
-            else
-              insert_into_file source_file, "\n//= require '#{source}'", :after => %r{\Z}
-            end
-          end
-
-          update_application_js["sharing_tags/share"]
-          update_application_js["sharing_tags/links"]
-        else
-          skip_js = true
+        insert_into_file_if source_file, match_string, after: %r{\z} do
+          "\n//= require #{match_string}"
         end
-
-        say_skipped("insert into #{source_file}") if skip_js
       end
 
       def add_styles
         source_file = "app/assets/stylesheets/application.css"
+        match_string = "sharing_tags"
 
-        if File.exists? source_file
-          insert_into_file source_file, :before => "*/" do
-            "\n *= require 'sharing_tags'\n\n"
-          end
-        else
-          say_skipped("insert into #{source_file}")
+        insert_into_file_if source_file, match_string, before: "*/" do
+          "*= require #{match_string}\n "
         end
       end
 
       def add_layout
-        # todo add = render_sharing_tags to head
-        # and add = sharing_tags_buttons to body
+        ## slim
+        source_file = "app/views/layouts/application.html.slim"
+        render_meta_tags = "render_sharing_tags"
+        buttons_tags = "sharing_tags_buttons"
+
+        insert_into_file_if(source_file, render_meta_tags, before: "body") do
+          "  \n    = #{render_meta_tags}\n\n  "
+        end
+
+        insert_into_file_if(source_file, buttons_tags, after: "body") do
+          "\n    = #{buttons_tags}\n"
+        end
+
+        ## erb
+        source_file = "app/views/layouts/application.html.erb"
+        insert_into_file_if(source_file, render_meta_tags, before: "</head>") do
+          "  <%= #{render_meta_tags} %>\n"
+        end
+
+        insert_into_file_if(source_file, buttons_tags, after: "<body>") do
+          "\n  <%= #{buttons_tags} %>\n"
+        end
+
+        ## todo: haml
       end
 
       def display_post_install
@@ -73,6 +75,21 @@ module SharingTags
 
       def say_skipped(message)
         say_status("skipped", message, :yellow)
+      end
+
+      def insert_into_file_if(source_file, find_string, **insert_into_file_options, &insert_into_file_block)
+        source_file_path =  File.expand_path(source_file, destination_root)
+
+        if File.exists? source_file_path
+          source_content = File.binread(source_file_path)
+          if not source_content.include? find_string
+            insert_into_file source_file, insert_into_file_options, &insert_into_file_block
+          else
+            say_skipped("insert #{find_string} into #{source_file}")
+          end
+        else
+          # say_skipped("not found #{source_file}")
+        end
       end
     end
   end

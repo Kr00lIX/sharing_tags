@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails',  '~> 4.0'
   spec.add_dependency 'hashie', '~> 3.4'
-  spec.add_dependency 'slim',   '~> 3.0'
+  spec.add_dependency 'slim-rails',   '~> 3.0'
   spec.add_dependency 'coffee-script', '~> 2.3'
   spec.add_dependency 'non-stupid-digest-assets', '~> 1.0'
 

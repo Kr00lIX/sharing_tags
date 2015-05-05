@@ -1,4 +1,4 @@
-require "sharing_tags/engine"
+require "slim-rails"
 
 module SharingTags
 

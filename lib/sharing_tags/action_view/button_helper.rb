@@ -7,7 +7,7 @@ module SharingTags::ActionView::ButtonHelper
     # switching context
     SharingTags.config.switch_context(*options[:context]) if options[:context].present?
 
-    render template: "sharing_tags/buttons", locals: {networks: networks, options: options}
+    render template: "sharing_tags/buttons.html.slim", locals: {networks: networks, options: options}
   end
 
   def link_to_facebook_share(name_or_options = nil, &block)

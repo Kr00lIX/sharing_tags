@@ -36,7 +36,7 @@ RSpec.describe MainController, :type => :controller  do
     it "expect render meta_tags" do
       expect(response.status).to eq(200)
       expect(response).to render_template(:index)
-      expect(response).to render_template('sharing_tags/meta_tags')
+      expect(response).to render_template('sharing_tags/meta_tags.html.slim')
     end
 
     it "expect update default data for facebook"  do
@@ -95,7 +95,7 @@ RSpec.describe MainController, :type => :controller  do
     it "expect render meta_tags" do
       expect(response.status).to eq(200)
       expect(response).to render_template(:profile)
-      expect(response).to render_template('sharing_tags/meta_tags')
+      expect(response).to render_template('sharing_tags/meta_tags.html.slim')
     end
   end
 

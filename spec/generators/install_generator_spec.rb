@@ -32,30 +32,112 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
     end
   end
 
-  describe 'assets' do
+  describe 'assets:javascripts' do
 
-    describe "javascripts" do
+    describe "application.js" do
+      let(:file_path) { "app/assets/javascripts/application.js" }
+      subject { file file_path }
+
+      before do
+        touch_file file_path
+        run_generator
+      end
+
+      it "expect added require sharing_tags " do
+        generator_command =  '= require sharing_tags'
+        is_expected.to contain(generator_command)
+      end
+    end
+
+    describe "application.coffee" do
+      pending
+    end
+  end
+
+  describe 'assets:stylesheets' do
+
+    describe "application.css" do
+      let(:file_path) { "app/assets/stylesheets/application.css" }
+      subject { file file_path }
+
+      before do
+        create_file file_path, "/**/"
+        subject
+        run_generator
+      end
+
+      it "expect added require sharing_tags " do
+        generator_command =  '= require sharing_tags'
+        is_expected.to contain(generator_command)
+      end
+    end
+
+    describe "application.sass" do
       pending
     end
 
-    describe "stylesheets" do
-
-      it "expect add require styles for existing file"
-      it "expect skip if style added "
-      it "expect skip if file doesnot exists"
-
+    describe "application.scss" do
+      pending
     end
-
-    # subject { file 'app/controllers/sessions_controller.rb'}
-
-    # it { is_expected_to have_method :index }
   end
 
-  describe 'view' do
-    pending
-    # subject { file 'app/views/sessions/new.html.erb'}
-    #
-    # it { is_expected_to have_correct_syntax }
+  describe 'view:layouts' do
+    let(:file_path) { "app/views/layouts/application.html.slim" }
+    subject { file file_path }
+
+    describe "application.html.slim" do
+      let(:layout) { %{
+        html
+          header
+            title Some title
+          body
+            p Text block
+      } }
+
+      before do
+        create_file file_path, layout
+        run_generator
+      end
+
+      it "expect added render_sharing_tags " do
+        generator_command =  '= render_sharing_tags'
+        is_expected.to contain(generator_command)
+      end
+
+      # it { is_expected.to have_correct_syntax }
+    end
+
+    describe "application.html.erb" do
+      before do
+        create_file file_path, layout
+        run_generator
+      end
+
+      subject { file file_path }
+
+      let(:layout) { %{
+        <html>
+          <head>
+            <title>Some title</title>
+          </head>
+          <body>
+            <p>Text block</p>
+          </body>
+        </html>
+      } }
+      let(:file_path) { "app/views/layouts/application.html.erb" }
+
+      it "expect added render_sharing_tags " do
+        generator_command =  '<%= render_sharing_tags %>'
+        is_expected.to contain(generator_command)
+      end
+
+      it { is_expected.to have_correct_syntax }
+    end
+
+    describe "application.html.haml" do
+      pending
+    end
   end
 
   describe "after install" do
