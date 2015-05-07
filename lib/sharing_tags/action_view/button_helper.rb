@@ -18,6 +18,10 @@ module SharingTags::ActionView::ButtonHelper
     share_link_to name_or_options, :vkontakte, [:title, :description, :image], &block
   end
 
+  def link_to_line_share(name_or_options = nil, &block)
+    share_link_to name_or_options, :line, [], &block
+  end
+
   def link_to_google_share(name_or_options = nil, &block)
     share_link_to name_or_options, :google, [], &block
   end
