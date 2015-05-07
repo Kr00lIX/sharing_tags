@@ -42,6 +42,12 @@ module  SharingTags
       end
     end
 
+    def line(&block)
+      (@networks[:line] ||=  Network.new(:line, self)).tap do |line|
+        line.instance_exec(&block) if block_given?
+      end
+    end
+
     def odnoklassniki(&block)
       (@networks[:odnoklassniki] ||=  Network.new(:odnoklassniki, self)).tap do |vkontakte|
         vkontakte.instance_exec(&block) if block_given?

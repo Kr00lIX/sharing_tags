@@ -9,6 +9,11 @@ class @SharingTags
 
   class @Share
 
+    @line: ({url}, callback) ->
+      url = 'http://www.jetradar.co.th/promo/hotel?lang=th'
+      share_url = "http://line.me/R/msg/text/?#{encodeURIComponent(url)}"
+      @_share(null, force_url: share_url, callback)
+
     @facebook: ({url, app_id}, callback) ->
       if app_id
         social_share = new SharingTags.FacebookShare url: url, app_id: app_id
@@ -40,7 +45,10 @@ class @SharingTags
       )
 
     @_share: (api_url, params, callback) ->
-      share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
+      share_url = if params.force_url
+        params.force_url
+      else
+        if params then "#{api_url}?#{$.param(params)}" else api_url
       share_window = window.open share_url, 'Sharing', 'width=740,height=440'
 
       clearInterval(@interval)
