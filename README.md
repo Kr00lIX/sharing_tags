@@ -109,6 +109,13 @@ jQuery("body").on "sharing_tags.shared", ({network, context, target})->
   # your code
 ```
 
+### Wave-animations
+''' sass
+@import 'sharing_tags/wave_animation'
+
++create_wave_animation_on_sharing_buttons(4)
+'''
+
 ## Tools for testing
 
 Facebook Debugger (https://developers.facebook.com/tools/debug)
