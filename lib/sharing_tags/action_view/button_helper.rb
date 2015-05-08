@@ -1,7 +1,6 @@
 module SharingTags::ActionView::ButtonHelper
 
-  def sharing_tags_buttons(*networks)
-    options = networks.extract_options!
+  def sharing_tags_buttons(*networks, **options)
     networks = SharingTags::Network.lists if networks.empty?
 
     # switching context

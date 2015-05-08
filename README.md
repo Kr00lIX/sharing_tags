@@ -3,14 +3,14 @@
 
 **sharing_tags** is a gem for adding social sharing buttons to your Rails app. 
 
-Available for the following social networks: Facebook, Twitter, Odnoklassniki, Google Plus, Vkontakte
+Available for the following social networks: Facebook, Twitter, Odnoklassniki, Google Plus, Vkontakte, Line
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sharing_tags', github: 'Kr00lIX/sharing_tags'
+gem 'sharing_tags'
 ```
 
 Run the bundle command to install it.
@@ -30,6 +30,9 @@ For the simplest way of using this gem, add this helper method to head in your v
 ```haml
     # generate meta tags for different social networks
     = render_sharing_tags
+
+    # render sharing buttons for networks
+    = sharing_tags_buttons :facebook, :twitter, context: :user
 ```
 
 
@@ -44,7 +47,7 @@ SharingTags.configure do
     page_url     { root_url }
     image        { image_url('img.jpg') }
 
-    # for switch context call `sharing_tags.switch_context_to(:user)` in controller action
+    # for switch context call `sharing_tags_context(:user)` in controller action
     context :user do
         title         "User site title"
         description  "User site description"
@@ -81,7 +84,8 @@ SharingTags.configure do
                 utm_campaign: "google_campaign", marker: "google_marker"
   end
 
-  # for switch context call `sharing_tags.switch_context_to(:user, @user, @photo)` in controller action
+  # for switch context call `sharing_tags_context(:user, @user, @photo)` in controller action
+  # or pass it in `sharing_tags_buttons context: [:user, @user, @photo]`
   context :user do
     title       { |user, photo| "Hello #{user.name}" }
     description { |user, photo| I18n.t("sharing.description", gender: user.gender) }
