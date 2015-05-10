@@ -1,4 +1,5 @@
 require "slim-rails"
+require "role-rails"
 
 module SharingTags
 

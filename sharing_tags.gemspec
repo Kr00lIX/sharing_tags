@@ -12,17 +12,21 @@ Gem::Specification.new do |spec|
   spec.description   = %q{ Describe your sharing information for different contexts in one simple configuration file. }
   spec.homepage      = 'https://github.com/Kr00lIX/sharing_tags'
   spec.license       = 'MIT'
+  spec.requirements  << 'Rails 4'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ['lib']
+  spec.require_paths = ['lib', 'vendor']
+  spec.required_ruby_version = '>= 2.0.0'
 
   spec.add_dependency 'rails',  '~> 4.0'
   spec.add_dependency 'hashie', '~> 3.4'
   spec.add_dependency 'slim-rails',   '~> 3.0'
   spec.add_dependency 'coffee-script', '~> 2.3'
   spec.add_dependency 'non-stupid-digest-assets', '~> 1.0'
+  spec.add_dependency 'jquery-rails'
+  spec.add_dependency 'role-rails', '~> 1.4'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 10.0'

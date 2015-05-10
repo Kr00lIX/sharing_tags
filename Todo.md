@@ -1,6 +1,7 @@
 # TODO
 
 * Write specs views/js/requests
+* Add language variable
 * Init context running helper class on init railie (should work in console)
 * Run js and ruby specs by default rake task
 * Correct merge values in default context and defined

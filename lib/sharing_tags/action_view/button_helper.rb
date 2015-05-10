@@ -33,6 +33,10 @@ module SharingTags::ActionView::ButtonHelper
     share_link_to name_or_options, :twitter, [:title, :description], &block
   end
 
+  def link_to_linkedin_share(name_or_options = nil, &block)
+    share_link_to name_or_options, :linkedin, [:title, :description], &block
+  end
+
   private
 
   def share_link_to(name_or_options = nil, network = nil, data_params = [], &block)

@@ -6,7 +6,7 @@ module SharingTags
     class Error < StandardError
     end
 
-    NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line)
+    NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
 
     ATTRIBUTES = %i( share_url title description  page_url share_url_params link_params
                       image_url image digested_image digested_image_url )

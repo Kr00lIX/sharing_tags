@@ -49,7 +49,13 @@ module  SharingTags
     end
 
     def odnoklassniki(&block)
-      (@networks[:odnoklassniki] ||=  Network.new(:odnoklassniki, self)).tap do |vkontakte|
+      (@networks[:odnoklassniki] ||=  Network.new(:odnoklassniki, self)).tap do |odnoklassniki|
+        odnoklassniki.instance_exec(&block) if block_given?
+      end
+    end
+
+    def linkedin(&block)
+      (@networks[:linkedin] ||=  Network.new(:linkedin, self)).tap do |vkontakte|
         vkontakte.instance_exec(&block) if block_given?
       end
     end
