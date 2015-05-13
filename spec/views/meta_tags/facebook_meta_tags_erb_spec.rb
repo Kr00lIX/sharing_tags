@@ -1,5 +1,5 @@
 
-RSpec.describe "sharing_tags/meta_tags", :type => :view do
+RSpec.describe "sharing_tags/meta_tags", type: :view do
 
   context "constant params" do
     before do
@@ -20,14 +20,14 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
 
     it "render image size tags" do
       render
-      expect(rendered).to have_tag "meta", with: {property: "og:title",       content: "Facebook title"}
-      expect(rendered).to have_tag "meta", with: {property: "og:description", content: "Facebook description"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image",       content: "http://img.jpg"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image:type",  content: "image/jpeg"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image:width", content: "100"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image:height",content: "200"}
-      expect(rendered).to have_tag "meta", with: {property: "og:url",         content: "http://a.b"}
-      expect(rendered).to have_tag "meta", with: {property: "fb:app_id",      content: "12345"}
+      expect(rendered).to have_tag "meta", with: {property: "og:title",        content: "Facebook title"}
+      expect(rendered).to have_tag "meta", with: {property: "og:description",  content: "Facebook description"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image",        content: "http://img.jpg"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image:type",   content: "image/jpeg"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image:width",  content: "100"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image:height", content: "200"}
+      expect(rendered).to have_tag "meta", with: {property: "og:url",          content: "http://a.b"}
+      expect(rendered).to have_tag "meta", with: {property: "fb:app_id",       content: "12345"}
     end
   end
 
@@ -49,14 +49,13 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
 
     it "render image size tags" do
       render
-      expect(rendered).to have_tag "meta", with: {property: "og:title",       content: "Facebook title"}
-      expect(rendered).to have_tag "meta", with: {property: "og:description", content: "Facebook description"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image",       content: "http://img.jpg"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image:type",  content: "image/jpeg"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image:width", content: "100"}
-      expect(rendered).to have_tag "meta", with: {property: "og:image:height",content: "200"}
-      expect(rendered).to have_tag "meta", with: {property: "og:url",         content: "http://a.b"}
+      expect(rendered).to have_tag "meta", with: {property: "og:title",        content: "Facebook title"}
+      expect(rendered).to have_tag "meta", with: {property: "og:description",  content: "Facebook description"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image",        content: "http://img.jpg"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image:type",   content: "image/jpeg"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image:width",  content: "100"}
+      expect(rendered).to have_tag "meta", with: {property: "og:image:height", content: "200"}
+      expect(rendered).to have_tag "meta", with: {property: "og:url",          content: "http://a.b"}
     end
   end
-
 end

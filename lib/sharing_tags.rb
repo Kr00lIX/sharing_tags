@@ -2,15 +2,11 @@ require "slim-rails"
 require "role-rails"
 
 module SharingTags
-
-  #extend ActiveSupport::Autoload
-
   autoload :VERSION,        'sharing_tags/version'
   autoload :Config,         'sharing_tags/config'
   autoload :Configuration,  'sharing_tags/configuration'
   autoload :Network,        'sharing_tags/network'
   autoload :Context,        'sharing_tags/context'
-
 
   module ActionView
     autoload :MetaHelper,   'sharing_tags/action_view/meta_helper'
@@ -33,7 +29,6 @@ module SharingTags
     @config ||= Configuration.new
   end
   module_function :config
-
 end
 
 require 'sharing_tags/railtie' if defined?(Rails::Railtie)

@@ -1,5 +1,4 @@
 module SharingTags
-
   describe Network do
     let!(:config)  { Configuration.new }
     let!(:context) { Context.new(:test, config) }
@@ -34,7 +33,7 @@ module SharingTags
         config.running_context = running_class_context.new
       end
 
-      subject { network.attributes_for.image}
+      subject { network.attributes_for.image }
 
       it "add network image through asset_url " do
         network.image "sharing/image.png"
@@ -81,9 +80,7 @@ module SharingTags
           expect(network.attributes_for.image_content_type).to be_nil
         end
       end
-
     end
 
   end
-
 end

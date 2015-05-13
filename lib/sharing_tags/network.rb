@@ -1,15 +1,15 @@
 module SharingTags
   class Network
-
-    # todo: add default values
+    # TODO: add default values
 
     class Error < StandardError
     end
 
     NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
 
-    ATTRIBUTES = %i( share_url title description  page_url share_url_params link_params
-                      image_url image digested_image digested_image_url )
+    ATTRIBUTES = 
+      %i( share_url title description  page_url share_url_params link_params
+          image_url image digested_image digested_image_url )
 
     attr_reader :name, :attributes
 
@@ -46,16 +46,16 @@ module SharingTags
       attributes[:description] = store_value(value, &block)
     end
 
-    # def image_url(new_image = nil, size = nil, content_type = nil, options, &block)
+    # TODO: activate rubycop Metrics
+    # rubocop:disable Metrics/AbcSize
+    # image_url(new_image = nil, size = nil, content_type = nil, options, &block)
     def image_url(*arguments, &block)
       options = arguments.extract_options!
       new_image, size, content_type = arguments
 
-      if options[:digested] == false && !block_given?
-        block = proc { without_digest_asset_url(new_image) }
-      end
+      block = proc { without_digest_asset_url(new_image) } if options[:digested] == false && block_given? == false
 
-      # todo: add another class for storing image
+      # TODO: add another class for storing image
       attributes[:image] = store_value(new_image, &block)
 
       # add size and content type for block value
@@ -64,19 +64,20 @@ module SharingTags
       attributes[:image_size] = store_value(size.split("x").map(&:to_i)) if size
       attributes[:image_content_type] = store_value(content_type) if content_type
     end
-    alias :image :image_url
+    alias_method :image, :image_url
+    # rubocop:enable Metrics/AbcSize  
 
-    # todo: add image_size
-    # todo: add_image_type
+    # TODO: add image_size
+    # TODO: add_image_type
 
     def digested_image_url(*arguments, &block)
       options = arguments.extract_options!
-      options.merge!(:digested => false)
+      options.merge!(digested: false)
 
       wrap_block = proc { |*args| without_digest_asset_url(block.call(*args)) } if block_given?
       image_url(*arguments, options, &wrap_block)
     end
-    alias :digested_image :digested_image_url
+    alias_method :digested_image, :digested_image_url
 
     def page_url(new_url = nil, &block)
       attributes[:page_url] = store_value(new_url, &block)
@@ -85,20 +86,21 @@ module SharingTags
     def share_url_params(params = nil, &block)
       @share_url_params = store_value(params, &block)
     end
-    alias :link_params :share_url_params
+    alias_method :link_params, :share_url_params
 
     def attributes_for(context_params = nil, default_params = Config.new)
-      # todo: merge default params after get all values of attributes
-      @attributes.inject(default_params.dup) do |result, (name, value)|
+      # TODO: merge default params after get all values of attributes
+      attrs = @attributes.each_with_object(default_params.dup) do |(name, value), result|
         result[name] = get_value(value, context_params)
-        result
-      end.tap do |attrs|
-        #todo: fix assign share_url from page_url
-        attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
-        attrs[:share_url] = ("#{attrs[:share_url]}?" + @share_url_params.to_query) if attrs[:share_url] && @share_url_params
-
-        attrs[:network] = name if attrs.present?
       end
+
+      # TODO: fix assign share_url from page_url
+      attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
+      attrs[:share_url] = ("#{attrs[:share_url]}?" + @share_url_params.to_query) if attrs[:share_url] && @share_url_params
+
+      attrs[:network] = name if attrs.present?
+      
+      attrs
     end
 
     protected
@@ -114,7 +116,7 @@ module SharingTags
     def get_value(value, context_params)
       if value.is_a?(Proc)
 
-        if @context && running_context = @context.configuraton.running_context
+        if @context && (running_context = @context.configuraton.running_context)
           # execute proc within the view context with context_params
           running_context.instance_exec(*context_params, &value)
         else

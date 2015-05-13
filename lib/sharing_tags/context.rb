@@ -1,6 +1,5 @@
 module  SharingTags
   class Context
-
     attr_reader :name
     attr_reader :configuraton
 
@@ -9,8 +8,8 @@ module  SharingTags
       @networks = {}
       @configuraton = configuraton
 
-      Network.lists.each do |name|
-        self.send(name)
+      Network.lists.each do |network_name|
+        send(network_name)
       end
     end
 
@@ -19,43 +18,43 @@ module  SharingTags
     end
 
     def twitter(&block)
-      (@networks[:twitter] ||=  Network.new(:twitter, self)).tap do |twitter|
+      (@networks[:twitter] ||= Network.new(:twitter, self)).tap do |twitter|
         twitter.instance_exec(&block) if block_given?
       end
     end
 
     def facebook(&block)
-      (@networks[:facebook] ||=  Network::Facebook.new(:facebook, self)).tap do |facebook|
+      (@networks[:facebook] ||= Network::Facebook.new(:facebook, self)).tap do |facebook|
         facebook.instance_exec(&block) if block_given?
       end
     end
 
     def google(&block)
-      (@networks[:google] ||=  Network.new(:google, self)).tap do |google|
+      (@networks[:google] ||= Network.new(:google, self)).tap do |google|
         google.instance_exec(&block) if block_given?
       end
     end
 
     def vkontakte(&block)
-      (@networks[:vkontakte] ||=  Network.new(:vkontakte, self)).tap do |vkontakte|
+      (@networks[:vkontakte] ||= Network.new(:vkontakte, self)).tap do |vkontakte|
         vkontakte.instance_exec(&block) if block_given?
       end
     end
 
     def line(&block)
-      (@networks[:line] ||=  Network.new(:line, self)).tap do |line|
+      (@networks[:line] ||= Network.new(:line, self)).tap do |line|
         line.instance_exec(&block) if block_given?
       end
     end
 
     def odnoklassniki(&block)
-      (@networks[:odnoklassniki] ||=  Network.new(:odnoklassniki, self)).tap do |odnoklassniki|
+      (@networks[:odnoklassniki] ||= Network.new(:odnoklassniki, self)).tap do |odnoklassniki|
         odnoklassniki.instance_exec(&block) if block_given?
       end
     end
 
     def linkedin(&block)
-      (@networks[:linkedin] ||=  Network.new(:linkedin, self)).tap do |vkontakte|
+      (@networks[:linkedin] ||= Network.new(:linkedin, self)).tap do |vkontakte|
         vkontakte.instance_exec(&block) if block_given?
       end
     end
@@ -73,14 +72,13 @@ module  SharingTags
     def fetch_params(context_args = nil, default_config_params = Config.new)
       default_context_params = fetch_default_context_params(context_args, default_config_params || Config.new)
 
-      @networks.inject(Config.new) do |result, (name, network)|
+      @networks.each_with_object(Config.new) do |(name, network), result|
         param = (result[name] ||= Config.new)
 
         default_network_params = default_context_params[name]
         param.deep_update network.attributes_for(context_args, default_network_params)
 
         result[name] = param
-        result
       end
     end
 
@@ -99,10 +97,9 @@ module  SharingTags
 
     def method_missing(method_name, *arguments, &block)
       unless default_network.class.available_attributes.include?(method_name.to_sym)
-        raise Network::Error.new("Error didn't find #{method_name} attribute in network")
+        fail Network::Error, "Error didn't find #{method_name} attribute in network"
       end
       default_network.send(method_name, *arguments, &block)
     end
-
   end
 end

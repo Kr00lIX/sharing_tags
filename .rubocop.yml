@@ -1,0 +1,90 @@
+AllCops:
+  # Include common Ruby source files.
+  Include:
+     - 'lib/**/*.rb'
+     - 'app/**/*.{rb,erb,coffee,sass,slim}'
+     - 'spec/**/*.rb'
+  Exclude:
+    - 'spec/dummy/**/*'
+    - 'bin/*'
+
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
+Style/IfUnlessModifier:
+  MaxLineLength: 160
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+Style/WhileUntilModifier:
+  MaxLineLength: 160
+
+Metrics/LineLength:
+  Max: 160
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # contaning a URI to be longer than Max.
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  Enabled: false
+
+Style/SpaceAroundBlockParameters:
+  EnforcedStyleInsidePipes: no_space
+  SupportedStyles:
+    - space
+    - no_space
+
+Style/SpaceAroundOperators:
+  MultiSpaceAllowedForOperators:
+    - '='
+    - '=>'
+
+Style/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+
+Style/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+  # Valid values are: space, no_space
+  EnforcedStyleForEmptyBraces: no_space
+  # Space between { and |. Overrides EnforcedStyle if there is a conflict.
+  SpaceBeforeBlockParameters: true
+
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+  SupportedStyles:
+    - space
+    - no_space
+
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Style/TrailingBlankLines:
+  Enabled: false
+
+Style/TrailingWhitespace:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/IndentHash:
+  Enabled: false
+
+# TODO: enable
+Metrics/PerceivedComplexity:
+  Enabled: false

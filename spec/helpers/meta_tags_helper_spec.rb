@@ -1,5 +1,5 @@
 
-RSpec.describe SharingTags::ActionView::MetaHelper, :type => :helper do
+RSpec.describe SharingTags::ActionView::MetaHelper, type: :helper do
 
   describe "#sharing_tags" do
     pending
@@ -32,5 +32,4 @@ RSpec.describe SharingTags::ActionView::MetaHelper, :type => :helper do
       expect(helper.render_sharing_tags).to have_tag "meta", with: {name: "twitter:description", content: "Sharing description"}
     end
   end
-
 end

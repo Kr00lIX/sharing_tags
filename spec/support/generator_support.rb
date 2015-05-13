@@ -1,5 +1,4 @@
 module GeneratorSupport
-
   def create_file(file_path, content = '')
     full_file_path = File.expand_path(file_path, destination_root)
     FileUtils.mkdir_p File.dirname(full_file_path)
@@ -20,5 +19,4 @@ module GeneratorSupport
   def content_for(file_name)
     File.read(file(file_name))
   end
-
 end

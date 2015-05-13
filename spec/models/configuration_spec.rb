@@ -9,8 +9,8 @@ describe SharingTags::Configuration do
   describe "constants" do
 
     it "expect NETWORKS" do
-      #expect(SharingTags::Configuration).to be_include(:twitter)
-      #expect(SharingTags::Configuration).to has_include(:facebook)
+      # expect(SharingTags::Configuration).to be_include(:twitter)
+      # expect(SharingTags::Configuration).to has_include(:facebook)
     end
 
     it "expect defined version" do
@@ -175,6 +175,4 @@ describe SharingTags::Configuration do
       end
     end
   end
-
-
 end

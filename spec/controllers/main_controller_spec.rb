@@ -1,4 +1,4 @@
-RSpec.describe MainController, :type => :controller  do
+RSpec.describe MainController, type: :controller  do
   render_views
 
   before do
@@ -8,7 +8,7 @@ RSpec.describe MainController, :type => :controller  do
 
       # Activate default social network. Others available are:
       #  :vkontakte,
-      #networks :twitter, :facebook, :google
+      # networks :twitter, :facebook, :google
 
       share_url_params(utm_source: "some_source", utm_campaign: "some_campaign")
 

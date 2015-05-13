@@ -22,7 +22,7 @@ Teaspoon.configure do |config|
 
   # Fixtures are rendered through a controller, which allows using HAML, RABL/JBuilder, etc. Files in these paths will
   # be rendered as fixtures.
-  #config.fixture_paths = ["spec/javascripts/fixtures"]
+  # config.fixture_paths = ["spec/javascripts/fixtures"]
 
   # SUITES
   #
@@ -47,52 +47,52 @@ Teaspoon.configure do |config|
 
     # Specify a file matcher as a regular expression and all matching files will be loaded when the suite is run. These
     # files need to be within an asset path. You can add asset paths using the `config.asset_paths`.
-    #suite.matcher = "{spec/javascripts,app/assets}/**/*_spec.{js,js.coffee,coffee}"
+    # suite.matcher = "{spec/javascripts,app/assets}/**/*_spec.{js,js.coffee,coffee}"
 
     # This suites spec helper, which can require additional support files. This file is loaded before any of your test
     # files are loaded.
-    #suite.helper = "spec_helper"
+    # suite.helper = "spec_helper"
 
     # The core Teaspoon javascripts. It's recommended to include only the base files here, as you can require support
     # libraries from your spec helper.
     # Note: For CoffeeScript files use `"teaspoon/jasmine"` etc.
     #
     # Available: teaspoon-jasmine, teaspoon-mocha, teaspoon-qunit
-    #suite.javascripts = ["jasmine/1.3.1", "teaspoon-jasmine"]
+    # suite.javascripts = ["jasmine/1.3.1", "teaspoon-jasmine"]
 
     # You can include your own stylesheets if you want to change how Teaspoon looks.
     # Note: Spec related CSS can and should be loaded using fixtures.
-    #suite.stylesheets = ["teaspoon"]
+    # suite.stylesheets = ["teaspoon"]
 
     # Partial to be rendered in the head tag of the runner. You can use the provided ones or define your own by creating
     # a `_boot.html.erb` in your fixtures path, and adjust the config to `"/boot"` for instance.
     #
     # Available: boot, boot_require_js
-    #suite.boot_partial = "boot"
+    # suite.boot_partial = "boot"
 
     # Partial to be rendered in the body tag of the runner. You can define your own to create a custom body structure.
-    #suite.body_partial = "body"
+    # suite.body_partial = "body"
 
     # Assets to be ignored when generating coverage reports. Accepts an array of filenames or regular expressions. The
     # default excludes assets from vendor, gems and support libraries.<br/><br/>
-    #suite.no_coverage = [%r{/lib/ruby/gems/}, %r{/vendor/assets/}, %r{/support/}, %r{/(.+)_helper.}]
+    # suite.no_coverage = [%r{/lib/ruby/gems/}, %r{/vendor/assets/}, %r{/support/}, %r{/(.+)_helper.}]
 
     # Hooks allow you to use `Teaspoon.hook("fixtures")` before, after, or during your spec run. This will make a
     # synchronous Ajax request to the server that will call all of the blocks you've defined for that hook name.
-    #suite.hook :fixtures, proc{ }
+    # suite.hook :fixtures, proc{ }
 
     # Determine whether specs loaded into the test harness should be embedded as individual script tags or concatenated
     # into a single file. Similar to Rails' asset `debug: true` and `config.assets.debug = true` options. By default, 
     # Teaspoon expands all assets to provide more valuable stack traces that reference individual source files.
-    #suite.expand_assets = false
+    # suite.expand_assets = false
 
   end
 
   # Example suite. Since we're just filtering to files already within the root test/javascripts, these files will also
   # be run in the default suite -- but can be focused into a more specific suite.
-  #config.suite :targeted do |suite|
-  #  suite.matcher = "test/javascripts/targeted/*_test.{js,js.coffee,coffee}"
-  #end
+  # config.suite :targeted do |suite|
+  #   suite.matcher = "test/javascripts/targeted/*_test.{js,js.coffee,coffee}"
+  # end
 
   # CONSOLE RUNNER SPECIFIC
   #
@@ -111,44 +111,44 @@ Teaspoon.configure do |config|
   # Available: phantomjs, selenium
   # PhantomJS: https://github.com/modeset/teaspoon/wiki/Using-PhantomJS
   # Selenium Webdriver: https://github.com/modeset/teaspoon/wiki/Using-Selenium-WebDriver
-  #config.driver = "phantomjs"
+  # config.driver = "phantomjs"
 
   # Specify additional options for the driver.
   #
   # PhantomJS: https://github.com/modeset/teaspoon/wiki/Using-PhantomJS
   # Selenium Webdriver: https://github.com/modeset/teaspoon/wiki/Using-Selenium-WebDriver
-  #config.driver_options = nil
+  # config.driver_options = nil
 
   # Specify the timeout for the driver. Specs are expected to complete within this time frame or the run will be
   # considered a failure. This is to avoid issues that can arise where tests stall.
-  #config.driver_timeout = 180
+  # config.driver_timeout = 180
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided Rack::Server is used.
-  #config.server = nil
+  # config.server = nil
 
   # Specify a port to run on a specific port, otherwise Teaspoon will use a random available port.
-  #config.server_port = nil
+  # config.server_port = nil
 
   # Timeout for starting the server in seconds. If your server is slow to start you may have to bump this, or you may
   # want to lower this if you know it shouldn't take long to start.
-  #config.server_timeout = 20
+  # config.server_timeout = 20
 
   # Force Teaspoon to fail immediately after a failing suite. Can be useful to make Teaspoon fail early if you have
   # several suites, but in environments like CI this may not be desirable.
-  #config.fail_fast = true
+  # config.fail_fast = true
 
   # Specify the formatters to use when outputting the results.
   # Note: Output files can be specified by using `"junit>/path/to/output.xml"`.
   #
   # Available: clean, documentation, dot, json, junit, pride, rspec_html, snowday, swayze_or_oprah, tap, tap_y, teamcity
-  #config.formatters = ["dot"]
+  # config.formatters = ["dot"]
 
   # Specify if you want color output from the formatters.
-  #config.color = true
+  # config.color = true
 
   # Teaspoon pipes all console[log/debug/error] to $stdout. This is useful to catch places where you've forgotten to
   # remove them, but in verbose applications this may not be desirable.
-  #config.suppress_log = false
+  # config.suppress_log = false
 
   # COVERAGE REPORTS / THRESHOLD ASSERTIONS
   #
@@ -163,26 +163,26 @@ Teaspoon.configure do |config|
   # - with the cli: teaspoon --coverage=[coverage_name]
 
   # Specify that you always want a coverage configuration to be used.
-  #config.use_coverage = nil
+  # config.use_coverage = nil
 
-  config.coverage do |coverage|
+  # config.coverage do |coverage|
 
-    # Which coverage reports Istanbul should generate. Correlates directly to what Istanbul supports.
-    #
-    # Available: text-summary, text, html, lcov, lcovonly, cobertura, teamcity
-    # coverage.reports = ["text-summary", "html"]
+  #   # Which coverage reports Istanbul should generate. Correlates directly to what Istanbul supports.
+  #   #
+  #   # Available: text-summary, text, html, lcov, lcovonly, cobertura, teamcity
+  #   # coverage.reports = ["text-summary", "html"]
 
-    # The path that the coverage should be written to - when there's an artifact to write to disk.
-    # Note: Relative to `config.root`.
-    #coverage.output_path = "coverage"
+  #   # The path that the coverage should be written to - when there's an artifact to write to disk.
+  #   # Note: Relative to `config.root`.
+  #   # coverage.output_path = "coverage"
 
-    # Various thresholds requirements can be defined, and those thresholds will be checked at the end of a run. If any
-    # aren't met the run will fail with a message. Thresholds can be defined as a percentage (0-100), or nil.
-    #coverage.statements = nil
-    #coverage.functions = nil
-    #coverage.branches = nil
-    #coverage.lines = nil
+  #   # Various thresholds requirements can be defined, and those thresholds will be checked at the end of a run. If any
+  #   # aren't met the run will fail with a message. Thresholds can be defined as a percentage (0-100), or nil.
+  #   # coverage.statements = nil
+  #   # coverage.functions = nil
+  #   # coverage.branches = nil
+  #   # coverage.lines = nil
 
-  end
+  # end
 
 end

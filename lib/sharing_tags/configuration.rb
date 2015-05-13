@@ -1,16 +1,16 @@
 module SharingTags
   class Configuration
-
-    NETWORKS = %i{ google facebook twitter }
+    NETWORKS = %i( google facebook twitter )
 
     attr_accessor :running_context
+    attr_reader :default_context
 
     def initialize
       clear!
     end
 
     def context(name, &block)
-      raise "please define context block params" unless block_given?
+      fail "please define context block params" unless block_given?
       (@contexts[name] ||= Context.new(name, self)).instance_exec(&block)
     end
 
@@ -21,12 +21,12 @@ module SharingTags
 
       @current_context =
         if name
-           @contexts[name]
+          @contexts[name]
         else
           default_context
         end
     end
-    alias switch_context_to switch_context
+    alias_method :switch_context_to, :switch_context
 
     def clear!
       @contexts = {}
@@ -69,10 +69,5 @@ module SharingTags
     def method_missing(method_name, *arguments, &block)
       current_context.send(method_name, *arguments, &block)
     end
-
-    def default_context
-      @default_context
-    end
-
   end
 end

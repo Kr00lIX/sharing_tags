@@ -86,13 +86,15 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
     subject { file file_path }
 
     describe "application.html.slim" do
-      let(:layout) { %{
+      let(:layout) do 
+        %(
         html
           header
             title Some title
           body
             p Text block
-      } }
+        ) 
+      end
 
       before do
         create_file file_path, layout
@@ -115,16 +117,16 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
 
       subject { file file_path }
 
-      let(:layout) { %{
-        <html>
+      let(:layout) do 
+        %(<html>
           <head>
             <title>Some title</title>
           </head>
           <body>
             <p>Text block</p>
           </body>
-        </html>
-      } }
+        </html>) 
+      end
       let(:file_path) { "app/views/layouts/application.html.erb" }
 
       it "expect added render_sharing_tags " do

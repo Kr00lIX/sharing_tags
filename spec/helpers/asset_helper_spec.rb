@@ -1,6 +1,6 @@
 require "non-stupid-digest-assets"
 
-RSpec.describe SharingTags::ActionView::AssetHelper, :type => :helper do
+RSpec.describe SharingTags::ActionView::AssetHelper, type: :helper do
 
   describe "#without_digest_asset_url" do
     before do
@@ -23,7 +23,8 @@ RSpec.describe SharingTags::ActionView::AssetHelper, :type => :helper do
 
     it "add to non digest gem" do
       NonStupidDigestAssets.whitelist = []
-      expect{ is_expected }.to change(::NonStupidDigestAssets, :whitelist)
+      expect { is_expected }.to change(::NonStupidDigestAssets, :whitelist)
     end
   end
+
 end

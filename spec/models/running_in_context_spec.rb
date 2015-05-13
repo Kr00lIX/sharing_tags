@@ -52,6 +52,4 @@ describe SharingTags::Configuration do
       expect(params.twitter.page_url).to eql("context url")
     end
   end
-
-
 end

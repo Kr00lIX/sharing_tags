@@ -1,4 +1,4 @@
-RSpec.describe "sharing_tags/meta_tags", :type => :view do
+RSpec.describe "sharing_tags/meta_tags", type: :view do
 
   before do
     controller.append_view_path 'app/views'
@@ -48,10 +48,10 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
   it "render twitter card tags" do
     render
 
-    expect(rendered).to have_tag "meta", with: {name: "twitter:card",       content: "summary"}
+    expect(rendered).to have_tag "meta", with: {name: "twitter:card",        content: "summary"}
     # expect(rendered).to have_tag "meta", with: {name: "twitter:site",       content: ""}
-    expect(rendered).to have_tag "meta", with: {name: "twitter:title",      content: "Twitter title"}
-    expect(rendered).to have_tag "meta", with: {name: "twitter:description",content: "Twitter description"}
+    expect(rendered).to have_tag "meta", with: {name: "twitter:title",       content: "Twitter title"}
+    expect(rendered).to have_tag "meta", with: {name: "twitter:description", content: "Twitter description"}
     # expect(rendered).to have_tag "meta", with: {name: "twitter:creator",    content: ""}
     # expect(rendered).to have_tag "meta", with: {name: "twitter:image:src",  content: ""}
     # expect(rendered).to have_tag "meta", with: {name: "twitter:domain",     content: ""}
@@ -62,6 +62,4 @@ RSpec.describe "sharing_tags/meta_tags", :type => :view do
     render
     expect(rendered).to_not have_tag('meta')
   end
-
-
 end
