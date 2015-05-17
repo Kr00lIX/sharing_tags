@@ -57,7 +57,7 @@ class @SharingTags
           jQuery?("body").trigger("sharing_tags.shared")
       ), 500)
 
-    @_checkSharing: (share_url, share_window, iteration)=>
+    @_open_popup_check: (share_url, share_window, iteration)=>
       # console.log("check desktop sharing", share_url, share_window, iteration)
       share_window?.closed || iteration >= 15
 
