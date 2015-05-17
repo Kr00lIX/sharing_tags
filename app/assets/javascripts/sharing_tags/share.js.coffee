@@ -51,7 +51,7 @@ class @SharingTags
       iteration = 0
       @interval = setInterval((=>
         iteration++
-        if @_checkSharing(share_url, share_window, iteration)
+        if @_open_popup_check(share_url, share_window, iteration)
           clearInterval @interval
           callback() if callback
           jQuery?("body").trigger("sharing_tags.shared")

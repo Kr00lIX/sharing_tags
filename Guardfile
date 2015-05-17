@@ -9,10 +9,12 @@ group :red_green_refactor, halt_on_fail: true do
 
   guard :teaspoon do
     # Implementation files
-    watch(%r{^app/assets/javascripts/sharing_tags/(.+).coffee}) { |m| "#{m[1]}_spec" }
+    watch(%r{^app/assets/javascripts/sharing_tags/(.+).js.coffee}) { |m| "#{m[1]}_spec" }
+    watch(%r{^app/assets/javascripts/sharing_tags/share/base.js.coffee})
 
+    watch(%r{^app/assets/javascripts/sharing_tags/share/base.js.coffee})
     # Specs / Helpers
-    watch(%r{^spec/javascripts/(.+)})
+    watch(%r{^spec/javascripts/sharing_tags/**/*.coffee})
   end
 
   guard :rubocop do

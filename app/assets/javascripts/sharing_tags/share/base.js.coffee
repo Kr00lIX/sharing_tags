@@ -15,14 +15,14 @@ class @SharingTags.BaseShare
     iteration = 0
     @interval = setInterval((=>
       iteration++
-      if @_checkSharing(share_url, share_window, iteration)
+      if @_open_popup_check(share_url, share_window, iteration)
         clearInterval @interval
-        jQuery("body").trigger("sharing_tags.shared") if jQuery
+        @_after_callback()
     ), 500)
 
-  _checkSharing: (share_url, share_window, iteration)=>
+  _open_popup_check: (share_url, share_window, iteration)=>
     # console.log("check desktop sharing", share_url, share_window, iteration)
-    share_window?.closed || iteration >= 15
+    share_window?.closed || iteration >= 5
 
   _after_callback: =>
     jQuery?("body").trigger("sharing_tags.shared")

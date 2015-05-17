@@ -1,7 +1,6 @@
 #=require sharing_tags/share
 #=require sharing_tags/share/base
 #=require sharing_tags/share/facebook
-
 fixture.preload("facebook.json")
 
 describe "SharingTags.FacebookShare", ->
@@ -71,7 +70,7 @@ describe "SharingTags.FacebookShare", ->
   describe "share provider", ->
 
     it "expect fb_ui as default provider", ->
-      @share = new subject(@fb_fixture.full)
+      @share = new subject(@fb_fixture.fb_ui)
       expect(@share.provider).toBe "fb_ui"
 
     it "expect change provider to sharer on initialize", ->
@@ -79,8 +78,37 @@ describe "SharingTags.FacebookShare", ->
       expect(@share.provider).toBe "sharer"
 
   describe "events", ->
-    it "expect trigger event start sharing"
-    it "expect trigger event after sharing"
+    describe "after sharing event", ->
+      beforeEach ->
+        @share = new subject(@fb_fixture.full)
+        spyOn(@share, "_open_popup_check").andCallThrough()
+        spyOn(@share, "_after_callback")
+        jasmine.Clock.useMock()
+        window.FB = jasmine.createSpyObj('FB', ['ui', 'init'])
+
+      afterEach ->
+        delete window.FB
+
+      it "expect calling callback for fb_ui", ->
+        FB.ui.andCallFake (params, callback)-> callback()
+
+        @share.share("fb_ui")
+        expect(@share._after_callback).toHaveBeenCalled()
+
+      it "expect calling callback for sharer", ->
+        @share.share('sharer')
+        jasmine.Clock.tick(700)
+        expect(@share._open_popup_check).toHaveBeenCalled()
+        expect(@share._after_callback).not.toHaveBeenCalled()
+
+        jasmine.Clock.tick(500 * 5)
+        expect(@share._after_callback).toHaveBeenCalled()
+
+      it "expect calling callback for dialog 2.5sec", ->
+        @share.share('dialog')
+        expect(@share._after_callback).not.toHaveBeenCalled()
+        jasmine.Clock.tick(500 * 5)
+        expect(@share._after_callback).toHaveBeenCalled()
 
   describe "#_sharer", ->
     beforeEach ->
@@ -160,14 +188,14 @@ describe "SharingTags.FacebookShare", ->
   describe "#detect_provider", ->
 
     it "expect to receive sharer provider for iOS Chrome browser", ->
-      @share = new subject(@fb_fixture.full)
+      @share = new subject(@fb_fixture.sharer)
       ios_chrome_agent = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; en) AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3"
       spyOn(@share, "_user_agent").andReturn ios_chrome_agent
 
       expect(@share.detect_provider()).toBe "sharer"
 
     it "expect to receive fb_ui provider for sharing with app_id params", ->
-      @share = new subject(@fb_fixture.full)
+      @share = new subject(@fb_fixture.fb_ui)
       expect(@share.app_id).toBeDefined()
       expect(@share.detect_provider()).toBe "fb_ui"
 

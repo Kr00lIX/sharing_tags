@@ -23,8 +23,9 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
         cache: true
       )
 
-  share: ()->
-    @["_#{@provider}"]()
+  share: (provider = @provider)->
+
+    @["_#{provider}"]()
 
   _sharer: ->
     @_assert_vars "url"
