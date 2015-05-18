@@ -13,9 +13,9 @@ class @SharingTags
       share_url = "http://line.me/R/msg/text/?#{encodeURIComponent(url)}"
       @_share(share_url, null, callback)
 
-    @facebook: ({url, app_id}, callback) ->
+    @facebook: ({url, app_id, return_url, provider}, callback) ->
       if app_id
-        social_share = new SharingTags.FacebookShare url: url, app_id: app_id
+        social_share = new SharingTags.FacebookShare {url, app_id, return_url, provider}
         social_share.share()
       else
         @_share("http://www.facebook.com/sharer.php", u: url, callback)

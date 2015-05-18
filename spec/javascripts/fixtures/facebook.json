@@ -4,7 +4,8 @@
     "title":       "Title full",
     "description": "Description",
     "app_id":      "123",
-    "return_url":  "http://return.url"
+    "return_url":  "http://return.url",
+    "provider":    "auto"
   },
 
   "partial": {

@@ -9,7 +9,9 @@ class @SharingTags.BaseShare
 
   _open_popup: (api_url, params)->
     share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
-    share_window = window.open share_url, 'Sharing', 'width=740,height=440'
+    share_window = window.open share_url, 'Share Dialog', 'width=740,height=440'
+
+    # share_window?.focus()
 
     clearInterval(@interval)
     iteration = 0

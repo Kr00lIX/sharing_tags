@@ -164,15 +164,15 @@ describe SharingTags::Configuration do
       SharingTags.configure do
         facebook do
           app_id "APP ID"
+          provider "sharer"
         end
       end
     end
 
-    describe "switch context to photo" do
-
-      it "expect new context data" do
-        expect(subject[:facebook][:app_id]).to be == "APP ID"
-      end
+    it "expect get app id" do
+      expect(subject.facebook.app_id).to be == "APP ID"
+      expect(subject.facebook.provider).to be == "sharer"
     end
+
   end
 end

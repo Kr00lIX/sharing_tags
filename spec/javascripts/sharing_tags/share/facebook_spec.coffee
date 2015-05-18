@@ -187,6 +187,17 @@ describe "SharingTags.FacebookShare", ->
 
   describe "#detect_provider", ->
 
+    it "expect call detect provider for auto provider", ->
+      spyOn(subject.prototype, "detect_provider").andCallThrough()
+      @share = new subject(@fb_fixture.full)
+      expect(subject.prototype.detect_provider).toHaveBeenCalled()
+
+    it "expect not detect provider for defined provider", ->
+      spyOn(subject.prototype, "detect_provider")
+
+      @share = new subject(@fb_fixture.sharer)
+      expect(@share.detect_provider).not.toHaveBeenCalled()
+
     it "expect to receive sharer provider for iOS Chrome browser", ->
       @share = new subject(@fb_fixture.sharer)
       ios_chrome_agent = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; en) AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3"
@@ -206,5 +217,12 @@ describe "SharingTags.FacebookShare", ->
       expect(@share.detect_provider()).toBe "dialog"
 
     it "expect to receive fb_ui provider for sharing with app_id params", ->
+      delete @fb_fixture.partial.provider
       @share = new subject(@fb_fixture.partial)
       expect(@share.detect_provider()).toBe "sharer"
+
+    it "expect to receive fb_ui provider for sharing with app_id params", ->
+      delete @fb_fixture.partial.provider
+      @share = new subject(@fb_fixture.partial)
+      expect(@share.detect_provider()).toBe "sharer"
+

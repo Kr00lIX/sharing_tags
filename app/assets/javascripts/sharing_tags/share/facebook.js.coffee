@@ -8,7 +8,7 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
   provider:   null
 
   constructor: ({@app_id, @return_url, @provider})->
-    @provider = @detect_provider() if !@provider
+    @provider = @detect_provider() if !@provider || @provider == "auto"
 
     # todo: throw error for invalid provider
     @constructor.init() if @provider is 'fb_ui' and not FB?
@@ -24,7 +24,6 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
       )
 
   share: (provider = @provider)->
-
     @["_#{provider}"]()
 
   _sharer: ->
