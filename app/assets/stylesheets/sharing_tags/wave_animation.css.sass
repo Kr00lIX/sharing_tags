@@ -15,13 +15,13 @@
   @keyframes #{$name}
     @content
 
-@mixin add_animation_on_sharing_button($index)
+@mixin add_animation_on_sharing_button($index, $speed)
   .sharing_tags-buttons__item
     &:nth-child(#{$index})
       a
-        animation: animate_sharing_buttons_#{$index} 2s infinite
+        animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
 
-@mixin create_wave_animation_on_sharing_buttons($count_of_buttons)
+@mixin create_wave_animation_on_sharing_buttons($count_of_buttons, $speed:2)
   $step: 100 / $count_of_buttons
   $half_step: $step / 2
   @for $i from 1 through $count_of_buttons
@@ -30,4 +30,4 @@
     $left: $center - $half_step
 
     +create_keyframes_animation('animate_sharing_buttons_#{$i}', $left, $center, $right)
-    +add_animation_on_sharing_button($i)
+    +add_animation_on_sharing_button($i, $speed)
