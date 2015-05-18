@@ -4,7 +4,6 @@ module SharingTags
 
     if Rails.env.development?
       config.to_prepare do
-        Rails.logger.debug "RELOADING sharing_tags"
         require_dependency SharingTags::Engine.root.join('lib', 'sharing_tags').to_s
       end
 
