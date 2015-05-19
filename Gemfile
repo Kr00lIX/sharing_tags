@@ -11,3 +11,4 @@ gem 'hashie'
 
 gem 'codeclimate-test-reporter', '~> 0.4.7'
 gem 'coveralls', require: false
+gem 'teaspoon'
