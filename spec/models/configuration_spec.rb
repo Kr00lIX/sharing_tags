@@ -100,7 +100,7 @@ describe SharingTags::Configuration do
   describe "define utm params" do
     before do
       SharingTags.configure do
-        share_url "http:://example.com"
+        share_url "http://example.com"
 
         google do
           link_params utm_source: "google_source", utm_medium: "google_medium", utm_content: "google_content",
@@ -113,7 +113,7 @@ describe SharingTags::Configuration do
         end
 
         twitter do
-          share_url "http:://for_twitter.com"
+          share_url "http://for_twitter.com"
 
           link_params utm_source: "twitter_source", utm_medium: "twitter_medium"
         end
@@ -123,7 +123,7 @@ describe SharingTags::Configuration do
     it "expect add utm params to facebook share_url" do
       facebook_config = subject.facebook
       expect(facebook_config).to be_truthy
-      expect(facebook_config.share_url).to be_include("http:://example.com")
+      expect(facebook_config.share_url).to be_include("http://example.com")
       expect(facebook_config.share_url).to be_include("utm_campaign=facebook_campaign")
       expect(facebook_config.share_url).to be_include("utm_source=facebook_source")
       expect(facebook_config.share_url).to be_include("marker=facebook_marker")
@@ -135,7 +135,7 @@ describe SharingTags::Configuration do
     it "expect add utm params to google share_url" do
       google_config = subject.google
       expect(google_config).to be_truthy
-      expect(google_config.share_url).to be_include("http:://example.com")
+      expect(google_config.share_url).to be_include("http://example.com")
       expect(google_config.share_url).to be_include("utm_campaign=google_campaign")
       expect(google_config.share_url).to be_include("utm_source=google_source")
 
@@ -148,7 +148,7 @@ describe SharingTags::Configuration do
     it "expect add utm params to twitter share_url" do
       twitter_config = subject.twitter
       expect(twitter_config).to be_truthy
-      expect(twitter_config.share_url).to be_include("http:://for_twitter.com")
+      expect(twitter_config.share_url).to be_include("http://for_twitter.com")
       expect(twitter_config.share_url).to be_include("utm_source=twitter_source")
       expect(twitter_config.share_url).to be_include("utm_medium=twitter_medium")
 

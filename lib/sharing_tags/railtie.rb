@@ -1,7 +1,6 @@
 module SharingTags
   # = Sharing Tags Railtie
   class Railtie < Rails::Railtie # :nodoc:
-
     generators do
       require "generators/sharing_tags/install/install_generator"
     end

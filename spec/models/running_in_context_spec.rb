@@ -2,6 +2,7 @@ describe SharingTags::Configuration do
   before do
     SharingTags.configure do
       page_url { root_url }
+      link_params { {utm_source: "#{network}_source", utm_campaign: "#{network}_#{context}"} }
 
       twitter do
         title  { awesome_title }
@@ -18,7 +19,7 @@ describe SharingTags::Configuration do
   let(:running_context) do
     Class.new do
       def root_url
-        "context url"
+        "http://example.com"
       end
 
       def awesome_title
@@ -31,11 +32,18 @@ describe SharingTags::Configuration do
 
   describe "default context" do
     it "expect get twitter title from calling in running_context" do
-      expect(params.twitter.page_url).to eql("context url")
+      expect(params.twitter.title).to eql("All you need is love")
     end
 
     it "expect get page_url from calling in running_context" do
-      expect(params.twitter.title).to eql("All you need is love")
+      expect(params.twitter.page_url).to eql("http://example.com")
+    end
+
+    xit "expect get share_url with assigned network name params" do
+      expect(params.twitter.share_url).to include("http://example.com")
+      expect(params.twitter.share_url).to include("utm_source=twitter_source")
+      expect(params.twitter.share_url).to include("utm_campaign=twitter_default")
+      expect(params.twitter.share_url).to include("utm_campaign").once
     end
   end
 
@@ -49,7 +57,14 @@ describe SharingTags::Configuration do
     end
 
     it "expect get twitter title from calling in running_context" do
-      expect(params.twitter.page_url).to eql("context url")
+      expect(params.twitter.page_url).to eql("http://example.com")
+    end
+
+    xit "expect get share_url with assigned network name params" do
+      expect(params.twitter.share_url).to include("http://example.com")
+      expect(params.twitter.share_url).to include("utm_source=twitter_source")
+      expect(params.twitter.share_url).to include("utm_campaign=twitter_copyright")
+      expect(params.twitter.share_url).to include("utm_campaign").once
     end
   end
 end
