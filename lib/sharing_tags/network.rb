@@ -84,7 +84,7 @@ module SharingTags
     end
 
     def share_url_params(params = nil, &block)
-      @share_url_params = store_value(params, &block)
+      attributes[:share_url_params] = store_value(params, &block)
     end
     alias_method :link_params, :share_url_params
 
@@ -96,8 +96,7 @@ module SharingTags
 
       # TODO: fix assign share_url from page_url
       attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
-      attrs[:share_url] = ("#{attrs[:share_url]}?" + @share_url_params.to_query) if attrs[:share_url] && @share_url_params
-
+      attrs[:share_url] = add_params_to_url(attrs[:share_url], attrs[:share_url_params]) if attrs[:share_url] && attrs[:share_url_params]
       attrs[:network] = name if attrs.present?
       
       attrs
@@ -125,6 +124,17 @@ module SharingTags
       else
         value
       end
+    end
+
+    def add_params_to_url(url, params)
+      require 'uri'
+
+      uri = URI.parse(url)
+      # uri.query = URI.encode_www_form(params)
+      new_query_array = URI.decode_www_form(uri.query || '') + params.to_a
+      uri.query = URI.encode_www_form(new_query_array)
+
+      uri.to_s
     end
   end
 end
