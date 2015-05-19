@@ -46,6 +46,29 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
     @_assert_vars 'url', 'return_url'
     @_open_popup("http://www.facebook.com/dialog/share", href: @url, redirect_uri: @return_url, app_id: @app_id, display: display)
 
+  # @note: mobile chrome and android browsers after sharing redirect to created post on Facebook
+  # @note: iphone facebook browser: after sharing redirected to shared post
+  _stream_share: ->
+    @_assert_vars 'url'
+    FB.ui(
+      method: 'stream.share',
+      u: @url
+      (response) ->
+        console?.log response
+    )
+
+#  # @note: iphone facebook browser - doesn't show page after sharing
+#  _fb_ui_feed = ->
+#    FB.ui(
+#      method: 'feed',
+#      name: "Name"
+#      description: "Description"
+#      link: @url,
+#      caption: "Sample caption",
+#      actions: {name: 'sample name', link: 'sharing link'},
+#      (response)=>
+#        @_after_callback(response)
+#    )
 
   detect_provider: ->
     if @_user_agent().match('CriOS')
