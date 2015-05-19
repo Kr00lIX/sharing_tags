@@ -1,7 +1,9 @@
 machine:
   ruby:
     version: 2.2.0
-    
+#  environment:
+#    RAILS_ENV: test
+#    RACK_ENV: test
 test:
   post:
     - bundle exec teaspoon
