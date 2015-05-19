@@ -1,20 +1,23 @@
-meta name="twitter:card"         content="summary"
 
 - if meta.title
   meta name="twitter:title"        content=meta.title
 
 - if meta.description
+  / Page description less than 200 characters
   meta name="twitter:description"  content=meta.description
 
-/meta name="twitter:creator"     content="@aviasales"
-/meta name="twitter:image:src"   content=asset_url(sharing[:image])
+- if meta.page_url
+  meta property="twitter:url" content=meta.page_url.html_safe
+
+- if meta.image
+  /<-- Twitter Summary card images must be at least 120x120px -->
+  meta name="twitter:image" content=meta.image
+  meta name="twitter:card" content="summary_large_image"
+- else
+  meta name="twitter:card" content="summary"
+
+
 /meta name="twitter:domain"      content="www.aviasales.ru"
-/<meta name="twitter:card" content="summary">
 /<meta name="twitter:site" content="@publisher_handle">
-/<meta name="twitter:title" content="Page Title">
-/<meta name="twitter:description" content="Page description less than 200 characters">
 /<meta name="twitter:creator" content="@author_handle">
-/<-- Twitter Summary card images must be at least 120x120px -->
-/<meta name="twitter:image" content="http://www.example.com/image.jpg">
-/meta name="twitter:site"        content="@aviasales"
 
