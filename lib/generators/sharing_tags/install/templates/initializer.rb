@@ -17,8 +17,11 @@ SharingTags.configure do
   #   app_id "123"
   #   title "Facebook sharing title"
   # end
+  #
   # twitter do
   #   title "Short title"
+  #   description "Page description less than 200 characters"
+  #   image "images must be at least 120x120px"
   # end
 
   # # for switch context call `sharing_tags_context(:user)` in controller action

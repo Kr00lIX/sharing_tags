@@ -1,8 +1,31 @@
+require 'uri'
+
 module SharingTags
   class Network
     # TODO: add default values
 
     class Error < StandardError
+    end
+
+    class NetworkRunningContext
+      def initialize(network, context)
+        @network_name = network.name
+        @context = context
+        @context_name = @context.name
+      end
+
+      def network
+        @network_name
+      end
+
+      def context
+        @context_name
+      end
+
+      def method_missing(method_name, *arguments, &block)
+        return unless @context && @context.configuraton
+        @context.configuraton.running_context.send(method_name, *arguments, &block)
+      end
     end
 
     NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
@@ -22,12 +45,12 @@ module SharingTags
     def initialize(name, context = nil)
       @name = name
       @context = context
+      @running_context = NetworkRunningContext.new(self, context)
       clear!
     end
 
     def clear!
       @attributes = {}
-      @share_url_params = nil
     end
 
     def self.available_attributes
@@ -90,13 +113,13 @@ module SharingTags
 
     def attributes_for(context_params = nil, default_params = Config.new)
       # TODO: merge default params after get all values of attributes
-      attrs = @attributes.each_with_object(default_params.dup) do |(name, value), result|
-        result[name] = get_value(value, context_params)
+      attrs = @attributes.each_with_object(default_params.dup) do |(a_name, value), result|
+        result[a_name] = get_value(value, context_params)
       end
 
       # TODO: fix assign share_url from page_url
       attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
-      attrs[:share_url] = add_params_to_url(attrs[:share_url], attrs[:share_url_params]) if attrs[:share_url] && attrs[:share_url_params]
+      attrs[:share_url] = add_params_to_url(attrs[:share_url], attrs[:share_url_params]) if attrs[:share_url] && attrs[:share_url_params].present?
       attrs[:network] = name if attrs.present?
       
       attrs
@@ -114,10 +137,9 @@ module SharingTags
 
     def get_value(value, context_params)
       if value.is_a?(Proc)
-
-        if @context && (running_context = @context.configuraton.running_context)
+        if @context && @running_context
           # execute proc within the view context with context_params
-          running_context.instance_exec(*context_params, &value)
+          @running_context.instance_exec(*context_params, &value)
         else
           value.call(context_params)
         end
@@ -126,15 +148,15 @@ module SharingTags
       end
     end
 
-    def add_params_to_url(url, params)
-      require 'uri'
-
+    def add_params_to_url(url, params = {})
       uri = URI.parse(url)
-      # uri.query = URI.encode_www_form(params)
       new_query_array = URI.decode_www_form(uri.query || '') + params.to_a
       uri.query = URI.encode_www_form(new_query_array)
 
       uri.to_s
+    rescue URI::Error
+      # TODO: raise error
+      url
     end
   end
 end
