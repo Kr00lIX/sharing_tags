@@ -6,4 +6,4 @@ test:
   post:
     - bundle exec teaspoon
     - bundle exec rspec
-    - bundle exec rubocop
+    - bundle exec rubocop -c .rubocop.yml
