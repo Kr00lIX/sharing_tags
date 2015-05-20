@@ -6,7 +6,11 @@ AllCops:
      - 'spec/**/*.rb'
   Exclude:
     - 'spec/dummy/**/*'
-    - 'bin/*'
+    - "db/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "bin/**/*"
+    - "log/**/*"
 
   DisplayCopNames: true
   DisplayStyleGuide: true
