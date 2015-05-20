@@ -20,8 +20,8 @@ class @SharingTags
       else
         @_share("http://www.facebook.com/sharer.php", u: url, callback)
 
-    @twitter: ({url, message}, callback) ->
-      @_share("http://twitter.com/intent/tweet", text: message, url: url, callback)
+    @twitter: ({url, title}, callback) ->
+      @_share("http://twitter.com/intent/tweet", text: title, url: url, callback)
 
     @vkontakte: ({title, url, message, image}, callback) ->
       social_share = new SharingTags.VkontakteShare url: url, title: title, description: message, image: image
