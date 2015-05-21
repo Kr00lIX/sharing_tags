@@ -153,7 +153,7 @@ module SharingTags
       new_query_array = URI.decode_www_form(uri.query || '') + params.to_a
       uri.query = URI.encode_www_form(new_query_array)
 
-      uri.to_s
+      uri.to_s.html_safe
     rescue URI::Error
       # TODO: raise error
       url
