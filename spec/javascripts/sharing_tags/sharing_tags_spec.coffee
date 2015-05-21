@@ -1,32 +1,27 @@
 #=require jquery
 #=require sharing_tags/share
 
-describe "Sharing Tags", ->
+describe "SharingTags.share", ->
 
   it "expect defined class", ->
     expect( SharingTags ).toBeDefined()
     expect( SharingTags.share ).toBeDefined()
 
   describe ".share", ->
-    beforeEach ->
 
     describe "facebook", ->
       beforeEach ->
         spyOn(SharingTags.Share, "facebook")
-        spyOn(SharingTags.MobileShare, "facebook")
 
-      it "expect mobile version", ->
-        SharingTags.share('facebook', mobile: true, url: "url")
-        expect(SharingTags.MobileShare.facebook).toHaveBeenCalled()
-
-      it "expect desktop version", ->
+      it "expect calling", ->
         SharingTags.share('facebook')
         expect(SharingTags.Share.facebook).toHaveBeenCalled()
 
-#    it "vkontakte"
-#    it "twitter"
-#    it "google"
-#    it "odnoklassniki"
-#    it "mailru"
-#    it "linkedin"
+    describe "vkontakte", ->
+      beforeEach ->
+        spyOn(SharingTags.Share, "vkontakte")
+
+      it "expect desktop version", ->
+        SharingTags.share('vkontakte')
+        expect(SharingTags.Share.vkontakte).toHaveBeenCalled()
 

@@ -2,7 +2,7 @@ AllCops:
   # Include common Ruby source files.
   Include:
      - 'lib/**/*.rb'
-     - 'app/**/*.{rb,erb,coffee,sass,slim}'
+     - 'app/**/*.rb'
      - 'spec/**/*.rb'
   Exclude:
     - 'spec/dummy/**/*'

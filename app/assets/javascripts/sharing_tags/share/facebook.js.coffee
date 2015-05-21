@@ -1,4 +1,4 @@
-class @SharingTags.FacebookShare extends @SharingTags.BaseShare
+class @SharingTags.FacebookShare extends @SharingTags.Share
 
   # available providers: sharer, fb_ui, dialog
   @default_provider: "fb_ui"
@@ -24,19 +24,19 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
       )
 
   share: (provider = @provider)->
-    @_before_callback(provider)
+    @callback.before_sharing(provider)
     @["_#{provider}"]()
 
   _sharer: ->
     @_assert_vars "url"
-    @_open_popup("http://www.facebook.com/sharer.php", u: @url)
+    @open_popup("http://www.facebook.com/sharer.php", u: @url)
 
   _fb_ui: =>
     @_assert_vars "url", "app_id"
     return @constructor.init().done(@_fb_ui) if not FB?
 
     FB?.ui(method: 'share', href: @url, app_id: @app_id, (response)=>
-      @_after_callback(response)
+      @callback.after_sharing(response)
       # if response && !response.error_code
       #  @_after_callback(response)
       # else
@@ -45,7 +45,7 @@ class @SharingTags.FacebookShare extends @SharingTags.BaseShare
 
   _dialog: (display = 'page')->
     @_assert_vars 'url', 'return_url'
-    @_open_popup("http://www.facebook.com/dialog/share", href: @url, redirect_uri: @return_url, app_id: @app_id, display: display)
+    @open_popup("http://www.facebook.com/dialog/share", href: @url, redirect_uri: @return_url, app_id: @app_id, display: display)
 
   # @note: mobile chrome and android browsers after sharing redirect to created post on Facebook
   # @note: iphone facebook browser: after sharing redirected to shared post

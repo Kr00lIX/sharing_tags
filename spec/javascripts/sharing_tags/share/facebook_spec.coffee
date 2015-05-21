@@ -1,6 +1,7 @@
 #=require sharing_tags/share
-#=require sharing_tags/share/base
 #=require sharing_tags/share/facebook
+#=require sharing_tags/share/callback
+
 fixture.preload("facebook.json")
 
 describe "SharingTags.FacebookShare", ->
@@ -80,46 +81,60 @@ describe "SharingTags.FacebookShare", ->
   describe "events", ->
     describe "after sharing event", ->
       beforeEach ->
-        @share = new subject(@fb_fixture.full)
+        @fb = @fb_fixture.full
+        @share = new subject(@fb)
         spyOn(@share, "_open_popup_check").andCallThrough()
-        spyOn(@share, "_after_callback")
+        spyOn(@share.callback, "after_sharing").andCallThrough()
+        spyOn(@share.callback, "before_sharing").andCallThrough()
+        spyOn(@share.callback, "trigger")
         jasmine.Clock.useMock()
         window.FB = jasmine.createSpyObj('FB', ['ui', 'init'])
 
       afterEach ->
         delete window.FB
 
+      it "expect called before_sharing on start sharing", ->
+        @share.share('fb_ui')
+        expect(@share.callback.before_sharing).toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("start_share", url: @fb.url, provider: "fb_ui")
+
       it "expect calling callback for fb_ui", ->
         FB.ui.andCallFake (params, callback)-> callback()
 
         @share.share("fb_ui")
-        expect(@share._after_callback).toHaveBeenCalled()
+        expect(@share.callback.after_sharing).toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("start_share", url: @fb.url, provider: "fb_ui")
 
       it "expect calling callback for sharer", ->
         @share.share('sharer')
         jasmine.Clock.tick(700)
         expect(@share._open_popup_check).toHaveBeenCalled()
-        expect(@share._after_callback).not.toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("open_popup", url: jasmine.any(String), popup_window: jasmine.any(Object))
+        expect(@share.callback.after_sharing).not.toHaveBeenCalled()
 
         jasmine.Clock.tick(500 * 5)
-        expect(@share._after_callback).toHaveBeenCalled()
+        expect(@share.callback.after_sharing).toHaveBeenCalled()
 
       it "expect calling callback for dialog 2.5sec", ->
         @share.share('dialog')
-        expect(@share._after_callback).not.toHaveBeenCalled()
+        expect(@share.callback.after_sharing).not.toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("start_share", url: @fb.url, provider: "dialog")
+
         jasmine.Clock.tick(500 * 5)
-        expect(@share._after_callback).toHaveBeenCalled()
+        expect(@share.callback.after_sharing).toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("open_popup", url: jasmine.any(String), popup_window: jasmine.any(Object))
 
   describe "#_sharer", ->
     beforeEach ->
       @fb = @fb_fixture.sharer
       @share = new subject(@fb)
-      spyOn(@share, "_open_popup")
+      spyOn(@share, "open_popup")
 
     it "expect call open popup with params", ->
       @share._sharer()
-      expect(@share._open_popup).toHaveBeenCalled()
-      expect(@share._open_popup).toHaveBeenCalledWith("http://www.facebook.com/sharer.php", u: @fb.url)
+      expect(@share.open_popup).toHaveBeenCalled()
+      expect(@share.open_popup).toHaveBeenCalledWith("http://www.facebook.com/sharer.php", u: @fb.url)
 
     it "expect error if init without url", ->
       delete @share.url
@@ -129,12 +144,12 @@ describe "SharingTags.FacebookShare", ->
     beforeEach ->
       @fb = @fb_fixture.dialog
       @share = new subject(@fb)
-      spyOn(@share, "_open_popup")
+      spyOn(@share, "open_popup")
 
     it "expect call open popup with params", ->
       @share._dialog()
-      expect(@share._open_popup).toHaveBeenCalled()
-      expect(@share._open_popup).toHaveBeenCalledWith(
+      expect(@share.open_popup).toHaveBeenCalled()
+      expect(@share.open_popup).toHaveBeenCalledWith(
         "http://www.facebook.com/dialog/share",
         jasmine.objectContaining(href: @fb.url, redirect_uri: @fb.return_url, app_id: @fb.app_id, display: 'page')
       )

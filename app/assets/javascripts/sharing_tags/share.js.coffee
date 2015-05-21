@@ -1,51 +1,72 @@
+'use strict'
+
 class @SharingTags
 
-  @share: (network, attributes, callback)->
-    share_object = if attributes?.mobile then SharingTags.MobileShare else SharingTags.Share
-    share_object[network]?(attributes, callback)
+  @share: (network, attributes)->
+    SharingTags.Share[network]?(attributes)
 
   class @Error extends Error
     constructor: -> super
 
   class @Share
 
-    @line: ({url}, callback) ->
-      share_url = "http://line.me/R/msg/text/?#{encodeURIComponent(url)}"
-      @_share(share_url, null, callback)
+    @line: ({url}) ->
+      @share_popup(url: url, popup_url: "http://line.me/R/msg/text/?#{encodeURIComponent(url)}")
 
-    @facebook: ({url, app_id, return_url, provider}, callback) ->
-      if app_id
-        social_share = new SharingTags.FacebookShare {url, app_id, return_url, provider}
-        social_share.share()
-      else
-        @_share("http://www.facebook.com/sharer.php", u: url, callback)
+    @facebook: ({url, app_id, return_url, provider}) ->
+      (new SharingTags.FacebookShare(arguments[0])).share()
 
-    @twitter: ({url, title}, callback) ->
-      @_share("http://twitter.com/intent/tweet", text: title, url: url, callback)
+    @twitter: ({url, title}) ->
+      social_share = new BaseShare url: url
+      social_share._open_popup "http://twitter.com/intent/tweet", text: title, url: url
 
-    @vkontakte: ({title, url, message, image}, callback) ->
-      social_share = new SharingTags.VkontakteShare url: url, title: title, description: message, image: image
-      social_share.share()
-
-    @google: ({url}, callback) ->
-      @_share("https://plus.google.com/share", url: url, callback)
-
-    @odnoklassniki: ({url, message}, callback) ->
-      @_share("http://www.odnoklassniki.ru/dk",
-        'st._surl': url, 'st.comments': message, 'st.cmd': 'addShare', 'st.s': 1, callback)
-
-    @mailru: ({url, title, image, message}, callback) ->
-      @_share('http://connect.mail.ru/share', url: url, title: title, description: message, imageurl: image, callback)
-
-    @linkedin: ({url, title, message}, callback) ->
-      @_share('http://www.linkedin.com/shareArticle',
-        mini: true, url: url, title: title, summary: message,
-        callback
+    @vkontakte: ({title, url, message, image}) ->
+      @share_popup(
+        url: url,
+        popup_url: "http://vk.com/share.php",
+        popup_params:
+          url: @url,
+          title: @title,
+          description: @description,
+          image: @image
       )
 
-    @_share: (api_url, params, callback) ->
+    @google: ({url}) ->
+      @share_popup({url: url, popup_url: "https://plus.google.com/share", popup_params: {url: url}})
+
+    @odnoklassniki: ({url, message}) ->
+      @share_popup(
+        url: url,
+        popup_url: "http://www.odnoklassniki.ru/dk",
+        popup_params: {'st._surl': url, 'st.comments': message, 'st.cmd': 'addShare', 'st.s': 1}
+      )
+
+    @mailru: ({url, title, image, message}) ->
+      @share_popup(
+        url: url,
+        popup_url: 'http://connect.mail.ru/share',
+        popup_params: {url: url, title: title, description: message, imageurl: image}
+      )
+
+    @linkedin: ({url, title, message}) ->
+      @share_popup(
+        url: url,
+        popup_url: 'http://www.linkedin.com/shareArticle',
+        popup_params: {mini: true, url: url, title: title, summary: message}
+      )
+
+    @share_popup: ({url, popup_url, popup_params})->
+      social_share = new Share(arguments[0])
+      social_share.open_popup(popup_url, popup_params)
+
+    constructor: ({@network, @url, @title, @description})->
+      @_assert_vars 'url'
+      @callback = new SharingTags.Share.Callback(@)
+
+    open_popup: (api_url, params)->
       share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
       share_window = window.open share_url, 'Sharing', 'width=740,height=440'
+      @callback.before_open_popup(share_url, share_window)
 
       clearInterval(@interval)
       iteration = 0
@@ -53,37 +74,19 @@ class @SharingTags
         iteration++
         if @_open_popup_check(share_url, share_window, iteration)
           clearInterval @interval
-          callback() if callback
-          jQuery?("body").trigger("sharing_tags.shared")
+          @callback.after_sharing()
       ), 500)
 
-    @_open_popup_check: (share_url, share_window, iteration)=>
+    _open_popup_check: (share_url, share_window, iteration)=>
       # console.log("check desktop sharing", share_url, share_window, iteration)
-      share_window?.closed || iteration >= 15
+      share_window?.closed || iteration >= 5
 
-  class @MobileShare extends @Share
+    _assert_vars: (vars...)->
+      for var_name in vars
+        if ! @[var_name]
+          arguments_list = ''
+          arguments_list += " #{var_name}: '#{@[var_name]}'" for arg, val in vars
+          throw new SharingTags.Error("Error could not initialize sharing class, with params: #{arguments_list}")
 
-    @facebook: ({url, return_url, app_id}, callback) ->
-#      if app_id
-#        return_url = url if !return_url
-#        @_share("http://www.facebook.com/dialog/share", href: url, redirect_uri: return_url, app_id: app_id, display: 'touch', callback)
-#      else
-      super
-
-    @twitter: ({title, url, message}, callback) ->
-      # todo: fix adding hash tags
-      # text = "#{encodeURI(message)}%20%23aviasales%20%23avialove%20#{url}"
-#      text = "#{encodeURI(message)}%20#{url}"
-#      exportUrl = "twitter://post?message=#{text}"
-#      window.location.replace(exportUrl)
-#      setTimeout (->
-#        @_share("http://twitter.com/intent/tweet", text: message, url: url, callback)
-#      ), 1
-      super
-
-    @_share: ->
-      super
-
-    @_checkSharing: (share_url, share_window, iteration)=>
-      # console.log("check mobile sharing", share_url, share_window, iteration)
-      return true if iteration >= 1
+    _user_agent: ->
+      window.navigator?.userAgent
