@@ -10,3 +10,5 @@
 * Add recommendation about image size and length of text
 * Add version to sharing tags: append ?version=1 to links and assets
 * Update facebook info for fetching urls
+* Add twitter card settings
+* Add sharing through Vk js SDK
