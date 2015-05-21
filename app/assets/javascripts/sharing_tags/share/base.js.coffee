@@ -27,7 +27,7 @@ class @SharingTags.BaseShare
     share_window?.closed || iteration >= 5
 
   _before_callback: (provider)=>
-    jQuery?(window).trigger("sharing_tags.share", url: @url, provider: provider)
+    jQuery?(window).trigger("sharing_tags.share", [url: @url, provider: provider])
 
   _after_callback: =>
     jQuery?("body").trigger("sharing_tags.shared")
