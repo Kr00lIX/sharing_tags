@@ -14,35 +14,21 @@ module SharingTags
       (@contexts[name] ||= Context.new(name, self)).instance_exec(&block)
     end
 
-    def switch_context(name = nil, *args)
-      if block_given?
-        prev_context = current_context
-        prev_context_params = @current_context_params
+    def switch_context(name = nil, *args, &block)
+      clean_params!
+      prev_context = current_context
+      prev_context_params = @current_context_params
 
-        @current_context_params = args
-        @current_context =
-            if name
-              @contexts[name]
-            else
-              default_context
-            end
+      @current_context_params = args
+      @current_context = name && @contexts[name] || default_context
+      return unless block_given?
 
-        result = yield
+      result = block.call
 
-        @current_context = prev_context
-        @current_context_params = prev_context_params
+      @current_context = prev_context
+      @current_context_params = prev_context_params
 
-        result
-      else
-        clean_params!
-        @current_context_params = args
-        @current_context =
-            if name
-              @contexts[name]
-            else
-              default_context
-            end
-      end
+      result
     end
     alias_method :switch_context_to, :switch_context
 
