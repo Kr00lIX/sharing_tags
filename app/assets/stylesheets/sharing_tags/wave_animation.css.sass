@@ -1,25 +1,44 @@
+@mixin transform_scale($scale)
+  -webkit-transform: $scale
+  -moz-transform: $scale
+  -ms-transform: $scale
+  -o-transform: $scale
+  transform: $scale
+
 @mixin create_keyframes_animation($name, $left_percent, $center_percent, $right_precent)
   +keyframes($name)
     0%
-      transform: scale(1)
+      +transform_scale(1)
     #{$left_percent}%
-      transform: scale(1)
+      +transform_scale(1)
     #{$center_percent}%
-      transform: scale(1.4)
+      +transform_scale(1.4)
     #{$right_precent}%
-      transform: scale(1)
+      +transform_scale(1)
     100%
-      transform: scale(1)
+      +transform_scale(1)
 
 @mixin keyframes($name)
-  @keyframes #{$name}
+  @-webkit-keyframes #{$name}
     @content
+  @-moz-keyframes  #{$name}
+    @content
+  @-o-keyframes  #{$name}
+    @content
+  @keyframes  #{$name}
+    @content
+
+@mixin animation($index, $speed)
+  -webkit-animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
+  -moz-animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
+  -o-animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
+  animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
 
 @mixin add_animation_on_sharing_button($index, $speed)
   .sharing_tags-buttons__item
     &:nth-child(#{$index})
       a
-        animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
+        +animation($index, $speed)
 
 @mixin create_wave_animation_on_sharing_buttons($count_of_buttons, $speed:2)
   $step: 100 / $count_of_buttons
