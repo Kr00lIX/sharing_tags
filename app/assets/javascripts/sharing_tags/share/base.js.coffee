@@ -26,6 +26,9 @@ class @SharingTags.BaseShare
     # console.log("check desktop sharing", share_url, share_window, iteration)
     share_window?.closed || iteration >= 5
 
+  _before_callback: (provider)=>
+    jQuery?(window).trigger("sharing_tags.share", url: @url, provider: provider)
+
   _after_callback: =>
     jQuery?("body").trigger("sharing_tags.shared")
 
