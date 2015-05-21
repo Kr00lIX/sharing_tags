@@ -14,7 +14,7 @@ module SharingTags
       (@contexts[name] ||= Context.new(name, self)).instance_exec(&block)
     end
 
-    def switch_context(name = nil, *args, &block)
+    def switch_context(name = nil, *args)
       if block_given?
         prev_context = current_context
         prev_context_params = @current_context_params
