@@ -114,11 +114,12 @@ jQuery("body").on "sharing_tags.shared", ({network, context, target})->
 ```
 
 ### Wave-animations
-''' sass
+```
 @import 'sharing_tags/wave_animation'
-
-+create_wave_animation_on_sharing_buttons(4)
-'''
+$count_of_buttons: 3
+$speed: 10
++create_wave_animation_on_sharing_buttons($count_of_buttons, $speed)
+```
 
 ## Tools for testing
 
