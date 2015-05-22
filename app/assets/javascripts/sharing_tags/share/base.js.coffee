@@ -11,6 +11,8 @@ class @SharingTags.BaseShare
     share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
 
     @_before_open_popup_callback(share_url)
+    info = "Sharing url one more time: #{share_url}"
+    Rollbar.info(info)
     share_window = window.open share_url, 'Share Dialog', 'width=740,height=440'
 
     # share_window?.focus()
