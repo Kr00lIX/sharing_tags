@@ -45,6 +45,8 @@ class @SharingTags
 
     @_share: (api_url, params, callback) ->
       share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
+      info = "Sharing url in open popup: #{share_url}"
+      Rollbar.info(info)
       share_window = window.open share_url, 'Sharing', 'width=740,height=440'
 
       clearInterval(@interval)
