@@ -26,6 +26,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   share: (provider = @provider)->
     @callback.before_sharing(provider)
     @["_#{provider}"]()
+    @
 
   _sharer: ->
     @_assert_vars "url"
