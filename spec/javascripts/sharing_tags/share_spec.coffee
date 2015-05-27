@@ -37,46 +37,51 @@ describe "SharingTags.Share", ->
       @fixture = fixture.load("vkontakte.json")[0]
       @f = @fixture.full
 
-    it "expect init new class with params", ->
-      spyOn(subject, "share_popup")
+      spyOn(subject, "share_popup").andCallThrough()
+      @share = subject.vkontakte(@f)
 
-      subject.vkontakte(@f)
-
+    it "expect valid open popup url", ->
       expect(subject.share_popup).toHaveBeenCalledWith(
         jasmine.objectContaining(url: @f.url)
       )
+
+    it "expect init new class with params", ->
+      expect(@share.network).toBe("vkontakte")
+      expect(@share.url).toBe(@f.url)
 
   describe "twitter", ->
     beforeEach ->
       @fixture = fixture.load("vkontakte.json")[0]
       @f = @fixture.full
 
-    it "expect init new class with params", ->
       spyOn(subject, "share_popup").andCallThrough()
-
       @share = subject.twitter(@f)
 
-      expect(@share.network).toBe("twitter")
-      expect(@share.url).toBe(@f.url)
-
+    it "expect valid open popup url", ->
       expect(subject.share_popup).toHaveBeenCalledWith(
         jasmine.objectContaining(url: @f.url)
       )
+
+    it "expect init new class with params", ->
+      expect(@share.network).toBe("twitter")
+      expect(@share.url).toBe(@f.url)
 
   describe "google", ->
     beforeEach ->
       @fixture = fixture.load("vkontakte.json")[0]
       @f = @fixture.full
 
-    it "expect init new class with params", ->
       spyOn(subject, "share_popup").andCallThrough()
-
       @share = subject.google(@f)
-      expect(@share.network).toBe("google")
 
+    it "expect valid open popup url", ->
       expect(subject.share_popup).toHaveBeenCalledWith(
         jasmine.objectContaining(url: @f.url)
       )
+
+    it "expect init new class with params", ->
+      expect(@share.network).toBe("google")
+      expect(@share.url).toBe(@f.url)
 
   describe "odnoklassniki", ->
     beforeEach ->
@@ -101,49 +106,52 @@ describe "SharingTags.Share", ->
       @fixture = fixture.load("vkontakte.json")[0]
       @f = @fixture.full
 
-    it "expect init new class with params", ->
       spyOn(subject, "share_popup").andCallThrough()
-
       @share = subject.mailru(@f)
 
-      expect(@share.network).toBe("mailru")
-      expect(@share.url).toBe(@f.url)
-
+    it "expect valid open popup url", ->
       expect(subject.share_popup).toHaveBeenCalledWith(
         jasmine.objectContaining(url: @f.url)
       )
+
+    it "expect init new class with params", ->
+      expect(@share.network).toBe("mailru")
+      expect(@share.url).toBe(@f.url)
 
   describe "linkedin", ->
     beforeEach ->
       @fixture = fixture.load("vkontakte.json")[0]
       @f = @fixture.full
 
-    it "expect init new class with params", ->
       spyOn(subject, "share_popup").andCallThrough()
-
       @share = subject.linkedin(@f)
 
-      expect(@share.network).toBe("linkedin")
-      expect(@share.url).toBe(@f.url)
-
+    it "expect valid open popup url", ->
       expect(subject.share_popup).toHaveBeenCalledWith(
         jasmine.objectContaining(url: @f.url)
       )
+
+    it "expect init new class with params", ->
+      expect(@share.network).toBe("linkedin")
+      expect(@share.url).toBe(@f.url)
 
   describe "line", ->
     beforeEach ->
       @fixture = fixture.load("vkontakte.json")[0]
       @f = @fixture.full
 
-    it "expect init new class with params", ->
       spyOn(subject, "share_popup").andCallThrough()
-
       @share = subject.line(@f)
 
-      expect(@share.network).toBe("line")
-      expect(@share.url).toBe(@f.url)
-
+    it "expect valid open popup url", ->
       expect(subject.share_popup).toHaveBeenCalledWith(
         jasmine.objectContaining(url: @f.url)
       )
 
+    it "expect init new class with params", ->
+      expect(@share.network).toBe("line")
+      expect(@share.url).toBe(@f.url)
+
+
+  xdescribe "#_open_popup_check"
+  xdescribe "#open_popup"
