@@ -11,17 +11,24 @@ class @SharingTags
   class @Share
 
     @line: ({url}) ->
-      @share_popup(url: url, popup_url: "http://line.me/R/msg/text/?#{encodeURIComponent(url)}")
+      @share_popup(network: "line", url: url, popup_url: "http://line.me/R/msg/text/?#{encodeURIComponent(url)}")
 
     @facebook: ({url, app_id, return_url, provider}) ->
       (new SharingTags.FacebookShare(arguments[0])).share()
 
     @twitter: ({url, title}) ->
-      social_share = new BaseShare url: url
-      social_share._open_popup "http://twitter.com/intent/tweet", text: title, url: url
+      @share_popup(
+        network: "twitter"
+        url: url
+        popup_url: "http://twitter.com/intent/tweet"
+        popup_params:
+          text: title
+          url: url
+      )
 
     @vkontakte: ({title, url, message, image}) ->
       @share_popup(
+        network: 'vkontakte'
         url: url,
         popup_url: "http://vk.com/share.php",
         popup_params:
@@ -32,10 +39,11 @@ class @SharingTags
       )
 
     @google: ({url}) ->
-      @share_popup({url: url, popup_url: "https://plus.google.com/share", popup_params: {url: url}})
+      @share_popup(network: 'google', url: url, popup_url: "https://plus.google.com/share", popup_params: {url: url})
 
     @odnoklassniki: ({url, message}) ->
       @share_popup(
+        network: 'odnoklassniki'
         url: url,
         popup_url: "http://www.odnoklassniki.ru/dk",
         popup_params: {'st._surl': url, 'st.comments': message, 'st.cmd': 'addShare', 'st.s': 1}
@@ -43,6 +51,7 @@ class @SharingTags
 
     @mailru: ({url, title, image, message}) ->
       @share_popup(
+        network: 'mailru'
         url: url,
         popup_url: 'http://connect.mail.ru/share',
         popup_params: {url: url, title: title, description: message, imageurl: image}
@@ -50,14 +59,16 @@ class @SharingTags
 
     @linkedin: ({url, title, message}) ->
       @share_popup(
+        network: 'linkedin'
         url: url,
         popup_url: 'http://www.linkedin.com/shareArticle',
         popup_params: {mini: true, url: url, title: title, summary: message}
       )
 
-    @share_popup: ({url, popup_url, popup_params})->
+    @share_popup: ({network, url, popup_url, popup_params})->
       social_share = new Share(arguments[0])
       social_share.open_popup(popup_url, popup_params)
+      social_share
 
     constructor: ({@network, @url, @title, @description})->
       @_assert_vars 'url'
