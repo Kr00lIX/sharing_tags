@@ -177,9 +177,10 @@ describe "SharingTags.Share", ->
       @share = subject.line(@f)
 
     it "expect valid open popup url", ->
+      message = "#{@f.title} #{@f.url}"
       expect(subject.share_popup).toHaveBeenCalled()
       expect(subject_proto.open_popup).toHaveBeenCalledWith(
-        "http://line.me/R/msg/text/?#{encodeURIComponent(@f.url)}",
+        "http://line.me/R/msg/text/?#{encodeURIComponent(message)}",
         null
       )
 

@@ -10,11 +10,12 @@ class @SharingTags
 
   class @Share
 
-    @line: ({url}) ->
+    @line: ({title, url}) ->
+      message = "#{title} #{url}"
       @share_popup(
         network: "line",
         url: url,
-        popup_url: "http://line.me/R/msg/text/?#{encodeURIComponent(url)}"
+        popup_url: "http://line.me/R/msg/text/?#{encodeURIComponent(message)}"
         popup_params: null
       )
 
