@@ -70,13 +70,16 @@ module SharingTags
         @default_network ||= ConfigNetwork.new(:default, self)
       end
 
-      private
+      protected
 
       def init_networks(network_list)
+        @networks = {}
         network_list.each do |network_name|
           send(network_name) unless @networks.key?(network_name)
         end
       end
+
+      private
 
       def fetch_params(context_args = nil, default_config_params = ConfigStorage.new)
         main_context_params = fetch_main_context_params(context_args, default_config_params || ConfigStorage.new)

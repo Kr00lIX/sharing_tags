@@ -10,12 +10,12 @@ module SharingTags
   autoload :NetworkRunningContext,  'sharing_tags/network_running_context'
 
   class Config
-    autoload :ConfigError,  'sharing_tags/config/config_error'
-    autoload :ConfigContext, 'sharing_tags/config/config_context'
-    autoload :ConfigMainContext,  'sharing_tags/config/config_main_context'
+    autoload :ConfigError,            'sharing_tags/config/config_error'
+    autoload :ConfigContext,          'sharing_tags/config/config_context'
+    autoload :ConfigMainContext,      'sharing_tags/config/config_main_context'
 
     autoload :ConfigNetwork,          'sharing_tags/config/config_network'
-    autoload :ConfigNetworkFacebook,  'sharing_tags/config/network/facebook'
+    autoload :ConfigNetworkFacebook,  'sharing_tags/config/config_network_facebook'
   end
 
   autoload :AssetFile,        'sharing_tags/asset_file'

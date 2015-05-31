@@ -1,7 +1,7 @@
 module SharingTags
   class Config
     attr_accessor :running_context
-    attr_reader :default_context
+    attr_reader :main_context
 
     def initialize
       clear!
@@ -18,7 +18,7 @@ module SharingTags
       prev_context_params = @current_context_params
 
       @current_context_params = args
-      @current_context = name && @contexts[name] || default_context
+      @current_context = name && @contexts[name] || main_context
       return unless block_given?
 
       result = block.call
@@ -32,7 +32,7 @@ module SharingTags
 
     def clear!
       @contexts = {}
-      @default_context = ConfigMainContext.new(:default, self)
+      @main_context = ConfigMainContext.new(:default, self)
       @current_context = nil
       @running_context = nil
       clean_params!
@@ -49,7 +49,7 @@ module SharingTags
     end
 
     def current_context
-      @current_context || default_context
+      @current_context || main_context
     end
 
     def clean_params!
@@ -63,9 +63,9 @@ module SharingTags
     private
 
     def fetch_params
-      default_context_params = default_context.params(@current_context_params)
-      return default_context_params unless @current_context
-      @current_context.params(@current_context_params, default_context_params)
+      main_context_params = main_context.params(@current_context_params)
+      return main_context_params unless @current_context
+      @current_context.params(@current_context_params, main_context_params)
     end
 
     def method_missing(method_name, *arguments, &block)

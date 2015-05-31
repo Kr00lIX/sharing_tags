@@ -9,6 +9,7 @@ module SharingTags
       def initialize(*args)
         @network_list = ConfigNetwork::AVAILABLE_NETWORKS
         super
+        init_networks(@network_list)
       end
 
       # define used networks

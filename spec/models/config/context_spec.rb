@@ -60,13 +60,13 @@ class SharingTags::Config
         end
       end
 
-      let(:context) { ConfigContext.new(:default, config) }
+      let(:context) { SharingTags.config.main_context }
 
       describe "#facebook" do
         let(:network) { context[:facebook] }
 
-        it "expect instance of SharingTags::Config::ConfigNetwork::Facebook " do
-          expect(network).to be_instance_of(ConfigNetwork::Facebook)
+        it "expect instance of SharingTags::Config::ConfigNetworkFacebook " do
+          expect(network).to be_instance_of(ConfigNetworkFacebook)
         end
       end
 
