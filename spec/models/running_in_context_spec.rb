@@ -1,4 +1,4 @@
-describe SharingTags::Configuration do
+describe SharingTags::Config do
   before do
     SharingTags.configure do
       page_url { root_url }

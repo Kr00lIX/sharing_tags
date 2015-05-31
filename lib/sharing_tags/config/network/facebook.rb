@@ -1,6 +1,6 @@
 module SharingTags
-  class Network
-    class Facebook < Network
+  class Config
+    class ConfigNetworkFacebook < ConfigNetwork
       def self.available_attributes
         super + %i( app_id caption provider return_url)
       end

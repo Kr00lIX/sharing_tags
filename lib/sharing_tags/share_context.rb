@@ -1,5 +1,5 @@
 module SharingTags
-  class Network
+  class ShareContext
 
   end
 end

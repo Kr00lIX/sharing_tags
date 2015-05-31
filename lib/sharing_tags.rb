@@ -3,10 +3,20 @@ require "role-rails"
 
 module SharingTags
   autoload :VERSION,        'sharing_tags/version'
-  autoload :Config,         'sharing_tags/config'
-  autoload :Configuration,  'sharing_tags/configuration'
+  autoload :ConfigStorage,  'sharing_tags/config_storage'
   autoload :Network,        'sharing_tags/network'
-  autoload :Context,        'sharing_tags/context'
+  autoload :Config,         'sharing_tags/config'
+  autoload :ShareContext,   'sharing_tags/share_context'
+  autoload :NetworkRunningContext,  'sharing_tags/network_running_context'
+
+  class Config
+    autoload :ConfigError,  'sharing_tags/config/config_error'
+    autoload :ConfigContext, 'sharing_tags/config/config_context'
+    autoload :ConfigMainContext,  'sharing_tags/config/config_main_context'
+
+    autoload :ConfigNetwork,          'sharing_tags/config/config_network'
+    autoload :ConfigNetworkFacebook,  'sharing_tags/config/network/facebook'
+  end
 
   autoload :AssetFile,        'sharing_tags/asset_file'
   autoload :FindsAssetPaths,  'sharing_tags/finds_asset_paths'
@@ -29,7 +39,7 @@ module SharingTags
   module_function :configure
 
   def config
-    @config ||= Configuration.new
+    @config ||= Config.new
   end
   module_function :config
 end

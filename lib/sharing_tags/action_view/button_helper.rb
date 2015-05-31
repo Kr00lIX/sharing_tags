@@ -2,7 +2,8 @@ module SharingTags
   module ActionView
     module ButtonHelper
       def sharing_tags_buttons(*networks, **options)
-        networks = SharingTags::Network.lists if networks.empty?
+        ## TODO: get network list from main context
+        networks = SharingTags::Configure::ConfigNetwork.lists if networks.empty?
 
         # switching context
         if options[:context].present?
