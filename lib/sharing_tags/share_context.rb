@@ -1,5 +1,5 @@
 module SharingTags
-  class ShareContext
+  class ShareContext < ConfigStorage
 
   end
 end

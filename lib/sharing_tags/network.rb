@@ -1,5 +1,5 @@
 module SharingTags
-  class Network
+  class Network < ConfigStorage
 
   end
 end
