@@ -127,8 +127,14 @@ module SharingTags
       end
 
       def add_params_to_url(url, params = {})
+        return url.html_safe if params.blank?
+
         uri = URI.parse(url)
-        new_query_array = URI.decode_www_form(uri.query || '') + params.to_a
+        new_params = params.stringify_keys
+        exists_params =  URI.decode_www_form(uri.query || '')
+        exists_params.delete_if { |k, _|  new_params.key?(k) } # delete existing params
+        new_query_array = exists_params + new_params.to_a
+
         uri.query = URI.encode_www_form(new_query_array)
 
         uri.to_s.html_safe

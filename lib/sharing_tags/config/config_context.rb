@@ -10,7 +10,7 @@ module SharingTags
       def initialize(name, config, main_context = nil)
         @name = name
         @networks = {}
-        @config = config
+        @config = config # @note need for running context
         @main_context = main_context
 
         init_networks(main_context.network_list) if main_context

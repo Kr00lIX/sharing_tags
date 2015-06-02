@@ -9,7 +9,7 @@ module SharingTags
 
     def context(name, &block)
       fail "please define context block params" unless block_given?
-      (@contexts[name] ||= ConfigContext.new(name, self)).instance_exec(&block)
+      (@contexts[name] ||= ConfigContext.new(name, self, main_context)).instance_exec(&block)
     end
 
     def switch_context(name = nil, *args, &block)

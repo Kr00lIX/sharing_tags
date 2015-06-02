@@ -82,6 +82,40 @@ module SharingTags
           end
         end
       end
+
+      describe "#add_params_to_url" do
+
+        subject { network.send(:add_params_to_url, @url, @params) }
+
+        it "expect leave url without empty params" do
+          @url = "http://sample.url"
+          @params = nil
+          is_expected.to be == @url
+          is_expected.to be_html_safe
+        end
+
+        it "expect add params to url without params" do
+          @url = "http://sample.url"
+          @params = {a: 1, b: "unescaped_?&%_params"}
+          is_expected.to be == "http://sample.url?a=1&b=unescaped_%3F%26%25_params"
+          is_expected.to be_html_safe
+        end
+
+        it "expect add params and rewrite them for url with params" do
+          @url = "http://sample.url?a=1&b=2"
+          @params = {b:4, c: 3}
+          is_expected.to be == "http://sample.url?a=1&b=4&c=3"
+          is_expected.to be_html_safe
+        end
+
+        it "expect add params for url with params" do
+          @url = "http://sample.url?a=1&b=2"
+          @params = {c: 3}
+          is_expected.to be == "http://sample.url?a=1&b=2&c=3"
+          is_expected.to be_html_safe
+        end
+
+      end
     end
   end
 end
