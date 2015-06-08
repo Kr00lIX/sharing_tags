@@ -180,7 +180,7 @@ describe "SharingTags.FacebookShare", ->
         @share._fb_ui()
         expect(FB.ui).toHaveBeenCalled()
         expect(FB.ui).toHaveBeenCalledWith(
-          jasmine.objectContaining(app_id: @fb.app_id, href: @fb.url, method: 'share'),
+          jasmine.objectContaining(href: encodeURIComponent(@fb.url), method: 'share'),
           jasmine.any(Function)
         )
 
@@ -199,6 +199,20 @@ describe "SharingTags.FacebookShare", ->
         @share._fb_ui()
         expect(@share.constructor.init).toHaveBeenCalled()
         expect(@share._fb_ui).toHaveBeenCalled()
+
+  describe "#_stream_share", ->
+    beforeEach ->
+      @fb = @fb_fixture.fb_ui
+      @share = new subject(@fb)
+      window.FB = jasmine.createSpyObj "FB", ['ui', 'init']
+
+    it "expect call FB.ui method with params", ->
+      @share._stream_share()
+      expect(FB.ui).toHaveBeenCalled()
+      expect(FB.ui).toHaveBeenCalledWith(
+        jasmine.objectContaining(u: encodeURIComponent(@fb.url), method: 'stream.share'),
+        jasmine.any(Function)
+      )
 
   describe "#detect_provider", ->
 

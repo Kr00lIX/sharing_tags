@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib', 'vendor']
   spec.required_ruby_version = '>= 2.0.0'
 
-  spec.add_dependency 'rails',  '~> 4.0'
+  spec.add_dependency 'rails',  '> 4.0'
   spec.add_dependency 'hashie', '~> 3.4'
   spec.add_dependency 'slim-rails',   '~> 3.0'
   spec.add_dependency 'coffee-script', '~> 2.3'

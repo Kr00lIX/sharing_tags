@@ -36,12 +36,15 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     @_assert_vars "url", "app_id"
     return @constructor.init().done(@_fb_ui) if not FB?
 
-    FB?.ui(method: 'share', href: @url, app_id: @app_id, (response)=>
-      @callback.after_sharing(response)
-      # if response && !response.error_code
-      #  @_after_callback(response)
-      # else
-      #  # another callback
+    FB?.ui(
+      method: 'share',
+      href: encodeURIComponent(@url),
+      (response)=>
+        @callback.after_sharing(response)
+        # if response && !response.error_code
+        #  @_after_callback(response)
+        # else
+        #  # another callback
     )
 
   _dialog: (display = 'page')->
@@ -54,7 +57,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     @_assert_vars 'url'
     FB.ui(
       method: 'stream.share',
-      u: @url
+      u: encodeURIComponent(@url)
       (response) ->
         console?.log response
     )

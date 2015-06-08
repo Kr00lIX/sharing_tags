@@ -77,6 +77,8 @@ class @SharingTags
       social_share
 
     constructor: ({@network, @url, @title, @description})->
+#      @url = encodeURIComponent(url)
+      
       @_assert_vars 'url'
       @callback = new SharingTags.Share.Callback(@)
 
