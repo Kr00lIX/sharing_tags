@@ -25,42 +25,49 @@ module SharingTags
           twitter.instance_exec(&block) if block_given?
         end
       end
+      alias_method :tw, :twitter
 
       def facebook(&block)
         (@networks[:facebook] ||= ConfigNetworkFacebook.new(:facebook, self)).tap do |facebook|
           facebook.instance_exec(&block) if block_given?
         end
       end
+      alias_method :fb, :facebook
 
       def google(&block)
         (@networks[:google] ||= ConfigNetwork.new(:google, self)).tap do |google|
           google.instance_exec(&block) if block_given?
         end
       end
+      alias_method :gl, :google
 
       def vkontakte(&block)
         (@networks[:vkontakte] ||= ConfigNetwork.new(:vkontakte, self)).tap do |vkontakte|
           vkontakte.instance_exec(&block) if block_given?
         end
       end
+      alias_method :vk, :vkontakte
 
       def line(&block)
         (@networks[:line] ||= ConfigNetwork.new(:line, self)).tap do |line|
           line.instance_exec(&block) if block_given?
         end
       end
+      alias_method :ln, :line
 
       def odnoklassniki(&block)
         (@networks[:odnoklassniki] ||= ConfigNetwork.new(:odnoklassniki, self)).tap do |odnoklassniki|
           odnoklassniki.instance_exec(&block) if block_given?
         end
       end
+      alias_method :ok, :odnoklassniki
 
       def linkedin(&block)
         (@networks[:linkedin] ||= ConfigNetwork.new(:linkedin, self)).tap do |vkontakte|
           vkontakte.instance_exec(&block) if block_given?
         end
       end
+      alias_method :li, :linkedin
 
       def params(context_args = nil, default_config_params = ConfigStorage.new)
         @context_params = fetch_params(context_args, default_config_params)
