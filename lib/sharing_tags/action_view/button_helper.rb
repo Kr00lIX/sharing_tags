@@ -7,10 +7,12 @@ module SharingTags
         # switching context
         if options[:context].present?
           SharingTags.config.switch_context(*options[:context])  do
-            render template: "sharing_tags/buttons.html.slim", locals: {networks: networks, options: options}
+            context =  SharingTags.config.current_context
+            render template: "sharing_tags/buttons.html.slim", locals: {networks: networks, options: options, context: context}
           end
         else
-          render template: "sharing_tags/buttons.html.slim", locals: {networks: networks, options: options}
+          context =  SharingTags.config.current_context
+          render template: "sharing_tags/buttons.html.slim", locals: {networks: networks, options: options, context: context}
         end
       end
 
@@ -67,14 +69,14 @@ module SharingTags
         else
           name_or_options = default_name(network) if name_or_options.nil?
 
-          link_to name_or_options, params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
+          link_to name_or_options,  params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
         end
       end
       # rubocop:enable Metrics/CyclomaticComplexity
 
       def default_name(network)
-        image_tag "sharing_tags/icons/#{network}.svg"
-      end      
+        content_tag :span, '', class: "sharing_tags-#{network}__icon sharing_tags-buttons__icon"
+      end
     end
   end      
 end

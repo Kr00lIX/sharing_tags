@@ -1,6 +1,6 @@
-//facebook.svg
-//google.svg
-//linkedin.svg
-//odnoklassniki.svg
-//twitter.svg
-//vkontakte.svg
+$networks: facebook google line linkedin odnoklassniki twitter vkontakte
+
+@each $network in $networks
+  .sharing_tags-#{$network}__icon
+    background:
+      image: asset_data_url('sharing_tags/icons/#{$network}.svg')

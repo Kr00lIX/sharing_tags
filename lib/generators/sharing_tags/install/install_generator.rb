@@ -33,8 +33,13 @@ module SharingTags
 
       def add_styles
         source_file = "app/assets/stylesheets/application.css"
-        match_string = "sharing_tags"
 
+        match_string = "sharing_tags"
+        insert_into_file_if source_file, "#{match_string}\n", before: "*/" do
+          "*= require #{match_string}\n "
+        end
+
+        match_string = "sharing_tags/icons"
         insert_into_file_if source_file, match_string, before: "*/" do
           "*= require #{match_string}\n "
         end

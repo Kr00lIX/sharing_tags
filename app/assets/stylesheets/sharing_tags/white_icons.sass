@@ -1,0 +1,7 @@
+$networks: vkontakte facebook odnoklassniki
+
+@each $network in $networks
+  .sharing_tags-#{$network}__icon
+    background:
+      image: asset_data_url('sharing_tags/white_icons/#{$network}.svg')
+
