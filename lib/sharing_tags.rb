@@ -6,17 +6,20 @@ module SharingTags
   autoload :ConfigStorage,  'sharing_tags/config_storage'
   autoload :Network,        'sharing_tags/network'
   autoload :Image,          'sharing_tags/image'
-  autoload :Config,         'sharing_tags/config'
   autoload :ShareContext,   'sharing_tags/share_context'
-  autoload :NetworkRunningContext,  'sharing_tags/network_running_context'
+  autoload :Config,         'sharing_tags/config'
+
+  class Network
+    autoload :RunningContext,  'sharing_tags/network/running_context'
+    autoload :Facebook,        'sharing_tags/network/facebook'
+  end
 
   class Config
-    autoload :ConfigError,            'sharing_tags/config/config_error'
-    autoload :ConfigContext,          'sharing_tags/config/config_context'
-    autoload :ConfigMainContext,      'sharing_tags/config/config_main_context'
-
-    autoload :ConfigNetwork,          'sharing_tags/config/config_network'
-    autoload :ConfigNetworkFacebook,  'sharing_tags/config/config_network_facebook'
+    autoload :CError,            'sharing_tags/config/c_error'
+    autoload :CContext,          'sharing_tags/config/c_context'
+    autoload :CMainContext,      'sharing_tags/config/c_main_context'
+    autoload :CNetwork,          'sharing_tags/config/c_network'
+    autoload :CNetworkFacebook,  'sharing_tags/config/c_network_facebook'
   end
 
   autoload :AssetFile,        'sharing_tags/asset_file'

@@ -1,6 +1,6 @@
 module SharingTags
   class Config
-    class ConfigError < StandardError
+    class CError < StandardError
 
     end
   end

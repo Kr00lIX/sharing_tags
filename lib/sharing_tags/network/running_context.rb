@@ -1,5 +1,5 @@
 module SharingTags
-  class NetworkRunningContext
+  class Network::RunningContext
     def initialize(network, context)
       @network_name = network.name
       @context = context

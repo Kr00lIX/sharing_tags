@@ -1,6 +1,6 @@
 class SharingTags::Config
 
-  describe SharingTags::Config::ConfigContext do
+  describe SharingTags::Config::CContext do
     before do
       SharingTags.configure do
         twitter do
@@ -16,14 +16,14 @@ class SharingTags::Config
     let(:config) { SharingTags.config }
 
     describe "method missing" do
-      let(:context) { SharingTags::Config::ConfigContext.new(:foo, config) }
+      let(:context) { SharingTags::Config::CContext.new(:foo, config) }
 
       it "expect save network attributes to default network" do
         expect { context.title "some title" }.to change { context.default_network.attributes[:title] }
       end
 
       it "expect raise error when try define unavailable network attribute" do
-        expect { context.summary = "title" }.to raise_error(SharingTags::Config::ConfigNetwork::Error)
+        expect { context.summary = "title" }.to raise_error(SharingTags::Config::CError)
       end
     end
 
@@ -66,7 +66,7 @@ class SharingTags::Config
         let(:network) { context[:facebook] }
 
         it "expect instance of SharingTags::Config::ConfigNetworkFacebook " do
-          expect(network).to be_instance_of(ConfigNetworkFacebook)
+          expect(network).to be_instance_of(CNetworkFacebook)
         end
       end
 
@@ -74,7 +74,7 @@ class SharingTags::Config
         let(:network) { context[:vkontakte] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(ConfigNetwork)
+          expect(network).to be_instance_of(CNetwork)
         end
       end
 
@@ -82,7 +82,7 @@ class SharingTags::Config
         let(:network) { context[:twitter] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(ConfigNetwork)
+          expect(network).to be_instance_of(CNetwork)
         end
       end
 
@@ -90,7 +90,7 @@ class SharingTags::Config
         let(:network) { context[:google] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(ConfigNetwork)
+          expect(network).to be_instance_of(CNetwork)
         end
       end
 
@@ -98,7 +98,7 @@ class SharingTags::Config
         let(:network) { context[:line] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(ConfigNetwork)
+          expect(network).to be_instance_of(CNetwork)
         end
       end
 
@@ -106,7 +106,7 @@ class SharingTags::Config
         let(:network) { context[:odnoklassniki] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(ConfigNetwork)
+          expect(network).to be_instance_of(CNetwork)
         end
       end
 
@@ -114,7 +114,7 @@ class SharingTags::Config
         let(:network) { context[:linkedin] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(ConfigNetwork)
+          expect(network).to be_instance_of(CNetwork)
         end
       end
     end

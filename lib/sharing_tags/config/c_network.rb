@@ -2,11 +2,8 @@ require 'uri'
 
 module SharingTags
   class Config
-    class ConfigNetwork
+    class CNetwork
       # TODO: add default values
-
-      class Error < StandardError
-      end
 
       AVAILABLE_NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
 
@@ -16,6 +13,9 @@ module SharingTags
 
       attr_reader :name, :attributes
 
+      class Error < ::SharingTags::Config::CError
+      end
+
       def self.lists
         AVAILABLE_NETWORKS
       end
@@ -23,7 +23,7 @@ module SharingTags
       def initialize(name, context = nil)
         @name = name
         @context = context
-        @running_context = SharingTags::NetworkRunningContext.new(self, context)
+        @running_context = SharingTags::Network::RunningContext.new(self, context)
         clear!
       end
 

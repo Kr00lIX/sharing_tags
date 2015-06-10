@@ -1,16 +1,16 @@
 module SharingTags
   class Config
-    describe ConfigNetwork do
+    describe CNetwork do
       let!(:config)  { Config.new }
-      let!(:context) { ConfigContext.new(:test, config) }
-      let!(:network) { ConfigNetwork.new(:test, context) }
+      let!(:context) { CContext.new(:test, config) }
+      let!(:network) { CNetwork.new(:test, context) }
 
       after do
         network.clear!
       end
 
       it "expect get's list of available networks" do
-        expect(ConfigNetwork.lists).to include(:facebook, :twitter, :google, :vkontakte)
+        expect(CNetwork.lists).to include(:facebook, :twitter, :google, :vkontakte)
       end
 
       it "expect network name is a test" do

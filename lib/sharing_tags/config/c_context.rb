@@ -3,7 +3,7 @@ module SharingTags
     #
     # Define default values for networks
     #
-    class ConfigContext
+    class CContext
       attr_reader :name
       attr_reader :config
 
@@ -21,49 +21,49 @@ module SharingTags
       end
 
       def twitter(&block)
-        (@networks[:twitter] ||= ConfigNetwork.new(:twitter, self)).tap do |twitter|
+        (@networks[:twitter] ||= CNetwork.new(:twitter, self)).tap do |twitter|
           twitter.instance_exec(&block) if block_given?
         end
       end
       alias_method :tw, :twitter
 
       def facebook(&block)
-        (@networks[:facebook] ||= ConfigNetworkFacebook.new(:facebook, self)).tap do |facebook|
+        (@networks[:facebook] ||= CNetworkFacebook.new(:facebook, self)).tap do |facebook|
           facebook.instance_exec(&block) if block_given?
         end
       end
       alias_method :fb, :facebook
 
       def google(&block)
-        (@networks[:google] ||= ConfigNetwork.new(:google, self)).tap do |google|
+        (@networks[:google] ||= CNetwork.new(:google, self)).tap do |google|
           google.instance_exec(&block) if block_given?
         end
       end
       alias_method :gl, :google
 
       def vkontakte(&block)
-        (@networks[:vkontakte] ||= ConfigNetwork.new(:vkontakte, self)).tap do |vkontakte|
+        (@networks[:vkontakte] ||= CNetwork.new(:vkontakte, self)).tap do |vkontakte|
           vkontakte.instance_exec(&block) if block_given?
         end
       end
       alias_method :vk, :vkontakte
 
       def line(&block)
-        (@networks[:line] ||= ConfigNetwork.new(:line, self)).tap do |line|
+        (@networks[:line] ||= CNetwork.new(:line, self)).tap do |line|
           line.instance_exec(&block) if block_given?
         end
       end
       alias_method :ln, :line
 
       def odnoklassniki(&block)
-        (@networks[:odnoklassniki] ||= ConfigNetwork.new(:odnoklassniki, self)).tap do |odnoklassniki|
+        (@networks[:odnoklassniki] ||= CNetwork.new(:odnoklassniki, self)).tap do |odnoklassniki|
           odnoklassniki.instance_exec(&block) if block_given?
         end
       end
       alias_method :ok, :odnoklassniki
 
       def linkedin(&block)
-        (@networks[:linkedin] ||= ConfigNetwork.new(:linkedin, self)).tap do |vkontakte|
+        (@networks[:linkedin] ||= CNetwork.new(:linkedin, self)).tap do |vkontakte|
           vkontakte.instance_exec(&block) if block_given?
         end
       end
@@ -74,7 +74,7 @@ module SharingTags
       end
 
       def default_network
-        @default_network ||= ConfigNetwork.new(:default, self)
+        @default_network ||= CNetwork.new(:default, self)
       end
 
       protected
@@ -103,7 +103,7 @@ module SharingTags
 
       def fetch_main_context_params(context_args = nil, default_config_params = ConfigStorage.new)
         # divide networks_default_params into to groups default network params and context params
-        context_default_params, config_network_defaults = default_config_params.divide_by_keys(ConfigNetwork.lists)
+        context_default_params, config_network_defaults = default_config_params.divide_by_keys(CNetwork.lists)
 
         context_network_defaults = default_network.attributes_for(context_args, config_network_defaults)
 
@@ -116,7 +116,7 @@ module SharingTags
 
       def method_missing(method_name, *arguments, &block)
         unless default_network.class.available_attributes.include?(method_name.to_sym)
-          fail ConfigNetwork::Error, "Error didn't find #{method_name} attribute in network"
+          fail CNetwork::Error, "Error didn't find #{method_name} attribute in network"
         end
         default_network.send(method_name, *arguments, &block)
       end

@@ -3,11 +3,11 @@ module SharingTags
 
     # Main context called on first configuration level
     #
-    class ConfigMainContext < ConfigContext
+    class CMainContext < CContext
       attr_reader :network_list
 
       def initialize(*args)
-        @network_list = ConfigNetwork::AVAILABLE_NETWORKS
+        @network_list = CNetwork::AVAILABLE_NETWORKS
         super
         init_networks(@network_list)
       end
@@ -17,8 +17,8 @@ module SharingTags
         @network_list = networks
 
         networks.each do |network|
-          unless ConfigNetwork::AVAILABLE_NETWORKS.include?(network)
-            raise Config::ConfigError.new("Error sharing_tags network configuration. Network #{network} is unavailable. Please chose one of existing networks: #{ConfigNetwork::AVAILABLE_NETWORKS.inspect} ")
+          unless CNetwork::AVAILABLE_NETWORKS.include?(network)
+            raise Config::CError.new("Error sharing_tags network configuration. Network #{network} is unavailable. Please chose one of existing networks: #{CNetwork::AVAILABLE_NETWORKS.inspect} ")
           end
         end
         init_networks(network_list)

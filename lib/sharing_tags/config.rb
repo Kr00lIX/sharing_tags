@@ -9,7 +9,7 @@ module SharingTags
 
     def context(name, &block)
       fail "please define context block params" unless block_given?
-      (@contexts[name] ||= ConfigContext.new(name, self, main_context)).instance_exec(&block)
+      (@contexts[name] ||= CContext.new(name, self, main_context)).instance_exec(&block)
     end
 
     def switch_context(name = nil, *args, &block)
@@ -32,7 +32,7 @@ module SharingTags
 
     def clear!
       @contexts = {}
-      @main_context = ConfigMainContext.new(:default, self)
+      @main_context = CMainContext.new(:default, self)
       @current_context = nil
       @running_context = nil
       clean_params!

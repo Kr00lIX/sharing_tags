@@ -1,7 +1,7 @@
 module SharingTags
   class Config
 
-    describe ConfigMainContext do
+    describe CMainContext do
       before do
         SharingTags.configure do
           networks :twitter, :facebook
@@ -11,14 +11,14 @@ module SharingTags
       let(:config) { SharingTags.config.main_context }
 
       it "expect instance of main context" do
-        expect(config).to be_instance_of(ConfigMainContext)
+        expect(config).to be_instance_of(CMainContext)
       end
 
       describe "#networks" do
         it "expect define all networks by default" do
           SharingTags.configure do
           end
-          expect(config.network_list).to include(*ConfigNetwork::AVAILABLE_NETWORKS)
+          expect(config.network_list).to include(*CNetwork::AVAILABLE_NETWORKS)
         end
 
         it "expect receive defined networks" do
@@ -29,7 +29,7 @@ module SharingTags
         end
 
         it "expect error if defined unavailable network" do
-          expect { SharingTags.configure { networks :wrong_network_name } }.to raise_error(SharingTags::Config::ConfigError)
+          expect { SharingTags.configure { networks :wrong_network_name } }.to raise_error(SharingTags::Config::CError)
         end
       end
 
