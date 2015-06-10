@@ -76,10 +76,13 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
 #    )
 
   detect_provider: ->
-    if @_user_agent().match('CriOS')
-      "sharer"
-    else if @app_id
-      if @return_url then "dialog"
-      else "fb_ui"
-    else
-      "sharer"
+    provider =
+      if @_user_agent().match('CriOS')
+        "sharer"
+      else if @app_id
+        if @return_url then "dialog"
+        else "fb_ui"
+      else
+        "sharer"
+    @constructor._debug("Facebook#detect_provider", provider)
+    provider

@@ -2,6 +2,8 @@
 
 class @SharingTags
 
+  @debug: false
+
   @share: (network, attributes)->
     SharingTags.Share[network]?(attributes)
 
@@ -20,6 +22,7 @@ class @SharingTags
       )
 
     @facebook: ({url, app_id, return_url, provider}) ->
+      @_debug("Facebook sharing", {url, app_id, return_url, provider})
       (new SharingTags.FacebookShare(arguments[0])).share()
 
     @twitter: ({url, title}) ->
@@ -76,11 +79,17 @@ class @SharingTags
       social_share.open_popup(popup_url, popup_params)
       social_share
 
+    @_debug: (args...)->
+      console?.debug(args...) if SharingTags.debug
+
     constructor: ({@network, @url, @title, @description})->
 #      @url = encodeURIComponent(url)
       
       @_assert_vars 'url'
       @callback = new SharingTags.Share.Callback(@)
+
+      @constructor._debug("Init sharing #{@network}", {@url, @title, @description})
+
 
     open_popup: (api_url, params)->
       share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
@@ -109,3 +118,4 @@ class @SharingTags
 
     _user_agent: ->
       window.navigator?.userAgent
+
