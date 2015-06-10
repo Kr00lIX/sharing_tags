@@ -180,7 +180,7 @@ describe "SharingTags.FacebookShare", ->
         @share._fb_ui()
         expect(FB.ui).toHaveBeenCalled()
         expect(FB.ui).toHaveBeenCalledWith(
-          jasmine.objectContaining(href: encodeURIComponent(@fb.url), method: 'share'),
+          jasmine.objectContaining(href: @fb.url, method: 'share'),
           jasmine.any(Function)
         )
 
@@ -210,7 +210,7 @@ describe "SharingTags.FacebookShare", ->
       @share._stream_share()
       expect(FB.ui).toHaveBeenCalled()
       expect(FB.ui).toHaveBeenCalledWith(
-        jasmine.objectContaining(u: encodeURIComponent(@fb.url), method: 'stream.share'),
+        jasmine.objectContaining(u: @fb.url, method: 'stream.share'),
         jasmine.any(Function)
       )
 

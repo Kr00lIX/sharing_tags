@@ -38,7 +38,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
 
     FB?.ui(
       method: 'share',
-      href: encodeURIComponent(@url),
+      href: @url,
       (response)=>
         @callback.after_sharing(response)
         # if response && !response.error_code
@@ -57,7 +57,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     @_assert_vars 'url'
     FB.ui(
       method: 'stream.share',
-      u: encodeURIComponent(@url)
+      u: @url
       (response) ->
         console?.log response
     )
