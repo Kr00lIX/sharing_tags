@@ -18,7 +18,7 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
     it "generate default text share link" do
       is_expected.to have_tag "a", with: {href: "http://a.b", role: "sharing_tags_share"}
       is_expected.to have_tag "a", with: {"data-share-url" => "http://c.d"}
-      is_expected.to have_tag "img", with: {src: "/assets/sharing_tags/icons/facebook.svg"}
+      is_expected.to have_tag "span", with: {class: "sharing_tags-facebook__icon sharing_tags-buttons__icon"}
 
       is_expected.to have_tag("a", without: {
                                      "data-share-url" => "http://c.d",
@@ -97,7 +97,7 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
                                      "data-description" => "od desc",
                                      "data-network" => "odnoklassniki"
                                  })
-      is_expected.to have_tag "img", with: {src: "/assets/sharing_tags/icons/odnoklassniki.svg"}
+      is_expected.to have_tag "span", with: {class: "sharing_tags-odnoklassniki__icon sharing_tags-buttons__icon"}
       is_expected.to have_tag("a", without: {
                                      "data-image" => "http://img.png"
                                  })
@@ -147,8 +147,8 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
                                      "data-description" => "tw desc",
                                      "data-network" => "twitter"
                                  })
-      is_expected.to have_tag("a", without: {"data-image" => "http://img.png"})
-      expect(helper.link_to_twitter_share).to have_tag "img", with: {src: "/assets/sharing_tags/icons/twitter.svg"}
+      is_expected.to have_tag "a", without: {"data-image" => "http://img.png"}
+      is_expected.to have_tag "span", with: {class: "sharing_tags-twitter__icon sharing_tags-buttons__icon"}
     end
 
     it "generate default text sharing link for block" do
@@ -183,7 +183,8 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
                                         "data-title" => "gg title",
                                         "data-description" => "gg desc"
                                    })
-      is_expected.to have_tag "img", with: {src: "/assets/sharing_tags/icons/google.svg"}
+      is_expected.to have_tag "span", with: {class: "sharing_tags-google__icon sharing_tags-buttons__icon"}
+      is_expected.to have_tag "span", with: {class: "sharing_tags-google__icon sharing_tags-buttons__icon"}
     end
 
     it "generate default text sharing link for block" do
@@ -198,11 +199,20 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
         description "Desc"
         page_url "http://link.share"
         image "http://img.png"
+        context :custom do
+
+        end
       end
     end
 
     it "generate links with default networks" do
       expect(helper.sharing_tags_buttons).to have_tag "a"
+      expect(helper.sharing_tags_buttons).to have_tag "ul", with: {class: "sharing_tags-buttons sharing_tags-buttons__default"}
+      # have all network links
+    end
+
+    it "generate links with default networks and custom context" do
+      expect(helper.sharing_tags_buttons context: :custom).to have_tag "ul", with: {class: "sharing_tags-buttons sharing_tags-buttons__custom"}
       # have all network links
     end
 
