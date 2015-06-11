@@ -1,27 +1,27 @@
-@mixin create_keyframes_animation($name, $left_percent, $center_percent, $right_precent)
+@mixin create_keyframes_animation($name, $left_percent, $center_percent, $right_precent, $scale)
   +keyframes($name)
     0%
       transform: scale(1)
     #{$left_percent}%
       transform: scale(1)
     #{$center_percent}%
-      transform: scale(1.4)
+      transform: scale($scale)
     #{$right_precent}%
       transform: scale(1)
     100%
       transform: scale(1)
 
 @mixin keyframes($name)
-  @keyframes #{$name}
+  @keyframes "#{$name}"
     @content
 
-@mixin add_animation_on_sharing_button($index, $speed)
-  .sharing_tags-buttons__item
+@mixin add_animation_on_sharing_button($animation_name, $index, $speed)
+  & .sharing_tags-buttons__item
     &:nth-child(#{$index})
       a
-        animation: animate_sharing_buttons_#{$index} #{$speed}s infinite
+        animation: $animation_name #{$speed}s infinite
 
-@mixin create_wave_animation_on_sharing_buttons($count_of_buttons, $speed:2)
+@mixin create_wave_animation_on_sharing_buttons($count_of_buttons, $speed:2, $scale: 1.4)
   $step: 100 / $count_of_buttons
   $half_step: $step / 2
   @for $i from 1 through $count_of_buttons
@@ -29,5 +29,6 @@
     $center: $right - $half_step
     $left: $center - $half_step
 
-    +create_keyframes_animation('animate_sharing_buttons_#{$i}', $left, $center, $right)
-    +add_animation_on_sharing_button($i, $speed)
+    $animation_name: '#{&}-animate__button#{$i}'
+    +create_keyframes_animation($animation_name, $left, $center, $right, $scale)
+    +add_animation_on_sharing_button($animation_name, $i, $speed)
