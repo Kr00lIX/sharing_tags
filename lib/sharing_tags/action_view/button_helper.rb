@@ -53,6 +53,8 @@ module SharingTags
         data_attrs = params.get(*(data_params + [:network, :share_url]))
         data_attrs[:context] = SharingTags.config.current_context.name
 
+        classes = "sharing_tags-#{network}__icon sharing_tags-buttons__icon"
+
         if block_given?
           name_or_options = {} if !name_or_options || name_or_options.is_a?(String)
           data_attrs.merge!(name_or_options.delete(:data)) if name_or_options[:data]
@@ -63,20 +65,19 @@ module SharingTags
             name_or_options[:role] = "sharing_tags_share"
           end
 
+          name_or_options[:class] ||= ""
+          name_or_options[:class] << classes
+
           name_or_options.merge!(data: data_attrs, target: "_blank")
 
           link_to params.page_url, name_or_options, &block
         else
-          name_or_options = default_name(network) if name_or_options.nil?
 
-          link_to name_or_options,  params.page_url, data: data_attrs, role: "sharing_tags_share", target: "_blank", &block
+          link_to "",  params.page_url, data: data_attrs, role: "sharing_tags_share", class: classes, target: "_blank", &block
         end
       end
       # rubocop:enable Metrics/CyclomaticComplexity
 
-      def default_name(network)
-        content_tag :span, '', class: "sharing_tags-#{network}__icon sharing_tags-buttons__icon"
-      end
     end
   end      
 end
