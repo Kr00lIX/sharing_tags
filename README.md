@@ -120,6 +120,38 @@ jQuery("body").on "sharing_tags.shared", ({network, context, target})->
 +create_wave_animation_on_sharing_buttons(4)
 '''
 
+
+## Recommendations
+Facebook sharing images 1200x630 and add mimetype and size
+    Best way for sharing sharer provider, but after sharing you stay on the post page
+    + big images
+    - after sharing stay on the post page in FB browser
+    - can check sharing result in response
+
+    fb_ui sharing everywhere
+    + correct natively share in FB browser
+    + return to page where called sharing
+    + can check sharing result in responce
+    - small images in the posts
+    - have to create facebook application for app_id
+    - doesn't work for iOS Chrome browser
+
+    dialog
+    + can redirect to another page after sharing
+    + can check sharing result in responce
+    - small images in the posts
+
+    fb_ui_feed
+    + can change sharing info without changing meta tags
+    + big images
+    + can check sharing result in responce
+    - doesn't work in iOS FB browser
+    - long time for load external big image
+
+
+Vkontakte sharing images 537x240
+
+
 ## Tools for testing
 
 Facebook Debugger (https://developers.facebook.com/tools/debug)
@@ -134,9 +166,6 @@ Google Structured Data Testing Tool (http://www.google.com/webmasters/tools/rich
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-## References
-Icons made by [Jorge Calvo García](https://www.behance.net/gallery/FREE-Flat-Social-Icons-EPS/8786901)
 
 
 ## Copyright

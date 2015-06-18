@@ -62,18 +62,18 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
         console?.log response
     )
 
-#  # @note: iphone facebook browser - doesn't show page after sharing
-#  _fb_ui_feed = ->
-#    FB.ui(
-#      method: 'feed',
-#      name: "Name"
-#      description: "Description"
-#      link: @url,
-#      caption: "Sample caption",
-#      actions: {name: 'sample name', link: 'sharing link'},
-#      (response)=>
-#        @_after_callback(response)
-#    )
+  # @note: iphone facebook browser - doesn't show page after sharing
+  _fb_ui_feed = ->
+    FB.ui(
+      method: 'feed',
+      name: "Name"
+      description: "Description"
+      link: @url,
+      caption: "Sample caption",
+      actions: {name: 'sample name', link: 'sharing link'},
+      (response)=>
+        @_after_callback(response)
+    )
 
   detect_provider: ->
     provider =

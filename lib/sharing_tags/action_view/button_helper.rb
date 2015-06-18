@@ -77,7 +77,6 @@ module SharingTags
         end
       end
       # rubocop:enable Metrics/CyclomaticComplexity
-
     end
   end      
 end
