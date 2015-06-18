@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <title>Facebook</title>
-    <desc>Facebook social icon</desc>
-    <defs></defs>
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g sketch:type="MSLayerGroup">
-            <path d="M17.605,34.085 C26.999,34.085 34.614,26.471 34.614,17.077 C34.614,7.685 26.999,0.07 17.605,0.07 C8.212,0.07 0.598,7.685 0.598,17.077 C0.598,26.471 8.212,34.085 17.605,34.085" id="Fill-172" fill="#5071AA" sketch:type="MSShapeGroup"></path>
-            <path d="M13.502,14.198 L15.261,14.198 L15.261,12.489 C15.261,11.735 15.28,10.573 15.827,9.853 C16.404,9.091 17.195,8.573 18.557,8.573 C20.775,8.573 21.709,8.889 21.709,8.889 L21.27,11.494 C21.27,11.494 20.537,11.283 19.853,11.283 C19.169,11.283 18.557,11.528 18.557,12.211 L18.557,14.198 L21.361,14.198 L21.165,16.742 L18.557,16.742 L18.557,25.581 L15.261,25.581 L15.261,16.742 L13.502,16.742 L13.502,14.198" id="Fill-173" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 77" version="1.1" width="100%" height="100%">
+   <g name="Layer 1" opacity="1">
+        <desc shapeID="2" type="0" basicInfo-basicType="0" basicInfo-roundedRectRadius="12" basicInfo-polygonSides="6" basicInfo-starPoints="5" bounding="rect(-37.2232,-37.0244,74.4463,74.0487)" text="" font-familyName="" font-pixelSize="20" font-bold="0" font-underline="0" font-alignment="1" strokeStyle="0" markerStart="0" markerEnd="0" shadowEnabled="0" shadowOffsetX="0" shadowOffsetY="2" shadowBlur="4" shadowOpacity="160" blurEnabled="0" blurRadius="4" transform="matrix(1,0,0,1,38.6712,38.5094)" pers-center="0,0" pers-size="0,0" pers-start="0,0" pers-end="0,0" locked="0" mesh="" flag=""/>
+        <path class="fb-sharing-tags-icon-fill sharing-tags-icon-fill" d="M38.6704 1.48506C59.2277 1.48506 75.8943 18.0614 75.8943 38.5094 75.8943 58.959 59.2277 75.5338 38.6704 75.5338 18.113 75.5338 1.44801 58.959 1.44801 38.5094 1.44801 18.0614 18.113 1.48506 38.6704 1.48506Z" style=""/>
+
+        <desc shapeID="1" type="0" basicInfo-basicType="0" basicInfo-roundedRectRadius="12" basicInfo-polygonSides="6" basicInfo-starPoints="5" bounding="rect(-9.85016,-21.2135,19.7003,42.4269)" text="" font-familyName="" font-pixelSize="20" font-bold="0" font-underline="0" font-alignment="1" strokeStyle="0" markerStart="0" markerEnd="0" shadowEnabled="0" shadowOffsetX="0" shadowOffsetY="2" shadowBlur="4" shadowOpacity="160" blurEnabled="0" blurRadius="4" transform="matrix(1,0,0,1,38.6712,38.5093)" pers-center="0,0" pers-size="0,0" pers-start="0,0" pers-end="0,0" locked="0" mesh="" flag=""/>
+        <path class="fb-sharing-tags-icon-in sharing-tags-icon-in" d="M33.1581 38.5352C33.2668 38.6709 33.2052 39.6154 33.2052 39.793L33.2117 59.7227 41.8988 59.7227C41.9491 54.4771 41.9004 49.0926 41.9004 43.8228 41.9004 43.7469 41.8826 38.7161 41.9069 38.6111 41.9232 38.5433 41.9248 38.5514 41.9426 38.5223 41.954 38.5239 47.4695 38.5675 47.661 38.5207L47.7584 38.4933 48.5213 31.2198 41.928 31.2182C41.9021 30.1445 41.9329 29.0402 41.9345 27.9617 41.9345 26.9785 41.9102 25.7643 42.4994 25.2235L48.4872 24.6245 48.4775 17.3284C47.3445 17.259 46.0005 17.322 44.8449 17.322 43.6405 17.322 42.4231 17.2961 41.2398 17.3752 38.9852 17.5238 37.1641 18.1922 35.8477 19.3078 33.9388 22.3512 33.2003 19.7373 33.1857 31.2214L28.821 31.2231 28.8291 38.5304 33.1581 38.5352Z" style=""/>
+   </g>
 </svg>

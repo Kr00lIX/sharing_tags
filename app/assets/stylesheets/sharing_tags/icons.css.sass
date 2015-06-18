@@ -1,6 +1,47 @@
-$networks: facebook google line linkedin odnoklassniki twitter vkontakte
+// svg icon styles
 
-@each $network in $networks
-  .sharing_tags-#{$network}__icon
-    background:
-      image: asset_data_url('sharing_tags/icons/#{$network}.svg')
+
+// white
+.sharing-tags-icon-fill
+  fill: none
+  stroke: #fff
+
+.sharing-tags-icon-in
+  fill: #fff
+
+// colorfull
+.fb-sharing-tags-icon-in
+  fill: #5071AA
+
+.od-sharing-tags-icon-in
+  fill: #ed812b
+
+.vk-sharing-tags-icon-in
+  fill: #6b82a7
+
+
+.fb-sharing-tags-icon-in
+  fill-opacity: 1
+  fill-rule: evenodd
+
+.fb-sharing-tags-icon-fill
+  stroke-linecap: butt
+  stroke-linejoin: miter
+  stroke-miterlimit: 2
+  stroke-width: 2
+//stroke-opacity: 1
+
+.od-sharing-tags-icon-fill
+  stroke-miterlimit: 2
+  stroke-width: 2
+
+.od-sharing-tags-icon-in
+  fill-rule: evenodd
+
+.vk-sharing-tags-icon-fill
+  stroke-miterlimit: 2
+  stroke-width: 2
+
+.vk-sharing-tags-icon-in
+  fill-rule: evenodd
+

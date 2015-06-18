@@ -5,6 +5,5 @@
 //= require ./sharing_tags/share/callback
 //= require ./sharing_tags/links
 //= require ./sharing_tags/init
-
-
+//= require ./sharing_tags/icons_loader
 

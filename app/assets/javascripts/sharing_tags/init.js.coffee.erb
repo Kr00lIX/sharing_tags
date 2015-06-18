@@ -1,11 +1,15 @@
 <% fb = SharingTags.config.current_context[:facebook] %>
 
 <% if fb && app_id = fb.attributes[:app_id]  %>
+try
+  @fbAsyncInit = ->
+    FB.init(
+      appId: '<%= app_id %>',
+      version: 'v2.3'
+    )
 
-@fbAsyncInit = ->
-  FB.init(
-    appId: '<%= app_id %>',
-    version: 'v2.3'
-  )
-@SharingTags.FacebookShare.init()
+  @SharingTags.FacebookShare.init()
+catch error
+  console?.error("SharingTags.FacebookShare.init error: #{error}")
+
 <% end  %>
