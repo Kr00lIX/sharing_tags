@@ -4,7 +4,8 @@ module SharingTags
 
     if Rails.env.development?
       config.to_prepare do
-        require_dependency Rails.root.join('config', 'initializers', 'sharing_tags.rb').to_s
+        init_config = Rails.root.join('config', 'initializers', 'sharing_tags.rb').to_s
+        require_dependency init_config if File.exists?(init_config)
       end
 
       config.after_initialize do
