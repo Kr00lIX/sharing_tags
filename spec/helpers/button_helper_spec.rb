@@ -18,7 +18,7 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
     it "generate default text share link" do
       is_expected.to have_tag "a", with: {href: "http://a.b", role: "sharing_tags_share"}
       is_expected.to have_tag "a", with: {"data-share-url" => "http://c.d"}
-      is_expected.to have_tag "span", with: {class: "sharing_tags-facebook__icon sharing_tags-buttons__icon"}
+      is_expected.to have_tag "a", with: {class: "sharing_tags-facebook__icon sharing_tags-buttons__icon"}
 
       is_expected.to have_tag("a", without: {
                                      "data-share-url" => "http://c.d",
@@ -97,7 +97,7 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
                                      "data-description" => "od desc",
                                      "data-network" => "odnoklassniki"
                                  })
-      is_expected.to have_tag "span", with: {class: "sharing_tags-odnoklassniki__icon sharing_tags-buttons__icon"}
+      is_expected.to have_tag "a", with: {class: "sharing_tags-odnoklassniki__icon sharing_tags-buttons__icon"}
       is_expected.to have_tag("a", without: {
                                      "data-image" => "http://img.png"
                                  })
@@ -148,7 +148,7 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
                                      "data-network" => "twitter"
                                  })
       is_expected.to have_tag "a", without: {"data-image" => "http://img.png"}
-      is_expected.to have_tag "span", with: {class: "sharing_tags-twitter__icon sharing_tags-buttons__icon"}
+      is_expected.to have_tag "a", with: {class: "sharing_tags-twitter__icon sharing_tags-buttons__icon"}
     end
 
     it "generate default text sharing link for block" do
@@ -183,8 +183,7 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
                                         "data-title" => "gg title",
                                         "data-description" => "gg desc"
                                    })
-      is_expected.to have_tag "span", with: {class: "sharing_tags-google__icon sharing_tags-buttons__icon"}
-      is_expected.to have_tag "span", with: {class: "sharing_tags-google__icon sharing_tags-buttons__icon"}
+      is_expected.to have_tag "a", with: {class: "sharing_tags-google__icon sharing_tags-buttons__icon"}
     end
 
     it "generate default text sharing link for block" do
