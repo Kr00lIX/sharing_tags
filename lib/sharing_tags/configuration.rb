@@ -4,6 +4,7 @@ module SharingTags
 
     attr_accessor :running_context
     attr_reader :default_context
+    attr_reader :asset_finder
 
     def initialize
       clear!
@@ -60,6 +61,15 @@ module SharingTags
 
     def clear_context!
       @current_context = nil
+    end
+
+    def asset_finder=(finder)
+      if finder.respond_to?(:find_asset)
+        @asset_finder = finder
+      else
+        raise "Asset Finder should implement the #find_asset method"
+      end
+      asset_finder
     end
 
     private

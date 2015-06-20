@@ -1,0 +1,15 @@
+@update_icons = (icons_json)->
+  sharing_tags = $("@sharing_tags_share")
+
+  $.each sharing_tags, (_, sharing_link)->
+    link = $(sharing_link)
+    network = link.data('network')
+    link.html icon if icon = icons_json[network]
+
+
+icons_json = {}
+<% SharingTags::Network.lists.each do |network| %>
+icons_json['<%= network %>'] = '<%= SharingTags::AssetFile.named("sharing_tags/icons/#{network}.svg") %>';
+<% end %>
+
+update_icons(icons_json)

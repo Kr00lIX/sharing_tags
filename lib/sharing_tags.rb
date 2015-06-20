@@ -8,6 +8,9 @@ module SharingTags
   autoload :Network,        'sharing_tags/network'
   autoload :Context,        'sharing_tags/context'
 
+  autoload :AssetFile,        'sharing_tags/asset_file'
+  autoload :FindsAssetPaths,  'sharing_tags/finds_asset_paths'
+
   module ActionView
     autoload :MetaHelper,   'sharing_tags/action_view/meta_helper'
     autoload :ButtonHelper, 'sharing_tags/action_view/button_helper'

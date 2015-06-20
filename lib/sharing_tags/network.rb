@@ -28,7 +28,7 @@ module SharingTags
       end
     end
 
-    NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
+    NETWORKS = %i( facebook google twitter vkontakte odnoklassniki linkedin )
 
     ATTRIBUTES = 
       %i( share_url title description  page_url share_url_params link_params

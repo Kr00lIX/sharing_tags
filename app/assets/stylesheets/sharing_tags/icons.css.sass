@@ -1,47 +1,83 @@
 // svg icon styles
 
+@mixin sharing-tags-icon-color($network, $color, $hover_color: saturate($color, 20), $hover_fill: none)
+  .sharing_tags-buttons__icon
+    .#{$network}-sharing-tags-icon-in
+      fill: $color
 
-// white
-.sharing-tags-icon-fill
-  fill: none
-  stroke: #fff
+    .#{$network}-sharing-tags-icon-fill
+      fill: none
+      stroke: $color
+
+    &:hover
+      .#{$network}-sharing-tags-icon-in
+        fill: $hover_color
+
+      .#{$network}-sharing-tags-icon-fill
+        stroke: $hover_color
+        fill: $hover_fill
 
 .sharing-tags-icon-in
-  fill: #fff
-
-// colorfull
-.fb-sharing-tags-icon-in
-  fill: #5071AA
-
-.od-sharing-tags-icon-in
-  fill: #ed812b
-
-.vk-sharing-tags-icon-in
-  fill: #6b82a7
-
-
-.fb-sharing-tags-icon-in
+  fill-rule: evenodd
   fill-opacity: 1
   fill-rule: evenodd
 
-.fb-sharing-tags-icon-fill
+.sharing-tags-icon-fill
   stroke-linecap: butt
   stroke-linejoin: miter
   stroke-miterlimit: 2
   stroke-width: 2
-//stroke-opacity: 1
+  stroke-opacity: 1
+
+// white
+//.sharing-tags-icon-fill
+//  fill: none
+//  stroke: #fff
+//
+//.sharing-tags-icon-in
+//  fill: #fff
+
+
+
+
+// Colour icons
++sharing-tags-icon-color(fb, #5071AA)
+
++sharing-tags-icon-color(od, #ED812B)
+
++sharing-tags-icon-color(vk, #6B82A7)
+
+// Twitter
++sharing-tags-icon-color(tw, #68C6E1)
+
+// Google+
++sharing-tags-icon-color(gl, #3E4140)
+
+// LinkedIn
++sharing-tags-icon-color(li, #247CB4)
+
+// Line
++sharing-tags-icon-color(ln, #00C300)
+
+
+
+
+
+.fb-sharing-tags-icon-in
+.fb-sharing-tags-icon-fill
 
 .od-sharing-tags-icon-fill
-  stroke-miterlimit: 2
-  stroke-width: 2
-
 .od-sharing-tags-icon-in
-  fill-rule: evenodd
 
 .vk-sharing-tags-icon-fill
-  stroke-miterlimit: 2
-  stroke-width: 2
-
 .vk-sharing-tags-icon-in
-  fill-rule: evenodd
+
+.tw-sharing-tags-icon-in
+.tw-sharing-tags-icon-fill
+
+
+// linkedin
+// line
+// google
+
 
