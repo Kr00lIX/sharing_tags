@@ -6,6 +6,9 @@ module SharingTags
     attr_reader :default_context
     attr_reader :asset_finder
 
+    class Error < Exception
+    end
+
     def initialize
       clear!
     end
@@ -67,7 +70,7 @@ module SharingTags
       if finder.respond_to?(:find_asset)
         @asset_finder = finder
       else
-        raise "Asset Finder should implement the #find_asset method"
+        fail Error, "Asset Finder should implement the #find_asset method"
       end
       asset_finder
     end

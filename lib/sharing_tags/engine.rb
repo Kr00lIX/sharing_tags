@@ -7,7 +7,7 @@ module SharingTags
     if Rails.env.development?
       config.to_prepare do
         init_config = Rails.root.join('config', 'initializers', 'sharing_tags.rb').to_s
-        require_dependency init_config if File.exists?(init_config)
+        require_dependency init_config if File.exist?(init_config)
       end
     end
 
@@ -16,11 +16,9 @@ module SharingTags
     config.after_initialize do |app|
       app.config.reload_classes_only_on_change = false if Rails.env.development?
 
-
       # In default Rails apps, this will be a fully operational
       # Sprockets::Environment instance
       SharingTags.config.asset_finder = app.instance_variable_get(:@assets)
     end
-
   end
 end
