@@ -13,4 +13,29 @@
 * Update facebook info for fetching urls
 * Add twitter card settings
 * Add sharing through Vk js SDK
-* Generate sass styles only for choiced icons
+* Generate icon styles only for selected networks
+* Check sharing
+
+
+
+main context
+  default network
+    ## vars
+
+  network
+    ## vars
+
+  some context
+    default network
+      ## vars
+
+    network name
+      ## vars
+
+
+## Params for `network name`
+`network name` params -> default network (some context) ->  `network name` (main_context) ->  default network (main_context)
+
+
+share_context.network.title
+

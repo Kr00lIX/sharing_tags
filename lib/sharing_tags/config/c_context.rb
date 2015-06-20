@@ -6,6 +6,7 @@ module SharingTags
     class CContext
       attr_reader :name
       attr_reader :config
+      attr_reader :share_context
 
       def initialize(name, config, main_context = nil)
         @name = name
@@ -13,6 +14,7 @@ module SharingTags
         @config = config # @note need for running context
         @main_context = main_context
 
+        @share_context = ShareContext.new(self)
         init_networks(main_context.network_list) if main_context
       end
 
@@ -21,21 +23,21 @@ module SharingTags
       end
 
       def twitter(&block)
-        (@networks[:twitter] ||= CNetwork.new(:twitter, self)).tap do |twitter|
+        (@networks[:twitter] ||= Config::CNetwork.new(:twitter, self)).tap do |twitter|
           twitter.instance_exec(&block) if block_given?
         end
       end
       alias_method :tw, :twitter
 
       def facebook(&block)
-        (@networks[:facebook] ||= CNetworkFacebook.new(:facebook, self)).tap do |facebook|
+        (@networks[:facebook] ||= Config::CNetworkFacebook.new(:facebook, self)).tap do |facebook|
           facebook.instance_exec(&block) if block_given?
         end
       end
       alias_method :fb, :facebook
 
       def google(&block)
-        (@networks[:google] ||= CNetwork.new(:google, self)).tap do |google|
+        (@networks[:google] ||= Config::CNetwork.new(:google, self)).tap do |google|
           google.instance_exec(&block) if block_given?
         end
       end
@@ -74,7 +76,7 @@ module SharingTags
       end
 
       def default_network
-        @default_network ||= CNetwork.new(:default, self)
+        @default_network ||= CDefaultNetwork.new(:default, self)
       end
 
       protected
@@ -82,6 +84,7 @@ module SharingTags
       def init_networks(network_list)
         @networks = {}
         network_list.each do |network_name|
+          @share_context.add_network network_name
           send(network_name) unless @networks.key?(network_name)
         end
       end

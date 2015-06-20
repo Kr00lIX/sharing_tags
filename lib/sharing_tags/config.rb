@@ -38,6 +38,11 @@ module SharingTags
       clean_params!
     end
 
+    # new realisation of params
+    def pp
+      current_context.share_context
+    end
+
     def params
       # @params ||= fetch_params
       @params = fetch_params

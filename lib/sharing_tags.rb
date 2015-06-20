@@ -19,6 +19,7 @@ module SharingTags
     autoload :CContext,          'sharing_tags/config/c_context'
     autoload :CMainContext,      'sharing_tags/config/c_main_context'
     autoload :CNetwork,          'sharing_tags/config/c_network'
+    autoload :CDefaultNetwork,   'sharing_tags/config/c_default_network'
     autoload :CNetworkFacebook,  'sharing_tags/config/c_network_facebook'
   end
 

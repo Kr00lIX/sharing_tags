@@ -24,6 +24,14 @@ module SharingTags
         @name = name
         @context = context
         @running_context = SharingTags::Network::RunningContext.new(self, context)
+
+        @c_context = context
+        @s_context = context.share_context
+
+        @network = SharingTags::Network.new(name, self)
+
+        @s_context[name]||= @network # add network to context
+
         clear!
       end
 
@@ -40,10 +48,12 @@ module SharingTags
       end
 
       def title(new_title = nil, &block)
+        @network.title = new_title
         attributes[:title] = store_value(new_title, &block)
       end
 
       def description(value = nil, &block)
+        @network.description = store_value(value, &block)
         attributes[:description] = store_value(value, &block)
       end
 
@@ -54,10 +64,9 @@ module SharingTags
         options = arguments.extract_options!
         new_image, size, content_type = arguments
 
-        block = proc { without_digest_asset_url(new_image) } if options[:digested] == false && block_given? == false
-
         # TODO: add another class for storing image
         attributes[:image] = store_value(new_image, &block)
+        @network.image = store_value(new_image, &block)
 
         # add size and content type for block value
         size, content_type = new_image, size if block_given?
@@ -70,15 +79,6 @@ module SharingTags
 
       # TODO: add image_size
       # TODO: add_image_type
-
-      def digested_image_url(*arguments, &block)
-        options = arguments.extract_options!
-        options.merge!(digested: false)
-
-        wrap_block = proc { |*args| without_digest_asset_url(block.call(*args)) } if block_given?
-        image_url(*arguments, options, &wrap_block)
-      end
-      alias_method :digested_image, :digested_image_url
 
       def page_url(new_url = nil, &block)
         attributes[:page_url] = store_value(new_url, &block)

@@ -39,7 +39,7 @@ RSpec.describe MainController, type: :controller  do
       expect(response).to render_template('sharing_tags/meta_tags.html.slim')
     end
 
-    xit "expect update default data for facebook"  do
+    it "expect update default data for facebook"  do
       sharing_tags.facebook.tap do |facebook|
         expect(facebook.title).to eq("Facebook title")
         expect(facebook.description).to eq("Change me at /path")
@@ -47,7 +47,7 @@ RSpec.describe MainController, type: :controller  do
       end
     end
 
-    xit "expect default data for google" do
+    it "expect default data for google" do
       sharing_tags.google.tap do |google|
         expect(google.title).to eq("Sharing title for all networks")
         expect(google.description).to eq("Google description")
@@ -55,7 +55,7 @@ RSpec.describe MainController, type: :controller  do
       end
     end
 
-    xit "expect default data for twitter" do
+    it "expect default data for twitter" do
       sharing_tags.twitter.tap do |twitter|
         expect(twitter.title).to eq("Sharing title for all networks")
         expect(twitter.description).to eq("Change me at /path")

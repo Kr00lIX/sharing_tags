@@ -5,6 +5,12 @@
 
 Available for the following social networks: Facebook, Twitter, Odnoklassniki, Google Plus, Vkontakte, Line
 
+## Library Feature
+
+* Load all icons by one request
+* Customize social icons by CSS styles
+
+
 ## Installation
 
 Add this line to your application's Gemfile:

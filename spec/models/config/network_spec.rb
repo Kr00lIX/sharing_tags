@@ -48,7 +48,15 @@ module SharingTags
           is_expected.to be == "helper/sharing/image.png/done"
         end
 
-        describe "non digested image" do
+        it "expect path for full image attributes" do
+          network.image "sharing/image.png", "100x500", "image/jpeg"
+
+          expect(network.attributes_for.image).to be == "sharing/image.png"
+          expect(network.attributes_for.image_size).to be == [100, 500]
+          expect(network.attributes_for.image_content_type).to be == "image/jpeg"
+        end
+
+        xdescribe "non digested image" do
           it "expect non digested path for full image attributes" do
             network.image "sharing/image.png", "100x500", "image/jpeg", digested: false
 
