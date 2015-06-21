@@ -1,6 +1,6 @@
 // svg icon styles
 
-@mixin sharing-tags-icon-color($network, $color, $hover_color: saturate($color, 20), $hover_fill: none)
+@mixin sharing-tags-icon-color($network, $color, $hover_in: #FFFFFF, $hover_fill: $color)
   .sharing_tags-buttons__icon
     .#{$network}-sharing-tags-icon-in
       fill: $color
@@ -11,10 +11,10 @@
 
     &:hover
       .#{$network}-sharing-tags-icon-in
-        fill: $hover_color
+        fill: $hover_in
 
       .#{$network}-sharing-tags-icon-fill
-        stroke: $hover_color
+        stroke: $hover_fill
         fill: $hover_fill
 
 .sharing-tags-icon-in
