@@ -15,13 +15,22 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
 
     super
 
+  # facebook locales support (https://www.facebook.com/translations/FacebookLocales.xml)
+  #
   @init: (locale="en_US")->
+
+    # todo: for debug mode load debug sdk
+    # js.src = "//connect.facebook.net/en_US/sdk/debug.js";
     if not FB?
-      jQuery.ajax(
-        url: "//connect.facebook.net/#{locale}/all.js"
-        dataType: "script"
-        cache: true
-      )
+      sdk_url = locale + (if @debug then "/sdk/debug.js" else "/all.js")
+
+      `(function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "http://connect.facebook.net/" + sdk_url;
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));`
 
   share: (provider = @provider)->
     @callback.before_sharing(provider)
@@ -32,6 +41,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     @_assert_vars "url"
     @open_popup("http://www.facebook.com/sharer.php", u: @url)
 
+  #   https://developers.facebook.com/docs/javascript/reference/FB.ui
   _fb_ui: =>
     @_assert_vars "url", "app_id"
     return @constructor.init().done(@_fb_ui) if not FB?
@@ -65,6 +75,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   # @note: iphone facebook browser - doesn't show page after sharing
   # @note: android browser - Ok
   # return post_id
+  # https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.3
   _fb_ui_feed: =>
     return @constructor.init().done(@_fb_ui_feed) if not FB?
     FB.ui(
