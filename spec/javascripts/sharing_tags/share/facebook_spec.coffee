@@ -188,18 +188,6 @@ describe "SharingTags.FacebookShare", ->
         delete @share.url
         expect(=> @share._fb_ui()).toThrow(SharingTags.Error(), /Error could not initialize sharing class/)
 
-    describe "loading FB.ui", ->
-      beforeEach ->
-        spyOn(@share.constructor, "init").andCallThrough()
-        spyOn(@share, "_fb_ui").andCallThrough()
-
-      it "expect load FB.ui if FB undefined", ->
-        expect(typeof FB).toBe('undefined')
-
-        @share._fb_ui()
-        expect(@share.constructor.init).toHaveBeenCalled()
-        expect(@share._fb_ui).toHaveBeenCalled()
-
   describe "#_stream_share", ->
     beforeEach ->
       @fb = @fb_fixture.fb_ui
@@ -255,7 +243,7 @@ describe "SharingTags.FacebookShare", ->
     it "expect to receive fb_ui provider for sharing with app_id params", ->
       @share = new subject(@fb_fixture.fb_ui)
       expect(@share.app_id).toBeDefined()
-      expect(@share.detect_provider()).toBe "fb_ui"
+      expect(@share.detect_provider()).toBe "fb_ui_feed"
 
     it "expect to receive dialog provider for sharing with app_id and return url params", ->
       @share = new subject(@fb_fixture.returned)

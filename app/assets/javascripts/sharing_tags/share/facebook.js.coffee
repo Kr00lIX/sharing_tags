@@ -44,8 +44,6 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   #   https://developers.facebook.com/docs/javascript/reference/FB.ui
   _fb_ui: =>
     @_assert_vars "url", "app_id"
-    return @constructor.init().done(@_fb_ui) if not FB?
-
     FB?.ui(
       method: 'share',
       href: @url,
@@ -77,7 +75,6 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   # return post_id
   # https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.3
   _fb_ui_feed: =>
-    return @constructor.init().done(@_fb_ui_feed) if not FB?
     FB.ui(
       method:     'feed'
       link:        @url
