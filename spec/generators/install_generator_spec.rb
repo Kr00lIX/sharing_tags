@@ -101,8 +101,8 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
         run_generator
       end
 
-      it "expect added render_sharing_tags " do
-        generator_command =  '= render_sharing_tags'
+      it "expect added sharing_meta_tags " do
+        generator_command =  '= sharing_meta_tags'
         is_expected.to contain(generator_command)
       end
 
@@ -130,7 +130,7 @@ describe SharingTags::Generators::InstallGenerator, type: :generator do
       let(:file_path) { "app/views/layouts/application.html.erb" }
 
       it "expect added render_sharing_tags " do
-        generator_command =  '<%= render_sharing_tags %>'
+        generator_command =  '<%= sharing_meta_tags %>'
         is_expected.to contain(generator_command)
       end
 

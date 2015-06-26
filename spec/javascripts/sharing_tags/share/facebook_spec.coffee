@@ -214,6 +214,24 @@ describe "SharingTags.FacebookShare", ->
         jasmine.any(Function)
       )
 
+  describe "#_fb_ui_feed", ->
+    beforeEach ->
+      @fb = @fb_fixture.fb_ui_feed
+      @share = new subject(@fb)
+      window.FB = jasmine.createSpyObj "FB", ['ui', 'init']
+
+    it "expect call FB.ui method with params", ->
+      @share._fb_ui_feed()
+      expect(FB.ui).toHaveBeenCalled()
+      expect(FB.ui).toHaveBeenCalledWith(
+        jasmine.objectContaining(
+          link: @fb.url, method: 'feed', title: @fb.title,
+          description: @fb.description, caption: @fb.caption,
+          picture: @fb.image
+        ),
+        jasmine.any(Function)
+      )
+
   describe "#detect_provider", ->
 
     it "expect call detect provider for auto provider", ->

@@ -37,6 +37,15 @@
   "sharer": {
     "url":         "http://fb_ui.url",
     "provider":    "sharer"
-  }
+  },
 
+  "fb_ui_feed": {
+    "url":         "http://ui.feed/share.url",
+    "provider":    "fb_ui_feed",
+    "caption":     "Caption",
+    "title":       "Title full",
+    "description": "Description",
+    "image":       "http://image.url",
+    "app_id":      "123"
+  }
 }

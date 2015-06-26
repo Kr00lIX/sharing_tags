@@ -165,6 +165,7 @@ describe SharingTags::Configuration do
         facebook do
           app_id "APP ID"
           provider "sharer"
+          caption "Caption"
         end
       end
     end
@@ -172,6 +173,7 @@ describe SharingTags::Configuration do
     it "expect get app id" do
       expect(subject.facebook.app_id).to be == "APP ID"
       expect(subject.facebook.provider).to be == "sharer"
+      expect(subject.facebook.caption).to be == "Caption"
     end
 
   end

@@ -82,9 +82,7 @@ class @SharingTags
     @_debug: (args...)->
       console?.debug(args...) if SharingTags.debug
 
-    constructor: ({@network, @url, @title, @description})->
-#      @url = encodeURIComponent(url)
-      
+    constructor: ({@network, @url, @title, @description, @image})->
       @_assert_vars 'url'
       @callback = new SharingTags.Share.Callback(@)
 

@@ -48,7 +48,7 @@ module SharingTags
       def add_layout
         ## slim
         source_file = "app/views/layouts/application.html.slim"
-        render_meta_tags = "render_sharing_tags"
+        render_meta_tags = "sharing_meta_tags"
         buttons_tags = "sharing_tags_buttons"
 
         insert_into_file_if(source_file, render_meta_tags, before: "body") do

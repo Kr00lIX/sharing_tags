@@ -29,7 +29,7 @@ This gem is a Rails 4+ compatible engine and now automatically includes all the 
 For the simplest way of using this gem, add this helper method to head in your views:
 ```haml
     # generate meta tags for different social networks
-    = render_sharing_tags
+    = sharing_meta_tags
 
     # render sharing buttons for networks
     = sharing_tags_buttons :facebook, :twitter, context: :user

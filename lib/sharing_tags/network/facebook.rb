@@ -12,6 +12,10 @@ module SharingTags
       def app_id(app_id = nil, &block)
         attributes[:app_id] = store_value(app_id, &block)
       end
+
+      def caption(message = nil, &block)
+        attributes[:caption] = store_value(message, &block)
+      end
     end
   end
 end

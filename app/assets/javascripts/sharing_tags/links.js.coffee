@@ -4,7 +4,7 @@ $(document).on 'click', "@sharing_tags_share", (event) ->
     self = $(@)
     network = self.data('network')
     context = self.data('context')
-    jQuery?("body").trigger(type: "sharing_tags.click_action", network: network, context: context, target: self)
+    jQuery?(window).trigger(type: "sharing_tags.click_action", network: network, context: context, target: self)
 
     SharingTags.share(
       network,
@@ -15,6 +15,7 @@ $(document).on 'click', "@sharing_tags_share", (event) ->
       image:       self.data 'image'
       app_id:      self.data 'app-id'
       provider:    self.data 'provider'
+      caption:     self.data 'caption'
 
       message:     self.data 'description' # @note deprecated
     )

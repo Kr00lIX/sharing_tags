@@ -7,7 +7,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   return_url: null
   provider:   null
 
-  constructor: ({@app_id, @return_url, @provider})->
+  constructor: ({@app_id, @caption, @return_url, @provider})->
     @provider = @detect_provider() if !@provider || @provider == "auto"
 
     # todo: throw error for invalid provider
@@ -63,16 +63,22 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     )
 
   # @note: iphone facebook browser - doesn't show page after sharing
-  _fb_ui_feed = ->
+  # @note: android browser - Ok
+  # return post_id
+  _fb_ui_feed: ->
     FB.ui(
-      method: 'feed',
-      name: "Name"
-      description: "Description"
-      link: @url,
-      caption: "Sample caption",
-      actions: {name: 'sample name', link: 'sharing link'},
+      method:     'feed'
+      link:        @url
+      name:        @caption # The name of the link attachment.
+      title:       @title
+      caption:     @caption
+      description: @description
+      picture:     @image
+#      actions: {name: 'Jetradar Tokyo', link: 'http://www.jetradar.co.th/promo/tokyo'},
+#      redirect_uri
+
       (response)=>
-        @_after_callback(response)
+        @callback.after_sharing(response)
     )
 
   detect_provider: ->
