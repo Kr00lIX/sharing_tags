@@ -57,15 +57,16 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     @_assert_vars 'url'
     FB.ui(
       method: 'stream.share',
-      u: @url
+      u:       @url
       (response) ->
-        console?.log response
+        @callback.after_sharing(response)
     )
 
   # @note: iphone facebook browser - doesn't show page after sharing
   # @note: android browser - Ok
   # return post_id
-  _fb_ui_feed: ->
+  _fb_ui_feed: =>
+    return @constructor.init().done(@_fb_ui_feed) if not FB?
     FB.ui(
       method:     'feed'
       link:        @url
@@ -76,7 +77,6 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
       picture:     @image
 #      actions: {name: 'Jetradar Tokyo', link: 'http://www.jetradar.co.th/promo/tokyo'},
 #      redirect_uri
-
       (response)=>
         @callback.after_sharing(response)
     )
@@ -87,7 +87,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
         "sharer"
       else if @app_id
         if @return_url then "dialog"
-        else "fb_ui"
+        else "fb_ui_feed"
       else
         "sharer"
     @constructor._debug("Facebook#detect_provider", provider)
