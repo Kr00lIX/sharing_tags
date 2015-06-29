@@ -79,8 +79,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
       method:     'feed'
       link:        @url
       name:        @caption # The name of the link attachment.
-      title:       @title
-      caption:     @caption
+      caption:     @title
       description: @description
       picture:     @image
 #      actions: {name: 'Jetradar Tokyo', link: 'http://www.jetradar.co.th/promo/tokyo'},

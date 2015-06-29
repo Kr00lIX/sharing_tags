@@ -89,9 +89,17 @@ class @SharingTags
       @constructor._debug("Init sharing #{@network}", {@url, @title, @description})
 
 
-    open_popup: (api_url, params)->
+    open_popup: (api_url, params, popup_attrs = 'width=550,height=420,toolbar=no')->
       share_url = if params then "#{api_url}?#{$.param(params)}" else api_url
-      share_window = window.open share_url, 'Sharing', 'width=740,height=440'
+
+#      popup_attrs =
+#        case @network
+#          when "twitter" then "width=550,height=420,toolbar=no"
+#          when "google"   then "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600"
+#          when "facebook" then "width=550,height=420,toolbar=no"
+#          when "vkontakte" then "width=550,height=420,toolbar=no"
+
+      share_window = window.open share_url, 'Sharing', popup_attrs
       @callback.before_open_popup(share_url, share_window)
 
       clearInterval(@interval)

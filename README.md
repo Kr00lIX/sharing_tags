@@ -151,6 +151,7 @@ Facebook sharing images 1200x630 and add mimetype and size
 
 Vkontakte sharing images 537x240
 
+Twitter Summary card images must be at least 120x120px 
 
 ## Tools for testing
 

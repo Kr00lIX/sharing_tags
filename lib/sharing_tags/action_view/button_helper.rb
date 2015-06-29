@@ -76,7 +76,7 @@ module SharingTags
           link_to "",  params.page_url, data: data_attrs, role: "sharing_tags_share", class: classes, target: "_blank", &block
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
     end
   end      
 end
