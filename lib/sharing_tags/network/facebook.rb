@@ -2,7 +2,7 @@ module SharingTags
   class Network
     class Facebook < Network
       def self.available_attributes
-        super + %i( app_id provider )
+        super + %i( app_id caption provider return_url)
       end
 
       def provider(provider = 'auto', &block)
@@ -11,6 +11,10 @@ module SharingTags
 
       def app_id(app_id = nil, &block)
         attributes[:app_id] = store_value(app_id, &block)
+      end
+
+      def return_url(url = nil, &block)
+        attributes[:return_url] = store_value(url, &block)
       end
 
       def caption(message = nil, &block)

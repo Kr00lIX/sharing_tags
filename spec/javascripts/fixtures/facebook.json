@@ -46,6 +46,7 @@
     "title":       "Title full",
     "description": "Description",
     "image":       "http://image.url",
-    "app_id":      "123"
+    "app_id":      "123",
+    "return_url":  "http://my.site/return_url"
   }
 }

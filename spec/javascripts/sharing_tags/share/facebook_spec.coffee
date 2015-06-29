@@ -215,7 +215,7 @@ describe "SharingTags.FacebookShare", ->
         jasmine.objectContaining(
           link: @fb.url, method: 'feed', caption: @fb.title,
           description: @fb.description, name: @fb.caption,
-          picture: @fb.image
+          picture: @fb.image, redirect_uri: @fb.return_url
         ),
         jasmine.any(Function)
       )

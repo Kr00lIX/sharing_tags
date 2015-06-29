@@ -70,20 +70,19 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
         @callback.after_sharing(response)
     )
 
-  # @note: iphone facebook browser - doesn't show page after sharing
+  # @note: iphone facebook browser - doesn't redirect to page after sharing
   # @note: android browser - Ok
   # return post_id
   # https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.3
   _fb_ui_feed: =>
     FB.ui(
-      method:     'feed'
-      link:        @url
-      name:        @caption # The name of the link attachment.
-      caption:     @title
-      description: @description
-      picture:     @image
-#      actions: {name: 'Jetradar Tokyo', link: 'http://www.jetradar.co.th/promo/tokyo'},
-#      redirect_uri
+      method:      'feed'
+      link:         @url
+      name:         @caption # The name of the link attachment.
+      caption:      @title
+      description:  @description
+      picture:      @image
+      redirect_uri: @return_url
       (response)=>
         @callback.after_sharing(response)
     )

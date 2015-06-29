@@ -8,7 +8,9 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
           description "fb desc"
           share_url "http://c.d"
           page_url "http://a.b"
+          return_url "http://r.url"
           image "http://img.png"
+          caption "Caption"
         end
       end
     end
@@ -17,15 +19,19 @@ RSpec.describe SharingTags::ActionView::ButtonHelper, type: :helper do
 
     it "generate default text share link" do
       is_expected.to have_tag "a", with: {href: "http://a.b", role: "sharing_tags_share"}
-      is_expected.to have_tag "a", with: {"data-share-url" => "http://c.d"}
+      is_expected.to have_tag "a", with: {
+                                     "data-share-url"   =>  "http://c.d",
+                                     "data-title"       =>  "fb title",
+                                     "data-description" =>  "fb desc",
+                                     "data-image"       =>  "http://img.png",
+                                     "data-network"     =>  "facebook",
+                                     "data-caption"     =>  "Caption",
+                                     "data-return-url"  =>  "http://r.url"
+                                 }
       is_expected.to have_tag "a", with: {class: "sharing_tags-facebook__icon sharing_tags-buttons__icon"}
 
       is_expected.to have_tag("a", without: {
-                                     "data-share-url" => "http://c.d",
-                                     "data-title" => "fb title",
-                                     "data-description" => "fb desc",
-                                     "data-image" => "http://img.png",
-                                     "data-network" => "facebook"
+                                     "data-share-url"   =>  "http://c.d"
                                  })
     end
 

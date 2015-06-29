@@ -166,15 +166,14 @@ describe SharingTags::Configuration do
           app_id "APP ID"
           provider "sharer"
           caption "Caption"
+          return_url "http://return.com"
         end
       end
     end
 
-    it "expect get app id" do
-      expect(subject.facebook.app_id).to be == "APP ID"
-      expect(subject.facebook.provider).to be == "sharer"
-      expect(subject.facebook.caption).to be == "Caption"
-    end
-
+    it { expect(subject.facebook.app_id).to be == "APP ID" }
+    it { expect(subject.facebook.provider).to be == "sharer" }
+    it { expect(subject.facebook.caption).to be == "Caption" }
+    it { expect(subject.facebook.return_url).to be == "http://return.com" }
   end
 end
