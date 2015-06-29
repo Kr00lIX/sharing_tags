@@ -76,13 +76,15 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   # https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.3
   _fb_ui_feed: =>
     FB.ui(
-      method:      'feed'
-      link:         @url
-      name:         @caption # The name of the link attachment.
-      caption:      @title       if @title
-      description:  @description if @description
-      picture:      @image      if @image
-      redirect_uri: @return_url if @return_url
+      @_prepare_params(
+        method:      'feed'
+        link:         @url
+        name:         @caption   # The name of the link attachment.
+        caption:      @title
+        description:  @description
+        picture:      @image
+        redirect_uri: @return_url
+      ),
       (response)=>
         @callback.after_sharing(response)
     )

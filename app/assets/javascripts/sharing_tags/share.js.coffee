@@ -21,8 +21,8 @@ class @SharingTags
         popup_params: null
       )
 
-    @facebook: ({url, app_id, return_url, provider}) ->
-      @_debug("Facebook sharing", {url, app_id, return_url, provider})
+    @facebook: ({url, app_id, caption, title, description, image, return_url, provider}) ->
+      @_debug("Facebook sharing", arguments[0])
       (new SharingTags.FacebookShare(arguments[0])).share()
 
     @twitter: ({url, title}) ->
@@ -125,3 +125,7 @@ class @SharingTags
     _user_agent: ->
       window.navigator?.userAgent
 
+    _prepare_params: (params)->
+      result = {}
+      result[key] = value for key, value of params when value? and  value != ""
+      result

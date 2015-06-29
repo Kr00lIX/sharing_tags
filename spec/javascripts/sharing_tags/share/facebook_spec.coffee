@@ -204,7 +204,7 @@ describe "SharingTags.FacebookShare", ->
 
   describe "#_fb_ui_feed", ->
     beforeEach ->
-      @fb = @fb_fixture.fb_ui_feed
+      @fb =  jQuery.extend({}, @fb_fixture.fb_ui_feed)
       @share = new subject(@fb)
       window.FB = jasmine.createSpyObj "FB", ['ui', 'init']
 
@@ -220,22 +220,23 @@ describe "SharingTags.FacebookShare", ->
         jasmine.any(Function)
       )
 
-    it "expect call FB.ui method with params", ->
-      delete @fb.return_url
+    it "expect call FB.ui method with not empty params", ->
+      @fb.return_url = ""
+      @fb.description = ""
       @share._fb_ui_feed()
       expect(FB.ui).toHaveBeenCalled()
       expect(FB.ui).toHaveBeenCalledWith(
         jasmine.objectContaining(
           link: @fb.url, method: 'feed', caption: @fb.title,
-          description: @fb.description, name: @fb.caption,
-          picture: @fb.image
+          name: @fb.caption, picture: @fb.image
         ),
         jasmine.any(Function)
       )
       expect(FB.ui).not.toHaveBeenCalledWith(
         jasmine.objectContaining(
-          return_url: @fb.return_url
-        )
+          return_url: @fb.return_url, description: @fb.description
+        ),
+        jasmine.any(Function)
       )
 
   describe "#detect_provider", ->
@@ -274,8 +275,4 @@ describe "SharingTags.FacebookShare", ->
       @share = new subject(@fb_fixture.partial)
       expect(@share.detect_provider()).toBe "sharer"
 
-    it "expect to receive fb_ui provider for sharing with app_id params", ->
-      delete @fb_fixture.partial.provider
-      @share = new subject(@fb_fixture.partial)
-      expect(@share.detect_provider()).toBe "sharer"
 
