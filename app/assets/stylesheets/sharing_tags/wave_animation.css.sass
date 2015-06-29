@@ -29,6 +29,6 @@
     $center: $right - $half_step
     $left: $center - $half_step
 
-    $animation_name: '#{&}-animate__button#{$i}'
+    $animation_name: 'animate__button#{$i}'
     +create_keyframes_animation($animation_name, $left, $center, $right, $scale)
     +add_animation_on_sharing_button($animation_name, $i, $speed)
