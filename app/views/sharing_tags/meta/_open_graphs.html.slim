@@ -1,5 +1,5 @@
-- if meta.title
-  meta property="og:title"         content=meta.title
+- if meta.title || meta.caption
+  meta property="og:title"         content=(meta.title || meta.caption)
 
 - if meta.description
   meta property="og:description"   content=meta.description
