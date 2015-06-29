@@ -220,6 +220,24 @@ describe "SharingTags.FacebookShare", ->
         jasmine.any(Function)
       )
 
+    it "expect call FB.ui method with params", ->
+      delete @fb.return_url
+      @share._fb_ui_feed()
+      expect(FB.ui).toHaveBeenCalled()
+      expect(FB.ui).toHaveBeenCalledWith(
+        jasmine.objectContaining(
+          link: @fb.url, method: 'feed', caption: @fb.title,
+          description: @fb.description, name: @fb.caption,
+          picture: @fb.image
+        ),
+        jasmine.any(Function)
+      )
+      expect(FB.ui).not.toHaveBeenCalledWith(
+        jasmine.objectContaining(
+          return_url: @fb.return_url
+        )
+      )
+
   describe "#detect_provider", ->
 
     it "expect call detect provider for auto provider", ->

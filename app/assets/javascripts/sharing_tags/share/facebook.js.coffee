@@ -79,10 +79,10 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
       method:      'feed'
       link:         @url
       name:         @caption # The name of the link attachment.
-      caption:      @title
-      description:  @description
-      picture:      @image
-      redirect_uri: @return_url
+      caption:      @title       if @title
+      description:  @description if @description
+      picture:      @image      if @image
+      redirect_uri: @return_url if @return_url
       (response)=>
         @callback.after_sharing(response)
     )
