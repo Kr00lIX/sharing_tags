@@ -23,14 +23,18 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     # js.src = "//connect.facebook.net/en_US/sdk/debug.js";
     if not FB?
       sdk_url = locale + (if @debug then "/sdk/debug.js" else "/all.js")
-
-      `(function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "http://connect.facebook.net/" + sdk_url;
-      fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));`
+      jQuery.ajax(
+        url: "//connect.facebook.net/#{sdk_url}"
+        dataType: "script"
+        cache: true
+      )
+#      `(function(d, s, id){
+#      var js, fjs = d.getElementsByTagName(s)[0];
+#      if (d.getElementById(id)) {return;}
+#      js = d.createElement(s); js.id = id;
+#      js.src = "http://connect.facebook.net/" + sdk_url;
+#      fjs.parentNode.insertBefore(js, fjs);
+#      }(document, 'script', 'facebook-jssdk'));`
 
   share: (provider = @provider)->
     @callback.before_sharing(provider)
