@@ -25,7 +25,8 @@
   "fb_ui": {
     "url":         "http://fb_ui.url",
     "app_id":      "123",
-    "provider":    "fb_ui"
+    "provider":    "fb_ui",
+    "network":      "facebook"
   },
 
   "dialog": {

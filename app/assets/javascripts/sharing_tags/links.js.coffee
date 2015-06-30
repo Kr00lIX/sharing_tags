@@ -16,6 +16,6 @@ $(document).on 'click', "@sharing_tags_share", (event) ->
       app_id:      self.data 'app-id'
       provider:    self.data 'provider'
       caption:     self.data 'caption'
-
+      context:     context
       message:     self.data 'description' # @note deprecated
     )
