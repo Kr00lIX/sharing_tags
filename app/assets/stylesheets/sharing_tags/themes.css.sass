@@ -1,0 +1,75 @@
+%sharing_tags-squared-theme
+  .sharing_tags-buttons__item
+    border: 1px solid
+    box-sizing: border-box
+
+  .sharing_tags-facebook_buttons__item
+    background-color: #5071AA
+    border-color: darken(#5071AA, 2)
+
+  .sharing_tags-google_buttons__item
+    background-color: #dd4b39
+    border-color: darken(#dd4b39, 2)
+
+  .sharing_tags-twitter_buttons__item
+    background-color: #68C6E1
+    border-color: darken(#68C6E1, 2)
+
+  .sharing_tags-buttons__icon
+      .sharing-tags-icon-fill
+        fill: none
+        stroke: none
+
+      .sharing-tags-icon-in
+        fill: #FFFFFF
+
+  //.sharing_tags-buttons__item:hover
+    background-color: #FFFFFF
+    border: 1px solid
+    box-sizing: border-box
+    outline: none
+
+    &.sharing_tags-facebook_buttons__item
+      border-color: #5071AA
+
+    &.sharing_tags-google_buttons__item
+      border-color: #dd4b39
+
+    &.sharing_tags-twitter_buttons__item
+      border-color: #68C6E1
+
+    .sharing_tags-buttons__icon
+      .sharing-tags-icon-in
+        stroke: none
+
+      .sharing-tags-icon-fill
+        fill: none
+        stroke: none
+
+      .gl-sharing-tags-icon-in
+        fill: #dd4b39
+
+      .fb-sharing-tags-icon-in
+        fill: #5071AA
+
+      .tw-sharing-tags-icon-in
+        fill: #68C6E1
+
+  // darker on hover
+  .sharing_tags-buttons__item:hover
+    &.sharing_tags-facebook_buttons__item
+      background-color: darken(#5071AA, 7)
+
+    &.sharing_tags-google_buttons__item
+      background-color: darken(#dd4b39, 7)
+
+    &.sharing_tags-twitter_buttons__item
+      background-color: darken(#68C6E1, 7)
+
+    .sharing_tags-buttons__icon
+      .sharing-tags-icon-fill
+        fill: none
+        stroke: none
+
+      .sharing-tags-icon-in
+        fill: darken(#FFFFFF, 7)
