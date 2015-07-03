@@ -13,7 +13,7 @@ module SharingTags
 
       protected
 
-      def network_class
+      def self.network_class
         SharingTags::Network::Facebook
       end
     end

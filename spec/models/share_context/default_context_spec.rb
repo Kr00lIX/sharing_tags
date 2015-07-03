@@ -24,6 +24,26 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
         return_url "facebook return_url"
         share_url_params(p1: "fb1", p2: "fb2")
       end
+
+      google do
+        title        "Google title"
+      end
+
+      vkontakte do
+        title        "Vkontakte title"
+      end
+
+      line do
+        title        "Line title"
+      end
+
+      odnoklassniki do
+        title        "Odnoklassniki title"
+      end
+
+      linkedin do
+        title        "Linkedin title"
+      end
     end
   end
 
@@ -54,6 +74,41 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
     its(:description) { is_expected.to be ==  "facebook desc" }
     its(:return_url) { is_expected.to be ==  "facebook return_url" }
     its(:share_url_params) { is_expected.to include(p1: "fb1", p2: "fb2") }
+  end
+
+  describe "google" do
+    subject { params.google }
+
+    it { is_expected.to be_kind_of(SharingTags::Network)  }
+    its(:title) { is_expected.to be ==  "Google title" }
+  end
+
+  describe "vkontakte" do
+    subject { params.vkontakte }
+
+    it { is_expected.to be_kind_of(SharingTags::Network)  }
+    its(:title) { is_expected.to be ==  "Vkontakte title" }
+  end
+
+  describe "line" do
+    subject { params.line }
+
+    it { is_expected.to be_kind_of(SharingTags::Network)  }
+    its(:title) { is_expected.to be ==  "Line title" }
+  end
+
+  describe "odnoklassniki" do
+    subject { params.odnoklassniki }
+
+    it { is_expected.to be_kind_of(SharingTags::Network)  }
+    its(:title) { is_expected.to be ==  "Odnoklassniki title" }
+  end
+
+  describe "linkedin" do
+    subject { params.linkedin }
+
+    it { is_expected.to be_kind_of(SharingTags::Network)  }
+    its(:title) { is_expected.to be ==  "Linkedin title" }
   end
 
 end

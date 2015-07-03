@@ -30,7 +30,7 @@ module SharingTags
         @c_context = context
         @s_context = context.share_context
 
-        @network = network_class.new(name, self)
+        @network = self.class.network_class.new(name, self)
 
         @s_context[name]||= @network # add network to context
 
@@ -39,6 +39,10 @@ module SharingTags
 
       def clear!
         @attributes = {}
+      end
+
+      def self.network_class
+        SharingTags::Network
       end
 
       def self.available_attributes
@@ -51,6 +55,11 @@ module SharingTags
         define_method attribute, ->(value = nil, &block) do
           @network.assign attribute, value, &block
         end
+
+        network_class.network_attribute attribute
+        # network_class.send :define_method, attribute do
+        #   get_value(attribute)
+        # end
       end
 
       assign_to_network :title
@@ -121,9 +130,6 @@ module SharingTags
 
       protected
 
-      def network_class
-        SharingTags::Network
-      end
 
       def store_value(val, &block)
         if block_given?
