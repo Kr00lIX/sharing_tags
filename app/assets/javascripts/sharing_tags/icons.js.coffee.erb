@@ -12,4 +12,5 @@ icons_json = {}
 icons_json['<%= network %>'] = '<%= SharingTags::AssetFile.named("sharing_tags/icons/#{network}.svg") %>';
 <% end %>
 
-update_icons(icons_json)
+$ ->
+  update_icons(icons_json)
