@@ -19,24 +19,24 @@ describe SharingTags::ShareContext, :focus do
 
   let(:params) { SharingTags.config.pp }
 
-  it "expect to get current context share context" do
-    expect(params).to be_kind_of(SharingTags::ShareContext)
+  describe "default context" do
   end
 
-  it "expect to exists twitter network" do
-    expect(params.twitter).to be_kind_of(SharingTags::Network)
+  describe "main context" do
+    it "expect to receive default context twitter network title" do
+      expect(params.twitter.title).to be == "main context network title"
+    end
   end
 
-  it "expect to receive default context twitter network title" do
-    expect(params.twitter.title).to be == "main context network title"
+  describe "custom context" do
+
   end
 
-  it "expect to receive default context twitter network description" do
-    expect(params.twitter.description).to be == "main context network desc"
+  describe "switch context" do
+    it "expect to get current context share context" do
+      expect(params).to be_kind_of(SharingTags::ShareContext)
+    end
   end
 
-  it "expect to receive default context twitter network image" do
-    expect(params.twitter.image).to be == "main context image"
-  end
 
 end

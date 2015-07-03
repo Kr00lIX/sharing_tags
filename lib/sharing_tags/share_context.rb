@@ -3,7 +3,7 @@ module SharingTags
 
     ## ref to parent context
 
-    def initialize(config_context)
+    def initialize(config_context, parent_context = nil)
       @config_context = config_context
       @networks = {}
     end

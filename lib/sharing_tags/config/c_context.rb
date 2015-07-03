@@ -14,7 +14,7 @@ module SharingTags
         @config = config # @note need for running context
         @main_context = main_context
 
-        @share_context = ShareContext.new(self)
+        @share_context = ShareContext.new(self, main_context.try(:share_context))
         init_networks(main_context.network_list) if main_context
       end
 
@@ -23,7 +23,7 @@ module SharingTags
       end
 
       def twitter(&block)
-        (@networks[:twitter] ||= Config::CNetwork.new(:twitter, self)).tap do |twitter|
+        (@networks[:twitter] ||= Config::CNetworkTwitter.new(:twitter, self)).tap do |twitter|
           twitter.instance_exec(&block) if block_given?
         end
       end

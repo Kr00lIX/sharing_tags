@@ -12,6 +12,7 @@ module SharingTags
   class Network
     autoload :RunningContext,  'sharing_tags/network/running_context'
     autoload :Facebook,        'sharing_tags/network/facebook'
+    autoload :Twitter,         'sharing_tags/network/twitter'
   end
 
   class Config
@@ -21,6 +22,7 @@ module SharingTags
     autoload :CNetwork,          'sharing_tags/config/c_network'
     autoload :CDefaultNetwork,   'sharing_tags/config/c_default_network'
     autoload :CNetworkFacebook,  'sharing_tags/config/c_network_facebook'
+    autoload :CNetworkTwitter,   'sharing_tags/config/c_network_twitter'
   end
 
   autoload :AssetFile,        'sharing_tags/asset_file'
@@ -46,6 +48,12 @@ module SharingTags
     @config ||= Config.new
   end
   module_function :config
+
+  def params
+    config.pp
+  end
+  module_function :params
+
 end
 
 require 'sharing_tags/railtie' if defined?(Rails::Railtie)

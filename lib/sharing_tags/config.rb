@@ -1,6 +1,7 @@
 module SharingTags
   class Config
     attr_accessor :running_context
+    attr_accessor :asset_finder
     attr_reader :main_context
 
     def initialize
@@ -12,23 +13,23 @@ module SharingTags
       (@contexts[name] ||= CContext.new(name, self, main_context)).instance_exec(&block)
     end
 
-    def switch_context(name = nil, *args, &block)
-      clean_params!
-      prev_context = current_context
-      prev_context_params = @current_context_params
-
-      @current_context_params = args
-      @current_context = name && @contexts[name] || main_context
-      return unless block_given?
-
-      result = block.call
-
-      @current_context = prev_context
-      @current_context_params = prev_context_params
-
-      result
-    end
-    alias_method :switch_context_to, :switch_context
+    # def switch_context(name = nil, *args, &block)
+    #   clean_params!
+    #   prev_context = current_context
+    #   prev_context_params = @current_context_params
+    #
+    #   @current_context_params = args
+    #   @current_context = name && @contexts[name] || main_context
+    #   return unless block_given?
+    #
+    #   result = block.call
+    #
+    #   @current_context = prev_context
+    #   @current_context_params = prev_context_params
+    #
+    #   result
+    # end
+    # alias_method :switch_context_to, :switch_context
 
     def clear!
       @contexts = {}
@@ -38,13 +39,17 @@ module SharingTags
       clean_params!
     end
 
+    # todo: move to private or another class
+    # move to private or another class
     # new realisation of params
     def pp
       current_context.share_context
     end
 
+    # todo: move to private or another class
     def params
       # @params ||= fetch_params
+      # todo: deprecated
       @params = fetch_params
     end
 
@@ -53,9 +58,12 @@ module SharingTags
       params
     end
 
+    # move to private or another class
     def current_context
       @current_context || main_context
     end
+
+    private
 
     def clean_params!
       @params = nil
@@ -64,8 +72,6 @@ module SharingTags
     def clear_context!
       @current_context = nil
     end
-
-    private
 
     def fetch_params
       main_context_params = main_context.params(@current_context_params)

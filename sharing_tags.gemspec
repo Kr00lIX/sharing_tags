@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.2'
   spec.add_development_dependency 'rspec-nc', '~> 0.2'
   spec.add_development_dependency 'rspec-rails', '~> 3.2'
+  spec.add_development_dependency 'rspec-its', '~> 1.2'
   spec.add_development_dependency 'rspec-html-matchers', '~> 0.7'
   spec.add_development_dependency 'ammeter',  '1.1.2'
   spec.add_development_dependency 'teaspoon', '~> 0.9'

@@ -55,10 +55,6 @@ SharingTags.configure do
   #     description "Better three hours too soon than a minute too late."
   #   end
   #
-  #   line do
-  #     description "If music be the food of love, play on."
-  #   end
-  #
   #   odnoklassniki do
   #     description "Hell is empty and all the devils are here"
   #   end

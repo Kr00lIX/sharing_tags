@@ -9,7 +9,9 @@ module SharingTags
 
       ATTRIBUTES =
           %i( share_url title description  page_url share_url_params link_params
-          image_url image digested_image digested_image_url )
+          image_url image  )
+
+      # @@available_attributes = ATTRIBUTES.dup
 
       attr_reader :name, :attributes
 
@@ -28,7 +30,7 @@ module SharingTags
         @c_context = context
         @s_context = context.share_context
 
-        @network = SharingTags::Network.new(name, self)
+        @network = network_class.new(name, self)
 
         @s_context[name]||= @network # add network to context
 
@@ -43,19 +45,33 @@ module SharingTags
         ATTRIBUTES
       end
 
-      def share_url(url = nil, &block)
-        attributes[:share_url] = store_value(url, &block)
+      def self.assign_to_network attribute, aliases = []
+        # @@available_attributes << attribute
+        # puts [@@available_attributes, self.inspect].inspect
+        define_method attribute, ->(value = nil, &block) do
+          @network.assign attribute, value, &block
+        end
       end
 
-      def title(new_title = nil, &block)
-        @network.title = new_title
-        attributes[:title] = store_value(new_title, &block)
-      end
+      assign_to_network :title
+      assign_to_network :description
+      assign_to_network :share_url
+      assign_to_network :page_url
+      assign_to_network :share_url_params
 
-      def description(value = nil, &block)
-        @network.description = store_value(value, &block)
-        attributes[:description] = store_value(value, &block)
-      end
+
+      #
+      # def share_url(url = nil, &block)
+      #   @network.assign(:share_url, url, &block)
+      # end
+      #
+      # def title(new_title = nil, &block)
+      #   @network.assign(:title, new_title, &block)
+      # end
+      #
+      # def description(value = nil, &block)
+      #   @network.assign(:description, value, &block)
+      # end
 
       # TODO: activate rubycop Metrics
       # rubocop:disable Metrics/AbcSize
@@ -80,30 +96,34 @@ module SharingTags
       # TODO: add image_size
       # TODO: add_image_type
 
-      def page_url(new_url = nil, &block)
-        attributes[:page_url] = store_value(new_url, &block)
-      end
+      # def page_url(new_url = nil, &block)
+      #   @network.assign(:page_url, new_url, &block)
+      # end
 
-      def share_url_params(params = nil, &block)
-        attributes[:share_url_params] = store_value(params, &block)
-      end
+      # def share_url_params(params = nil, &block)
+      #   @network.assign(:share_url_params, params, &block)
+      # end
       alias_method :link_params, :share_url_params
 
-      def attributes_for(context_params = nil, default_params = ConfigStorage.new)
-        # TODO: merge default params after get all values of attributes
-        attrs = @attributes.each_with_object(default_params.dup) do |(a_name, value), result|
-          result[a_name] = get_value(value, context_params)
-        end
-
-        # TODO: fix assign share_url from page_url
-        attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
-        attrs[:share_url] = add_params_to_url(attrs[:share_url], attrs[:share_url_params]) if attrs[:share_url] && attrs[:share_url_params].present?
-        attrs[:network] = name if attrs.present?
-
-        attrs
-      end
+      # def attributes_for(context_params = nil, default_params = ConfigStorage.new)
+      #   # TODO: merge default params after get all values of attributes
+      #   attrs = @attributes.each_with_object(default_params.dup) do |(a_name, value), result|
+      #     result[a_name] = get_value(value, context_params)
+      #   end
+      #
+      #   # TODO: fix assign share_url from page_url
+      #   attrs[:share_url] = attrs[:page_url].dup if !attrs[:share_url] && attrs[:page_url]
+      #   attrs[:share_url] = add_params_to_url(attrs[:share_url], attrs[:share_url_params]) if attrs[:share_url] && attrs[:share_url_params].present?
+      #   attrs[:network] = name if attrs.present?
+      #
+      #   attrs
+      # end
 
       protected
+
+      def network_class
+        SharingTags::Network
+      end
 
       def store_value(val, &block)
         if block_given?
