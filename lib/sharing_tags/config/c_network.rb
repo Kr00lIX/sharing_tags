@@ -11,7 +11,8 @@ module SharingTags
           %i( share_url title description  page_url share_url_params link_params
           image_url image  )
 
-      # @@available_attributes = ATTRIBUTES.dup
+      @available_attributes = []
+
 
       attr_reader :name, :attributes
 
@@ -45,22 +46,20 @@ module SharingTags
         SharingTags::Network
       end
 
-      def self.available_attributes
-        ATTRIBUTES
-      end
-
       def self.assign_to_network attribute, aliases = []
-        # @@available_attributes << attribute
-        # puts [@@available_attributes, self.inspect].inspect
+        @available_attributes << attribute
+        # puts [self.inspect, attribute, available_attributes].inspect
         define_method attribute, ->(value = nil, &block) do
           @network.assign attribute, value, &block
         end
 
         network_class.network_attribute attribute
-        # network_class.send :define_method, attribute do
-        #   get_value(attribute)
-        # end
       end
+
+      def self.available_attributes
+        @available_attributes
+      end
+
 
       assign_to_network :title
       assign_to_network :description
@@ -68,19 +67,6 @@ module SharingTags
       assign_to_network :page_url
       assign_to_network :share_url_params
 
-
-      #
-      # def share_url(url = nil, &block)
-      #   @network.assign(:share_url, url, &block)
-      # end
-      #
-      # def title(new_title = nil, &block)
-      #   @network.assign(:title, new_title, &block)
-      # end
-      #
-      # def description(value = nil, &block)
-      #   @network.assign(:description, value, &block)
-      # end
 
       # TODO: activate rubycop Metrics
       # rubocop:disable Metrics/AbcSize
@@ -105,13 +91,6 @@ module SharingTags
       # TODO: add image_size
       # TODO: add_image_type
 
-      # def page_url(new_url = nil, &block)
-      #   @network.assign(:page_url, new_url, &block)
-      # end
-
-      # def share_url_params(params = nil, &block)
-      #   @network.assign(:share_url_params, params, &block)
-      # end
       alias_method :link_params, :share_url_params
 
       # def attributes_for(context_params = nil, default_params = ConfigStorage.new)
@@ -130,27 +109,6 @@ module SharingTags
 
       protected
 
-
-      def store_value(val, &block)
-        if block_given?
-          block
-        else
-          val
-        end
-      end
-
-      def get_value(value, context_params)
-        if value.is_a?(Proc)
-          if @context && @running_context
-            # execute proc within the view context with context_params
-            @running_context.instance_exec(*context_params, &value)
-          else
-            value.call(context_params)
-          end
-        else
-          value
-        end
-      end
 
       def add_params_to_url(url, params = {})
         return url.html_safe if params.blank?

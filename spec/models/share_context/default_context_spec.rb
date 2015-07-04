@@ -31,6 +31,7 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
 
       vkontakte do
         title        "Vkontakte title"
+        description  "Vkontakte desc"
       end
 
       line do
@@ -49,7 +50,7 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
 
   let(:params) { SharingTags.params }
 
-  describe "twitter" do
+  describe "twitter", :focus do
     subject { params.twitter }
 
     it { is_expected.to be_kind_of(SharingTags::Network::Twitter)  }
@@ -88,6 +89,7 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
     its(:title) { is_expected.to be ==  "Vkontakte title" }
+    its(:description) { is_expected.to be ==  "Vkontakte desc" }
   end
 
   describe "line" do

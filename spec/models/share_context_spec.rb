@@ -22,21 +22,21 @@ describe SharingTags::ShareContext, :focus do
   describe "default context" do
   end
 
-  describe "main context" do
-    it "expect to receive default context twitter network title" do
-      expect(params.twitter.title).to be == "main context network title"
-    end
-  end
+  # describe "main context" do
+  #   it "expect to receive default context twitter network title" do
+  #     expect(params.twitter.title).to be == "main context network title"
+  #   end
+  # end
 
   describe "custom context" do
 
   end
 
-  describe "switch context" do
-    it "expect to get current context share context" do
-      expect(params).to be_kind_of(SharingTags::ShareContext)
-    end
-  end
+  # describe "switch context" do
+  #   it "expect to get current context share context" do
+  #     expect(params).to be_kind_of(SharingTags::ShareContext)
+  #   end
+  # end
 
 
 end

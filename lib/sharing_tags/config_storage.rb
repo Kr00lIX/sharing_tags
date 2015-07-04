@@ -5,7 +5,6 @@ module SharingTags
     # TODO: initialize default param as Config.new
 
     def self.network_attribute name, default_value = nil, &default_proc
-      # define getter
       define_method name do
         get_value(name, default_value, &default_proc)
       end
@@ -17,23 +16,22 @@ module SharingTags
     end
 
     def assign attribute, value, &proc_value
-      @attributes[attribute] =
-          if block_given?
-            proc_value
-          else
-            value
-          end
+      @attributes[attribute] = if block_given? then proc_value else value end
     end
 
     protected
 
     def get_value(name, default_value = nil, &default_proc)
       value = @attributes[name]
+      return value unless value.is_a?(Proc)
 
-      value
+      if @context && @running_context
+        # execute proc within the view context with context_params
+        @running_context.instance_exec(*context_params, &value)
+      else
+        value.call(context_params)
+      end
     end
-
-
 
 
     # # NOTE: temporary code for working construction sharing_tags.switch_context_to

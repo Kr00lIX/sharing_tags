@@ -82,7 +82,7 @@ class SharingTags::Config
         let(:network) { context[:twitter] }
 
         it "expect instance of SharingTags::Config::ConfigNetwork" do
-          expect(network).to be_instance_of(CNetwork)
+          expect(network).to be_instance_of(CNetworkTwitter)
         end
       end
 
