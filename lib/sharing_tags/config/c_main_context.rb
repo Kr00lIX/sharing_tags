@@ -1,6 +1,5 @@
 module SharingTags
   class Config
-
     # Main context called on first configuration level
     #
     class CMainContext < CContext
@@ -18,15 +17,15 @@ module SharingTags
 
         networks.each do |network|
           unless CNetwork::AVAILABLE_NETWORKS.include?(network)
-            raise Config::CError.new("Error sharing_tags network configuration. Network #{network} is unavailable. Please chose one of existing networks: #{CNetwork::AVAILABLE_NETWORKS.inspect} ")
+            fail Config::CError, "Error sharing_tags network configuration. Network #{network} is unavailable. Please chose one of existing networks: #{CNetwork::AVAILABLE_NETWORKS.inspect} "
           end
         end
         init_networks(network_list)
       end
 
-      def language(language)
-        @language = language
-      end
+      # def language(language)
+      #   @language = language
+      # end
     end
   end
 end

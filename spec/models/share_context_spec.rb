@@ -37,6 +37,4 @@ describe SharingTags::ShareContext, :focus do
   #     expect(params).to be_kind_of(SharingTags::ShareContext)
   #   end
   # end
-
-
 end

@@ -1,4 +1,4 @@
-describe SharingTags::ShareContext, "default context"  ,:focus do
+describe SharingTags::ShareContext, "default context", :focus do
   before do
     SharingTags.configure do
 
@@ -55,10 +55,10 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
 
     it { is_expected.to be_kind_of(SharingTags::Network::Twitter)  }
 
-    its(:title) { is_expected.to be ==  "twitter title" }
-    its(:description) { is_expected.to be ==  "twitter desc" }
+    its(:title) { is_expected.to be == "twitter title" }
+    its(:description) { is_expected.to be == "twitter desc" }
 
-    its(:domain) { is_expected.to be ==  "twitter domain" }
+    its(:domain) { is_expected.to be == "twitter domain" }
     its(:site) { is_expected.to be == "twitter site" }
     its(:creator) { is_expected.to be == "twitter creator" }
     its(:card) { is_expected.to be == "twitter card" }
@@ -68,12 +68,12 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
     subject { params.facebook }
 
     it { is_expected.to be_kind_of(SharingTags::Network::Facebook)  }
-    its(:app_id) { is_expected.to be ==  "facebook app_id" }
-    its(:caption) { is_expected.to be ==  "facebook caption" }
-    its(:provider) { is_expected.to be ==  "facebook provider" }
-    its(:title) { is_expected.to be ==  "facebook title" }
-    its(:description) { is_expected.to be ==  "facebook desc" }
-    its(:return_url) { is_expected.to be ==  "facebook return_url" }
+    its(:app_id) { is_expected.to be == "facebook app_id" }
+    its(:caption) { is_expected.to be == "facebook caption" }
+    its(:provider) { is_expected.to be == "facebook provider" }
+    its(:title) { is_expected.to be == "facebook title" }
+    its(:description) { is_expected.to be == "facebook desc" }
+    its(:return_url) { is_expected.to be == "facebook return_url" }
     its(:share_url_params) { is_expected.to include(p1: "fb1", p2: "fb2") }
   end
 
@@ -81,36 +81,35 @@ describe SharingTags::ShareContext, "default context"  ,:focus do
     subject { params.google }
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
-    its(:title) { is_expected.to be ==  "Google title" }
+    its(:title) { is_expected.to be == "Google title" }
   end
 
   describe "vkontakte" do
     subject { params.vkontakte }
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
-    its(:title) { is_expected.to be ==  "Vkontakte title" }
-    its(:description) { is_expected.to be ==  "Vkontakte desc" }
+    its(:title) { is_expected.to be == "Vkontakte title" }
+    its(:description) { is_expected.to be == "Vkontakte desc" }
   end
 
   describe "line" do
     subject { params.line }
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
-    its(:title) { is_expected.to be ==  "Line title" }
+    its(:title) { is_expected.to be == "Line title" }
   end
 
   describe "odnoklassniki" do
     subject { params.odnoklassniki }
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
-    its(:title) { is_expected.to be ==  "Odnoklassniki title" }
+    its(:title) { is_expected.to be == "Odnoklassniki title" }
   end
 
   describe "linkedin" do
     subject { params.linkedin }
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
-    its(:title) { is_expected.to be ==  "Linkedin title" }
+    its(:title) { is_expected.to be == "Linkedin title" }
   end
-
 end

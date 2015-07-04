@@ -39,17 +39,17 @@ module SharingTags
       clean_params!
     end
 
-    # todo: move to private or another class
+    # TODO: move to private or another class
     # move to private or another class
     # new realisation of params
     def pp
       current_context.share_context
     end
 
-    # todo: move to private or another class
+    # TODO: move to private or another class
     def params
       # @params ||= fetch_params
-      # todo: deprecated
+      # TODO: deprecated
       @params = fetch_params
     end
 

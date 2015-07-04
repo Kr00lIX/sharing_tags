@@ -1,6 +1,5 @@
 module SharingTags
   class Config
-
     describe CMainContext do
       before do
         SharingTags.configure do

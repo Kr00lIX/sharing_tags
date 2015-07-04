@@ -1,11 +1,10 @@
 module SharingTags
   class ShareContext < ConfigStorage
-
     ## ref to parent context
 
     ## todo iterable? each by each network
 
-    def initialize(config_context, parent_context = nil)
+    def initialize(config_context, _parent_context = nil)
       @config_context = config_context
       # @running_context = SharingTags::Network::RunningContext.new(self, context)
       @context_params = nil
@@ -31,6 +30,5 @@ module SharingTags
     ## assign context params
     ## storage for networks
     ##
-
   end
 end

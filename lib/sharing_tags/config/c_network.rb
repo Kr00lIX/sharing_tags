@@ -7,12 +7,10 @@ module SharingTags
 
       AVAILABLE_NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
 
-      ATTRIBUTES =
-          %i( share_url title description  page_url share_url_params link_params
-          image_url image  )
+      ATTRIBUTES = %i( share_url title description  page_url share_url_params link_params
+                       image_url image )
 
       @available_attributes = []
-
 
       attr_reader :name, :attributes
 
@@ -33,7 +31,7 @@ module SharingTags
 
         @network = self.class.network_class.new(name, self)
 
-        @s_context[name]||= @network # add network to context
+        @s_context[name] ||= @network # add network to context
 
         clear!
       end
@@ -46,20 +44,20 @@ module SharingTags
         SharingTags::Network
       end
 
-      def self.assign_to_network attribute, aliases = []
+      def self.assign_to_network(attribute, _aliases = [])
         @available_attributes << attribute
         # puts [self.inspect, attribute, available_attributes].inspect
-        define_method attribute, ->(value = nil, &block) do
+        define_method attribute do |value = nil, &block|
           @network.assign attribute, value, &block
         end
 
         network_class.network_attribute attribute
       end
 
-      def self.available_attributes
-        @available_attributes
-      end
-
+      attr_reader :available_attributes
+      # def self.available_attributes
+      #   @available_attributes
+      # end
 
       assign_to_network :title
       assign_to_network :description
@@ -67,12 +65,11 @@ module SharingTags
       assign_to_network :page_url
       assign_to_network :share_url_params
 
-
       # TODO: activate rubycop Metrics
       # rubocop:disable Metrics/AbcSize
       # image_url(new_image = nil, size = nil, content_type = nil, options, &block)
       def image_url(*arguments, &block)
-        options = arguments.extract_options!
+        # options = arguments.extract_options!
         new_image, size, content_type = arguments
 
         # TODO: add another class for storing image
@@ -90,7 +87,6 @@ module SharingTags
 
       # TODO: add image_size
       # TODO: add_image_type
-
       alias_method :link_params, :share_url_params
 
       # def attributes_for(context_params = nil, default_params = ConfigStorage.new)
@@ -108,7 +104,6 @@ module SharingTags
       # end
 
       protected
-
 
       def add_params_to_url(url, params = {})
         return url.html_safe if params.blank?

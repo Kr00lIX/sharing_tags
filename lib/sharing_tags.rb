@@ -53,7 +53,6 @@ module SharingTags
     config.pp
   end
   module_function :params
-
 end
 
 require 'sharing_tags/railtie' if defined?(Rails::Railtie)

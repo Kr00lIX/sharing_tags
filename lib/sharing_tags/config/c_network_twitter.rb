@@ -13,9 +13,6 @@ module SharingTags
       assign_to_network :card
       # assign_to_network :summary
 
-
-      protected
-
       def self.network_class
         SharingTags::Network::Twitter
       end

@@ -23,9 +23,8 @@ module SharingTags
         @networks[network]
       end
 
-
       def self.define_network(name, config_class = SharingTags::Config::CNetwork, alias_name: nil)
-        define_method name do |options = {}, &config_block|
+        define_method name do |_options = {}, &config_block|
           network = (@networks[name] ||= config_class.new(name, self))
           network.instance_exec(&config_block) if config_block
           network
@@ -40,7 +39,6 @@ module SharingTags
       define_network :line, alias_name: :ln
       define_network :odnoklassniki, alias_name: :od
       define_network :linkedin, alias_name: :li
-
 
       # def params(context_args = nil, default_config_params = ConfigStorage.new)
       #   @context_params = fetch_params(context_args, default_config_params)

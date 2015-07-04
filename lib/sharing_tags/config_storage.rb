@@ -3,8 +3,7 @@ require "hashie/mash"
 module SharingTags
   class ConfigStorage < ::Hashie::Mash
     # TODO: initialize default param as Config.new
-
-    def self.network_attribute name, default_value = nil, &default_proc
+    def self.network_attribute(name, default_value = nil, &default_proc)
       define_method name do
         get_value(name, default_value, &default_proc)
       end
@@ -15,13 +14,13 @@ module SharingTags
       super
     end
 
-    def assign attribute, value, &proc_value
-      @attributes[attribute] = if block_given? then proc_value else value end
+    def assign(attribute, value, &proc_value)
+      @attributes[attribute] = block_given? ? proc_value : value
     end
 
     protected
 
-    def get_value(name, default_value = nil, &default_proc)
+    def get_value(name, _default_value = nil, &_default_proc)
       value = @attributes[name]
       return value unless value.is_a?(Proc)
 
@@ -32,7 +31,6 @@ module SharingTags
         value.call(context_params)
       end
     end
-
 
     # # NOTE: temporary code for working construction sharing_tags.switch_context_to
     # def switch_context_to(name, *attrs)

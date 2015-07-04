@@ -111,7 +111,7 @@ module SharingTags
 
         it "expect add params and rewrite them for url with params" do
           @url = "http://sample.url?a=1&b=2"
-          @params = {b:4, c: 3}
+          @params = {b: 4, c: 3}
           is_expected.to be == "http://sample.url?a=1&b=4&c=3"
           is_expected.to be_html_safe
         end
