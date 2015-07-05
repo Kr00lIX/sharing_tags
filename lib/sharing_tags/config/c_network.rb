@@ -7,7 +7,7 @@ module SharingTags
 
       AVAILABLE_NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
 
-      ATTRIBUTES = %i( share_url title description  page_url share_url_params link_params
+      ATTRIBUTES = %i( title description share_url page_url share_url_params link_params
                        image_url image )
 
       attr_reader :name, :attributes
@@ -15,11 +15,28 @@ module SharingTags
       class Error < ::SharingTags::Config::CError
       end
 
+      class_attribute :available_attributes
+
       class << self
-        attr_reader :available_attributes
+        # attr_reader :available_attributes
 
         def lists
           AVAILABLE_NETWORKS
+        end
+
+        def network_class
+          SharingTags::Network
+        end
+
+        def assign_to_network(attribute, _aliases = [])
+          define_method attribute do |value = nil, &block|
+            @network.assign attribute, value, &block
+          end
+
+          network_class.network_attribute attribute
+
+          self.available_attributes ||= []
+          self.available_attributes << attribute
         end
       end  
 
@@ -40,25 +57,6 @@ module SharingTags
 
       def clear!
         @attributes = {}
-      end
-
-      def self.network_class
-        SharingTags::Network
-      end
-
-      def self.add_attribute(attribute)
-        @available_attributes ||= []
-        @available_attributes << attribute
-      end
-
-      def self.assign_to_network(attribute, _aliases = [])
-        define_method attribute do |value = nil, &block|
-          @network.assign attribute, value, &block
-        end
-
-        network_class.network_attribute attribute
-
-        add_attribute attribute
       end
 
       assign_to_network :title

@@ -5,16 +5,29 @@ module SharingTags
       let!(:context) { CContext.new(:test, config) }
       let!(:network) { CNetwork.new(:test, context) }
 
-      after do
-        network.clear!
-      end
-
       it "expect get's list of available networks" do
         expect(CNetwork.lists).to include(:facebook, :twitter, :google, :vkontakte)
       end
 
       it "expect network name is a test" do
         expect(network.name).to be_eql(:test)
+      end
+
+      describe "#title" do
+        it { expect(network.available_attributes).to include(:title) }
+      end
+
+      describe "#description" do
+        it { expect(network.available_attributes).to include(:description) }
+      end
+
+      describe "#share_url" do
+        it { expect(network.available_attributes).to include(:share_url) }
+      end
+
+      describe "#share_url_params" do
+        # it { expect(network.available_attributes).to include(:share_url_params, :link_params) }
+        it { expect(network.available_attributes).to include(:share_url_params) }
       end
 
       # describe "#image" do
@@ -122,7 +135,6 @@ module SharingTags
           is_expected.to be == "http://sample.url?a=1&b=2&c=3"
           is_expected.to be_html_safe
         end
-
       end
     end
   end
