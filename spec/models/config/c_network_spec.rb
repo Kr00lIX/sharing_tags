@@ -3,31 +3,46 @@ module SharingTags
     describe CNetwork do
       let!(:config)  { Config.new }
       let!(:context) { CContext.new(:test, config) }
-      let!(:network) { CNetwork.new(:test, context) }
+      let!(:c_network) { CNetwork.new(network_name, context) }
+      let(:network_name) { CNetwork.lists.sample }
+      let(:network) { context.share_context[network_name] }
+
+      subject { c_network }
 
       it "expect get's list of available networks" do
         expect(CNetwork.lists).to include(:facebook, :twitter, :google, :vkontakte)
       end
 
       it "expect network name is a test" do
-        expect(network.name).to be_eql(:test)
+        expect(c_network.name).to be_eql(network_name)
       end
 
       describe "#title" do
-        it { expect(network.available_attributes).to include(:title) }
+        it { is_expected.to respond_to(:title) }
+        its(:available_attributes) { is_expected.to include(:title) }
+
+        it "expect set title for constant value" do
+          expect { c_network.title "Title" }.to change { network.title }.from(nil).to("Title")
+        end
+
+        it "expect set title for proc value" do
+          expect do
+            c_network.title { "Proc Title" }
+          end.to change { network.title }.from(nil).to("Proc Title")
+        end
       end
 
       describe "#description" do
-        it { expect(network.available_attributes).to include(:description) }
+        it { expect(c_network.available_attributes).to include(:description) }
       end
 
       describe "#share_url" do
-        it { expect(network.available_attributes).to include(:share_url) }
+        its(:available_attributes) { is_expected.to include(:share_url) }
       end
 
       describe "#share_url_params" do
         # it { expect(network.available_attributes).to include(:share_url_params, :link_params) }
-        it { expect(network.available_attributes).to include(:share_url_params) }
+        it { expect(subject.available_attributes).to include(:share_url_params) }
       end
 
       # describe "#image" do
@@ -106,7 +121,7 @@ module SharingTags
 
       describe "#add_params_to_url" do
 
-        subject { network.send(:add_params_to_url, @url, @params) }
+        subject { c_network.send(:add_params_to_url, @url, @params) }
 
         it "expect leave url without empty params" do
           @url = "http://sample.url"

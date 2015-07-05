@@ -15,8 +15,6 @@ module SharingTags
         @main_context = main_context
 
         @share_context = ShareContext.new(self, main_context.try(:share_context))
-
-        init_networks(main_context.network_list) if main_context
       end
 
       def [](network)
@@ -30,6 +28,9 @@ module SharingTags
           network
         end
         alias_method alias_name, name if alias_name
+
+        # define context network getter
+        ShareContext.define_network(name)
       end
 
       define_network :twitter,  Config::CNetworkTwitter, alias_name: :tw
@@ -46,16 +47,6 @@ module SharingTags
 
       def default_network
         @default_network ||= CNetworkDefault.new(:default, self)
-      end
-
-      protected
-
-      def init_networks(network_list)
-        @networks = {}
-        network_list.each do |network_name|
-          @share_context.add_network network_name
-          send(network_name) unless @networks.key?(network_name)
-        end
       end
 
       private

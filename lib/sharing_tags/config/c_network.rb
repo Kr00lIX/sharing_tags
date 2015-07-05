@@ -18,8 +18,6 @@ module SharingTags
       class_attribute :available_attributes
 
       class << self
-        # attr_reader :available_attributes
-
         def lists
           AVAILABLE_NETWORKS
         end
@@ -33,7 +31,8 @@ module SharingTags
             @network.assign attribute, value, &block
           end
 
-          network_class.network_attribute attribute
+          # define getter method for network class
+          network_class.define_attribute attribute
 
           self.available_attributes ||= []
           self.available_attributes << attribute
@@ -43,20 +42,10 @@ module SharingTags
       def initialize(name, context = nil)
         @name = name
         @context = context
-        @running_context = SharingTags::Network::RunningContext.new(self, context)
+        @share_context = context.share_context
 
-        @c_context = context
-        @s_context = context.share_context
-
-        @network = self.class.network_class.new(name, self)
-
-        @s_context[name] ||= @network # add network to context
-
-        clear!
-      end
-
-      def clear!
-        @attributes = {}
+        # add network to context
+        @network = (@share_context[name] ||= self.class.network_class.new(name, self))
       end
 
       assign_to_network :title
