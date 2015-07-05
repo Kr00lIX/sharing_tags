@@ -1,6 +1,8 @@
 module SharingTags
   class Config
     class CNetworkFacebook < CNetwork
+      NETWORK_ATTRIBUTES = %i(app_id caption return_url provider return_url)
+
       @available_attributes = []
 
       def self.available_attributes

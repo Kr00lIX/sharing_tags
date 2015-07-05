@@ -45,7 +45,7 @@ module SharingTags
       # end
 
       def default_network
-        @default_network ||= CDefaultNetwork.new(:default, self)
+        @default_network ||= CNetworkDefault.new(:default, self)
       end
 
       protected
@@ -88,7 +88,7 @@ module SharingTags
 
       def method_missing(method_name, *arguments, &block)
         unless default_network.class.available_attributes.include?(method_name.to_sym)
-          fail CNetwork::Error, "Error didn't find #{method_name} attribute in network"
+          fail CNetwork::Error, "Error didn't find #{method_name} attribute in network. Available attributes: #{default_network.class.available_attributes.to_s(", ")}"
         end
         default_network.send(method_name, *arguments, &block)
       end

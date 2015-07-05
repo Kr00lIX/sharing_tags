@@ -2,7 +2,10 @@ require 'uri'
 
 module SharingTags
   class Config
-    class CDefaultNetwork < CNetwork
+    class CNetworkDefault < CNetwork
+      # @available_attributes = []
+      #
+
       # def initialize(name, context = nil)
       #   @name = name
       #   @context = context

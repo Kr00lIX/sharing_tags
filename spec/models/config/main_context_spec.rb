@@ -1,6 +1,6 @@
 module SharingTags
   class Config
-    describe CMainContext do
+    describe CContextMain do
       before do
         SharingTags.configure do
           networks :twitter, :facebook
@@ -10,7 +10,7 @@ module SharingTags
       let(:config) { SharingTags.config.main_context }
 
       it "expect instance of main context" do
-        expect(config).to be_instance_of(CMainContext)
+        expect(config).to be_instance_of(CContextMain)
       end
 
       describe "#networks" do

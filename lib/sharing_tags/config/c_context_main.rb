@@ -2,7 +2,7 @@ module SharingTags
   class Config
     # Main context called on first configuration level
     #
-    class CMainContext < CContext
+    class CContextMain < CContext
       attr_reader :network_list
 
       def initialize(*args)

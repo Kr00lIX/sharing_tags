@@ -33,7 +33,7 @@ module SharingTags
 
     def clear!
       @contexts = {}
-      @main_context = CMainContext.new(:default, self)
+      @main_context = CContextMain.new(:default, self)
       @current_context = nil
       @running_context = nil
       clean_params!

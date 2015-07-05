@@ -1,9 +1,9 @@
-describe SharingTags::ShareContext, "default context", :focus do
+describe SharingTags::ShareContext, "default context" do
   before do
     SharingTags.configure do
 
       twitter do
-        domain "twitter domain"
+        domain  "twitter domain"
         site "twitter site"
         creator "twitter creator"
         card "twitter card"
@@ -27,6 +27,8 @@ describe SharingTags::ShareContext, "default context", :focus do
 
       google do
         title        "Google title"
+        description  "Google desc"
+        share_url    "http://google.com"
       end
 
       vkontakte do
@@ -50,7 +52,7 @@ describe SharingTags::ShareContext, "default context", :focus do
 
   let(:params) { SharingTags.params }
 
-  describe "twitter", :focus do
+  describe "twitter" do
     subject { params.twitter }
 
     it { is_expected.to be_kind_of(SharingTags::Network::Twitter)  }
@@ -82,6 +84,8 @@ describe SharingTags::ShareContext, "default context", :focus do
 
     it { is_expected.to be_kind_of(SharingTags::Network)  }
     its(:title) { is_expected.to be == "Google title" }
+    its(:description) { is_expected.to be == "Google desc" }
+    its(:share_url) { is_expected.to be == "http://google.com" }
   end
 
   describe "vkontakte" do

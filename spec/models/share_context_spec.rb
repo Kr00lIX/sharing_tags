@@ -1,4 +1,4 @@
-describe SharingTags::ShareContext, :focus do
+describe SharingTags::ShareContext do
   before do
     SharingTags.configure do
       title "main context title"

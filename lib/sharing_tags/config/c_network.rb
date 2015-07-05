@@ -10,16 +10,18 @@ module SharingTags
       ATTRIBUTES = %i( share_url title description  page_url share_url_params link_params
                        image_url image )
 
-      @available_attributes = []
-
       attr_reader :name, :attributes
 
       class Error < ::SharingTags::Config::CError
       end
 
-      def self.lists
-        AVAILABLE_NETWORKS
-      end
+      class << self
+        attr_reader :available_attributes
+
+        def lists
+          AVAILABLE_NETWORKS
+        end
+      end  
 
       def initialize(name, context = nil)
         @name = name
@@ -44,20 +46,20 @@ module SharingTags
         SharingTags::Network
       end
 
-      def self.assign_to_network(attribute, _aliases = [])
+      def self.add_attribute(attribute)
+        @available_attributes ||= []
         @available_attributes << attribute
-        # puts [self.inspect, attribute, available_attributes].inspect
+      end
+
+      def self.assign_to_network(attribute, _aliases = [])
         define_method attribute do |value = nil, &block|
           @network.assign attribute, value, &block
         end
 
         network_class.network_attribute attribute
-      end
 
-      attr_reader :available_attributes
-      # def self.available_attributes
-      #   @available_attributes
-      # end
+        add_attribute attribute
+      end
 
       assign_to_network :title
       assign_to_network :description

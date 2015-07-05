@@ -18,9 +18,9 @@ module SharingTags
   class Config
     autoload :CError,            'sharing_tags/config/c_error'
     autoload :CContext,          'sharing_tags/config/c_context'
-    autoload :CMainContext,      'sharing_tags/config/c_main_context'
+    autoload :CContextMain,      'sharing_tags/config/c_context_main'
     autoload :CNetwork,          'sharing_tags/config/c_network'
-    autoload :CDefaultNetwork,   'sharing_tags/config/c_default_network'
+    autoload :CNetworkDefault,   'sharing_tags/config/c_network_default'
     autoload :CNetworkFacebook,  'sharing_tags/config/c_network_facebook'
     autoload :CNetworkTwitter,   'sharing_tags/config/c_network_twitter'
   end
