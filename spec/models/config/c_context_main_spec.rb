@@ -3,28 +3,27 @@ module SharingTags
     describe CContextMain do
       before do
         SharingTags.configure do
-          networks :twitter, :facebook
         end
       end
 
-      let(:config) { SharingTags.config.main_context }
+      let(:config) { SharingTags.config }
 
       it "expect instance of main context" do
-        expect(config).to be_instance_of(CContextMain)
+        expect(config).to be_instance_of(SharingTags::Config)
       end
 
       describe "#networks" do
         it "expect define all networks by default" do
           SharingTags.configure do
           end
-          expect(config.network_list).to include(*CNetwork::AVAILABLE_NETWORKS)
+          expect(config.networks).to include(*CNetwork::AVAILABLE_NETWORKS)
         end
 
         it "expect receive defined networks" do
           SharingTags.configure do
             networks :twitter, :facebook
           end
-          expect(config.network_list).to include(:twitter, :facebook)
+          expect(config.networks).to include(:twitter, :facebook)
         end
 
         it "expect error if defined unavailable network" do
@@ -33,13 +32,18 @@ module SharingTags
       end
 
       describe "#language" do
-        xit "expect define EN language by default" do
+        it "expect define EN language by default" do
           SharingTags.configure do
           end
-          # binding.pry
-          # expect(config).to include(*Network::AVAILABLE_NETWORKS)
+          expect(config.language).to be == "en"
         end
 
+        it "expect change language to ru" do
+          SharingTags.configure do
+            language "ru"
+          end
+          expect(config.language).to be == "ru"
+        end
       end
     end
   end

@@ -40,7 +40,7 @@ module SharingTags
 
   def configure(&block)
     config.clear! # cleanup config before calling configure
-    config.instance_exec(&block)
+    config.main_context.instance_exec(&block)
   end
   module_function :configure
 
@@ -50,7 +50,7 @@ module SharingTags
   module_function :config
 
   def params
-    config.pp
+    config.params
   end
   module_function :params
 end

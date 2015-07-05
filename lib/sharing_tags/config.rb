@@ -2,6 +2,8 @@ module SharingTags
   class Config
     attr_accessor :running_context
     attr_accessor :asset_finder
+    attr_accessor :language
+    attr_accessor :networks
     attr_reader :main_context
 
     def initialize
@@ -14,7 +16,6 @@ module SharingTags
     end
 
     # def switch_context(name = nil, *args, &block)
-    #   clean_params!
     #   prev_context = current_context
     #   prev_context_params = @current_context_params
     #
@@ -36,21 +37,13 @@ module SharingTags
       @main_context = CContextMain.new(:default, self)
       @current_context = nil
       @running_context = nil
-      clean_params!
+
+      @language = "en"
+      @networks = Config::CNetwork::AVAILABLE_NETWORKS
     end
 
-    # TODO: move to private or another class
-    # move to private or another class
-    # new realisation of params
-    def pp
-      current_context.share_context
-    end
-
-    # TODO: move to private or another class
     def params
-      # @params ||= fetch_params
-      # TODO: deprecated
-      @params = fetch_params
+      current_context.share_context
     end
 
     def within_context_params(running_context_instance)
@@ -65,19 +58,15 @@ module SharingTags
 
     private
 
-    def clean_params!
-      @params = nil
-    end
-
     def clear_context!
       @current_context = nil
     end
 
-    def fetch_params
-      main_context_params = main_context.params(@current_context_params)
-      return main_context_params unless @current_context
-      @current_context.params(@current_context_params, main_context_params)
-    end
+    # def fetch_params
+    #   main_context_params = main_context.params(@current_context_params)
+    #   return main_context_params unless @current_context
+    #   @current_context.params(@current_context_params, main_context_params)
+    # end
 
     def method_missing(method_name, *arguments, &block)
       current_context.send(method_name, *arguments, &block)
