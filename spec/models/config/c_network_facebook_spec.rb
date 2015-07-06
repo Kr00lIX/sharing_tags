@@ -11,26 +11,47 @@ module SharingTags
 
       let!(:config)  { Config.new }
       let!(:context) { CContext.new(:test, config) }
-      let!(:network) { CNetworkFacebook.new(:test, context) }
+      let!(:c_network) { CNetworkFacebook.new(network_name, context) }
+      let(:network_name) { :facebook }
+      let(:network) { context.share_context[network_name] }
 
       describe "expect inherit attributes from network" do
-        it { expect(network.available_attributes).to include(:title, :description, :share_url) }
+        it { expect(c_network.available_attributes).to include(:title, :description, :share_url) }
+
+        describe "#title" do
+          let(:network_attr) { :title }
+          it_behaves_like "a config network attribute"
+        end
+
+        describe "#description" do
+          let(:network_attr) { :title }
+          it_behaves_like "a config network attribute"
+        end
+
+        describe "#share_url" do
+          let(:network_attr) { :share_url }
+          it_behaves_like "a config network attribute"
+        end
       end
 
       describe "#app_id" do
-        it { expect(network.available_attributes).to include(:app_id) }
+        let(:network_attr) { :app_id }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#caption" do
-        it { expect(network.available_attributes).to include(:caption) }
+        let(:network_attr) { :caption }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#provider" do
-        it { expect(network.available_attributes).to include(:provider) }
+        let(:network_attr) { :provider }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#return_url" do
-        it { expect(network.available_attributes).to include(:return_url) }
+        let(:network_attr) { :return_url }
+        it_behaves_like "a config network attribute"
       end
 
       describe "pass url params for context" do

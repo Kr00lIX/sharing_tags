@@ -18,26 +18,18 @@ module SharingTags
       end
 
       describe "#title" do
-        it { is_expected.to respond_to(:title) }
-        its(:available_attributes) { is_expected.to include(:title) }
-
-        it "expect set title for constant value" do
-          expect { c_network.title "Title" }.to change { network.title }.from(nil).to("Title")
-        end
-
-        it "expect set title for proc value" do
-          expect do
-            c_network.title { "Proc Title" }
-          end.to change { network.title }.from(nil).to("Proc Title")
-        end
+        let(:network_attr) { :title }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#description" do
-        it { expect(c_network.available_attributes).to include(:description) }
+        let(:network_attr) { :description }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#share_url" do
-        its(:available_attributes) { is_expected.to include(:share_url) }
+        let(:network_attr) { :share_url }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#share_url_params" do

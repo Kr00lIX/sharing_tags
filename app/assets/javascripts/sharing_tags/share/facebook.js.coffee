@@ -70,7 +70,6 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
       @_fb_ui_callback
     )
 
-  # @note: iphone facebook browser - doesn't redirect to page after sharing
   # @note: android browser - Ok
   # return post_id
   # https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.3

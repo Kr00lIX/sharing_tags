@@ -11,26 +11,32 @@ module SharingTags
 
       let!(:config)  { Config.new }
       let!(:context) { CContext.new(:test, config) }
-      let!(:network) { CNetworkTwitter.new(:test, context) }
+      let!(:c_network) { CNetworkTwitter.new(network_name, context) }
+      let(:network_name) { :twitter }
+      let(:network) { context.share_context[network_name] }
 
       describe "expect inherit attributes from network" do
-        it { expect(network.available_attributes).to include(:title, :description, :share_url) }
+        it { expect(c_network.available_attributes).to include(:title, :description, :share_url) }
       end
 
       describe "#domain" do
-        it { expect(network.available_attributes).to include(:domain) }
+        let(:network_attr) { :domain }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#site" do
-        it { expect(network.available_attributes).to include(:site) }
+        let(:network_attr) { :site }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#creator" do
-        it { expect(network.available_attributes).to include(:creator) }
+        let(:network_attr) { :creator }
+        it_behaves_like "a config network attribute"
       end
 
       describe "#card" do
-        it { expect(network.available_attributes).to include(:card) }
+        let(:network_attr) { :card }
+        it_behaves_like "a config network attribute"
       end
 
       describe "pass url params for context" do
