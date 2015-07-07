@@ -2,81 +2,33 @@ require 'uri'
 
 module SharingTags
   class Config
-    class CNetwork
-      # TODO: add default values
-
-      AVAILABLE_NETWORKS = %i( facebook google twitter vkontakte odnoklassniki line linkedin )
-
-      ATTRIBUTES = %i( title description share_url page_url share_url_params link_params
-                       image_url image )
-
-      attr_reader :name, :attributes
-
-      class Error < ::SharingTags::Config::CError
-      end
-
-      class_attribute :available_attributes
-
-      class << self
-        def lists
-          AVAILABLE_NETWORKS
-        end
-
-        def network_class
-          SharingTags::Network
-        end
-
-        def assign_to_network(attribute, _aliases = [])
-          define_method attribute do |value = nil, &block|
-            @network.assign attribute, value, &block
-          end
-
-          # define getter method for network class
-          network_class.define_attribute attribute
-
-          self.available_attributes ||= []
-          self.available_attributes << attribute
-        end
-      end  
-
-      def initialize(name, context = nil)
-        @name = name
-        @context = context
-        @share_context = context.share_context
-
-        # add network to context
-        @network = (@share_context[name] ||= self.class.network_class.new(name, self))
-      end
-
+    class CNetwork < CNetworkBase
       assign_to_network :title
       assign_to_network :description
       assign_to_network :share_url
       assign_to_network :page_url
-      assign_to_network :share_url_params
+      assign_to_network :share_url_params, aliases: :link_params
+      assign_to_network :image_url, aliases: :image
 
-      # TODO: activate rubycop Metrics
-      # rubocop:disable Metrics/AbcSize
-      # image_url(new_image = nil, size = nil, content_type = nil, options, &block)
-      def image_url(*arguments, &block)
-        # options = arguments.extract_options!
-        new_image, size, content_type = arguments
+      # # image_url(new_image = nil, size = nil, content_type = nil, options, &block)
+      # # def image_url(*arguments, &block)
+      # # def image_url(size = nil, content_type = nil, new_image = nil, &image_block)
+      def image_url(new_image = nil, &image_block)
+        #   # options = arguments.extract_options!
+        #   # new_image, size, content_type = arguments
+        #
 
-        # TODO: add another class for storing image
-        attributes[:image] = store_value(new_image, &block)
-        @network.image = store_value(new_image, &block)
+        @network.assign :image_url, new_image, &image_block
 
-        # add size and content type for block value
-        size, content_type = new_image, size if block_given?
-
-        attributes[:image_size] = store_value(size.split("x").map(&:to_i)) if size
-        attributes[:image_content_type] = store_value(content_type) if content_type
+        # # add size and content type for block value
+        # size, content_type = new_image, size if block_given?
+        #
+        # attributes[:image_size] = store_value(size.split("x").map(&:to_i)) if size
+        # attributes[:image_content_type] = store_value(content_type) if content_type
       end
-      alias_method :image, :image_url
-      # rubocop:enable Metrics/AbcSize
 
       # TODO: add image_size
       # TODO: add_image_type
-      alias_method :link_params, :share_url_params
 
       # def attributes_for(context_params = nil, default_params = ConfigStorage.new)
       #   # TODO: merge default params after get all values of attributes
