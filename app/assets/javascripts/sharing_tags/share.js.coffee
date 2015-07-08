@@ -5,6 +5,7 @@ class @SharingTags
   @debug: false
 
   @share: (network, attributes)->
+    attributes.network = network
     SharingTags.Share[network]?(attributes)
 
   class @Error extends Error
