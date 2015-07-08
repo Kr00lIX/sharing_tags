@@ -18,28 +18,30 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   # facebook locales support (https://www.facebook.com/translations/FacebookLocales.xml)
   #
   @init: (locale="en_US")->
-
-    # todo: for debug mode load debug sdk
-    # js.src = "//connect.facebook.net/en_US/sdk/debug.js";
-    if not FB?
-      sdk_url = locale + (if @debug then "/sdk/debug.js" else "/all.js")
-      jQuery.ajax(
-        url: "//connect.facebook.net/#{sdk_url}"
-        dataType: "script"
-        cache: true
-      )
-#      `(function(d, s, id){
-#      var js, fjs = d.getElementsByTagName(s)[0];
-#      if (d.getElementById(id)) {return;}
-#      js = d.createElement(s); js.id = id;
-#      js.src = "http://connect.facebook.net/" + sdk_url;
-#      fjs.parentNode.insertBefore(js, fjs);
-#      }(document, 'script', 'facebook-jssdk'));`
+    return if FB?
+    sdk_url = locale + (if @debug then "/sdk/debug.js" else "/all.js")
+    jQuery.ajax(
+      url: "//connect.facebook.net/#{sdk_url}"
+      dataType: "script"
+      cache: true
+    )
 
   share: (provider = @provider)->
-    @callback.before_sharing(provider)
+    @callback.before_share(provider)
     @["_#{provider}"]()
     @
+
+  detect_provider: ->
+    provider =
+      if @_user_agent().match('CriOS')
+        "sharer"
+      else if @app_id
+        if @return_url then "dialog"
+        else "fb_ui_feed"
+      else
+        "sharer"
+    @constructor._debug("Facebook#detect_provider", provider)
+    provider
 
   _sharer: ->
     @_assert_vars "url"
@@ -48,15 +50,10 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
   #   https://developers.facebook.com/docs/javascript/reference/FB.ui
   _fb_ui: =>
     @_assert_vars "url", "app_id"
-    FB?.ui(
+    FB.ui(
       method: 'share',
       href: @url,
-      (response)=>
-        @callback.after_sharing(response)
-        # if response && !response.error_code
-        #  @_after_callback(response)
-        # else
-        #  # another callback
+      @_fb_ui_callback
     )
 
   _dialog: (display = 'page')->
@@ -70,8 +67,7 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
     FB.ui(
       method: 'stream.share',
       u:       @url
-      (response) ->
-        @callback.after_sharing(response)
+      @_fb_ui_callback
     )
 
   # @note: iphone facebook browser - doesn't redirect to page after sharing
@@ -88,19 +84,12 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
         description:  @description
         picture:      @image
         redirect_uri: @return_url
-      ),
-      (response)=>
-        @callback.after_sharing(response)
+      ), @_fb_ui_callback
     )
 
-  detect_provider: ->
-    provider =
-      if @_user_agent().match('CriOS')
-        "sharer"
-      else if @app_id
-        if @return_url then "dialog"
-        else "fb_ui_feed"
-      else
-        "sharer"
-    @constructor._debug("Facebook#detect_provider", provider)
-    provider
+  _fb_ui_callback: (response)=>
+    @callback.after_share(response)
+    if response && !response.error_code
+      @callback.success_share(response)
+    else
+      @callback.cancel_share(response)

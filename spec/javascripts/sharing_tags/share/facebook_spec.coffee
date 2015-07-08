@@ -84,8 +84,8 @@ describe "SharingTags.FacebookShare", ->
         @fb = @fb_fixture.full
         @share = new subject(@fb)
         spyOn(@share, "_open_popup_check").andCallThrough()
-        spyOn(@share.callback, "after_sharing").andCallThrough()
-        spyOn(@share.callback, "before_sharing").andCallThrough()
+        spyOn(@share.callback, "after_share").andCallThrough()
+        spyOn(@share.callback, "before_share").andCallThrough()
         spyOn(@share.callback, "trigger")
         jasmine.Clock.useMock()
         window.FB = jasmine.createSpyObj('FB', ['ui', 'init'])
@@ -93,36 +93,36 @@ describe "SharingTags.FacebookShare", ->
       afterEach ->
         delete window.FB
 
-      it "expect called before_sharing on start sharing", ->
+      it "expect called before_share on start sharing", ->
         @share.share('fb_ui')
-        expect(@share.callback.before_sharing).toHaveBeenCalled()
+        expect(@share.callback.before_share).toHaveBeenCalled()
         expect(@share.callback.trigger).toHaveBeenCalled()
-        expect(@share.callback.trigger).toHaveBeenCalledWith("start_share", url: @fb.url, provider: "fb_ui")
+        expect(@share.callback.trigger).toHaveBeenCalledWith("before_share", provider: "fb_ui")
 
       it "expect calling callback for fb_ui", ->
         FB.ui.andCallFake (params, callback)-> callback()
 
         @share.share("fb_ui")
-        expect(@share.callback.after_sharing).toHaveBeenCalled()
-        expect(@share.callback.trigger).toHaveBeenCalledWith("start_share", url: @fb.url, provider: "fb_ui")
+        expect(@share.callback.after_share).toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("before_share", provider: "fb_ui")
 
       it "expect calling callback for sharer", ->
         @share.share('sharer')
         jasmine.Clock.tick(700)
         expect(@share._open_popup_check).toHaveBeenCalled()
         expect(@share.callback.trigger).toHaveBeenCalledWith("open_popup", url: jasmine.any(String), popup_window: jasmine.any(Object))
-        expect(@share.callback.after_sharing).not.toHaveBeenCalled()
+        expect(@share.callback.after_share).not.toHaveBeenCalled()
 
         jasmine.Clock.tick(500 * 5)
-        expect(@share.callback.after_sharing).toHaveBeenCalled()
+        expect(@share.callback.after_share).toHaveBeenCalled()
 
       it "expect calling callback for dialog 2.5sec", ->
         @share.share('dialog')
-        expect(@share.callback.after_sharing).not.toHaveBeenCalled()
-        expect(@share.callback.trigger).toHaveBeenCalledWith("start_share", url: @fb.url, provider: "dialog")
+        expect(@share.callback.after_share).not.toHaveBeenCalled()
+        expect(@share.callback.trigger).toHaveBeenCalledWith("before_share", provider: "dialog")
 
         jasmine.Clock.tick(500 * 5)
-        expect(@share.callback.after_sharing).toHaveBeenCalled()
+        expect(@share.callback.after_share).toHaveBeenCalled()
         expect(@share.callback.trigger).toHaveBeenCalledWith("open_popup", url: jasmine.any(String), popup_window: jasmine.any(Object))
 
   describe "#_sharer", ->

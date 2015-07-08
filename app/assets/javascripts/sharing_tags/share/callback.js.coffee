@@ -3,14 +3,31 @@ class @SharingTags.Share.Callback
     @network = @share.network
     @context = @share.context
 
-  before_sharing: (provider)=>
-    @trigger("start_share", url: @share.url, provider: provider, network: @network, context: @context)
+  before_share: (provider)=>
+    @trigger("before_share", provider: provider)
 
-  after_sharing: (response)->
-    @trigger("shared", response: response, network: @network, context: @context)
+  success_share: (response)->
+    @trigger("success_share", response: response)
 
-  before_open_popup: (open_url, popup_window)=>
+  cancel_share: (response)->
+    @trigger("cancel_share", response: response)
+
+  after_share: (response)->
+    @trigger("after_share", response: response)
+
+  open_popup: (open_url, popup_window)=>
     @trigger("open_popup", url: open_url, popup_window: popup_window)
 
   trigger: (trigger_name, params...)->
-    jQuery?(window).trigger("sharing_tags.#{trigger_name}", params)
+    trigger_params = @_share_params(params)
+
+    jQuery?(window).trigger("sharing_tags.#{trigger_name}", trigger_params)
+
+  _share_params: (params)->
+    properties = {
+      url: @share.url
+      network: @network
+      context: @context
+    }
+    params[key] = val for key, val of properties
+    params

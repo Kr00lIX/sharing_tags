@@ -108,9 +108,26 @@ You can subscribe to javascript events
 jQuery("body").on "sharing_tags.click_action", ({network, context, target})->
   # your code
 
-# after successful sharing
-jQuery("body").on "sharing_tags.shared", ({network, context, target})->
+# on start sharing
+jQuery(window).on "sharing_tags.before_share", ({network, context, target})->
   # your code
+
+# on successful sharing
+jQuery(window).on "sharing_tags.success_share", ({network, context, target, response})->
+  # your code
+
+# on cancel sharing
+jQuery(window).on "sharing_tags.cancel_share", ({network, context, target, response})->
+  # your code
+
+# on success or cancel sharing
+jQuery(window).on "sharing_tags.after_share", ({network, context, target, response})->
+  # your code
+
+# on open sharing popup
+jQuery(window).on "sharing_tags.open_popup", ({network, context, url, popup_window})->
+  # your code
+
 ```
 
 ### Wave-animations

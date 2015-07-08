@@ -100,7 +100,7 @@ class @SharingTags
 #          when "vkontakte" then "width=550,height=420,toolbar=no"
 
       share_window = window.open share_url, 'Sharing', popup_attrs
-      @callback.before_open_popup(share_url, share_window)
+      @callback.open_popup(share_url, share_window)
 
       clearInterval(@interval)
       iteration = 0
@@ -108,12 +108,13 @@ class @SharingTags
         iteration++
         if @_open_popup_check(share_url, share_window, iteration)
           clearInterval @interval
-          @callback.after_sharing()
+          @callback.success_share()
+          @callback.after_share()
       ), 500)
 
     _open_popup_check: (share_url, share_window, iteration)=>
       # console.log("check desktop sharing", share_url, share_window, iteration)
-      share_window?.closed || iteration >= 5
+      share_window?.closed || iteration >= 10
 
     _assert_vars: (vars...)->
       for var_name in vars
