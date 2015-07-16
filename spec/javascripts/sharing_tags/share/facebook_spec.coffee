@@ -113,15 +113,15 @@ describe "SharingTags.FacebookShare", ->
         expect(@share.callback.trigger).toHaveBeenCalledWith("open_popup", url: jasmine.any(String), popup_window: jasmine.any(Object))
         expect(@share.callback.after_share).not.toHaveBeenCalled()
 
-        jasmine.Clock.tick(500 * 5)
+        jasmine.Clock.tick(500 * 10)
         expect(@share.callback.after_share).toHaveBeenCalled()
 
-      it "expect calling callback for dialog 2.5sec", ->
+      it "expect calling callback for dialog 5sec", ->
         @share.share('dialog')
         expect(@share.callback.after_share).not.toHaveBeenCalled()
         expect(@share.callback.trigger).toHaveBeenCalledWith("before_share", provider: "dialog")
 
-        jasmine.Clock.tick(500 * 5)
+        jasmine.Clock.tick(500 * 10)
         expect(@share.callback.after_share).toHaveBeenCalled()
         expect(@share.callback.trigger).toHaveBeenCalledWith("open_popup", url: jasmine.any(String), popup_window: jasmine.any(Object))
 

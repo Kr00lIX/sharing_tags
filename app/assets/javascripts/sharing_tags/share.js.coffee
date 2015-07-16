@@ -4,7 +4,7 @@ class @SharingTags
 
   @debug: false
 
-  @share: (network, attributes)->
+  @share: (network, attributes = {})->
     attributes.network = network
     SharingTags.Share[network]?(attributes)
 
