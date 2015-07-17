@@ -2,12 +2,14 @@ describe SharingTags::ShareContext, "main context" do
   before do
     SharingTags.configure do
 
+      networks :vkontakte, :google, :facebook
+
       title "main title"
       description "main desc"
       page_url "https://github.com/Kr00lIX/sharing_tags"
 
-      twitter do
-        description "twitter desc"
+      google do
+        description "google desc"
       end
 
       facebook do
@@ -43,14 +45,23 @@ describe SharingTags::ShareContext, "main context" do
   end
 
   let(:params) { SharingTags.params }
+  let(:config) { SharingTags.config }
 
-  describe "twitter" do
-    subject { params.twitter }
+  describe "networks" do
 
-    it { is_expected.to be_kind_of(SharingTags::Network::Twitter)  }
+    it "expect defined_networks" do
+      expect(config.networks).to include(:vkontakte, :google, :facebook)
+    end
 
-    # its(:title) { is_expected.to be == "main title" }
-    # its(:description) { is_expected.to be == "twitter desc" }
+  end
+
+  describe "google" do
+    subject { params.google }
+
+    # it { is_expected.to be_kind_of(SharingTags::Network)  }
+
+    its(:title) { is_expected.to be == "main title" }
+    its(:description) { is_expected.to be == "google desc" }
 
     # its(:domain) { is_expected.to be == "twitter domain" }
     # its(:site) { is_expected.to be == "twitter site" }

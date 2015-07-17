@@ -13,15 +13,28 @@ module SharingTags
     def initialize(name, parent_network)
       @name = name
       @attributes = {}
-      @parent_network = parent_network
-      # @context = context
+      @parent = parent_network
     end
 
     def image
       # get_value(:image)
     end
 
+    private
+
     # `network name` params -> default network (some context) ->
     #    `network name` (main_context) ->  default network (main_context)
+    # def method_missing(method_name, *arguments, &block)
+    #   # @parent_network.send(method_name, *arguments, &block)
+    # end
+
+    # def parent
+    #   # self network in context
+    #   # default network in context
+    #   # network in main context
+    #   # default network in  main context
+    #
+    #   # @context
+    # end
   end
 end

@@ -10,7 +10,7 @@ module SharingTags
       ATTRIBUTES = %i( title description share_url page_url share_url_params link_params
                        image_url image )
 
-      attr_reader :name, :attributes
+      attr_reader :name, :attributes, :network
 
       class Error < ::SharingTags::Config::CError
       end
@@ -50,8 +50,8 @@ module SharingTags
         @context = context
         @share_context = context.share_context
 
-        # add network to context
-        @network = (@share_context[name] ||= self.class.network_class.new(name, self))
+        # add network to share context
+        @network = (@share_context[@name] ||= self.class.network_class.new(name, parent.try(:network)))
       end
     end
   end

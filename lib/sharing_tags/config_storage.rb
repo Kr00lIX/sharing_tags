@@ -18,17 +18,23 @@ module SharingTags
 
     protected
 
-    def get_value(name, _default_value = nil, &_default_proc)
+    def get_value(name, default_value = nil, &default_proc)
       value = @attributes[name]
-      return value unless value.is_a?(Proc)
+      return prepare_value(value) unless value.nil?
 
-      # if @context && @running_context
-      #   # execute proc within the view context with context_params
-      #   @running_context.instance_exec(*context_params, &value)
-      # else
-      # value.call(context_params)
-      value.call
-      # end
+      if @parent
+        @parent.get_value(name, default_value, &default_proc)
+      else
+        prepare_value(default_value) || prepare_value(default_proc)
+      end
     end
+
+    def prepare_value(value)
+      if value.is_a? Proc
+        value.call
+      else
+        value
+      end  
+    end  
   end
 end

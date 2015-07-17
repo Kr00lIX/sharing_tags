@@ -4,14 +4,14 @@ module SharingTags
       attr_reader :name
       attr_reader :config
       attr_reader :share_context
+      attr_reader :main_context
 
       def initialize(name, config, main_context = nil)
         @name = name
         @networks = {}
         @config = config # @note need for running context
         @main_context = main_context
-
-        @share_context = ShareContext.new(self, main_context.try(:share_context))
+        @share_context = ShareContext.new(self, @main_context.try(:share_context))
       end
 
       def [](network)

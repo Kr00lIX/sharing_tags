@@ -46,6 +46,10 @@ module SharingTags
 
       protected
 
+      def parent
+        @context.default_network
+      end
+
       def add_params_to_url(url, params = {})
         return url.html_safe if params.blank?
 
