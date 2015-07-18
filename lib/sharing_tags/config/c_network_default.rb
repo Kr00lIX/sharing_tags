@@ -4,8 +4,9 @@ module SharingTags
     class CNetworkDefault < CNetwork
       protected
 
-      def parent        
-        @context.main_context[network_name] if @context.main_context
+      def parent(network_name)
+        return unless @context.main_context
+        @context.main_context[network_name] || @context.main_context.default_network
       end
     end
   end

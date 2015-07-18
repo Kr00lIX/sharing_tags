@@ -1,5 +1,5 @@
 module SharingTags
-  class ShareContext < ConfigStorage
+  class ShareContext
     ## ref to parent context
 
     ## todo iterable? each by each network

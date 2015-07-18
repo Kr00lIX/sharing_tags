@@ -23,6 +23,11 @@ module SharingTags
       def language(lang)
         config.language = lang
       end
+
+      def context(name, &block)
+        fail "please define context block params" unless block_given?
+        (config.contexts[name] ||= CContext.new(name, config, self)).instance_exec(&block)
+      end
     end
   end
 end

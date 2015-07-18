@@ -46,7 +46,7 @@ module SharingTags
 
       protected
 
-      def parent
+      def parent(_network_name)
         @context.default_network
       end
 

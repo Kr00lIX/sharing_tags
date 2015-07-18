@@ -50,8 +50,8 @@ module SharingTags
   end
   module_function :config
 
-  def params
-    config.params
+  def params(context = nil)
+    config.params(context)
   end
   module_function :params
 end

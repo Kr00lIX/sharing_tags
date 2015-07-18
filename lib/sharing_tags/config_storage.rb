@@ -19,14 +19,17 @@ module SharingTags
     protected
 
     def get_value(name, default_value = nil, &default_proc)
-      value = @attributes[name]
-      return prepare_value(value) unless value.nil?
-
-      if @parent
-        @parent.get_value(name, default_value, &default_proc)
-      else
-        prepare_value(default_value) || prepare_value(default_proc)
+      @c_network.self_and_parents do |c_network|
+        value = c_network.network.fetch_value(name)
+        return value if value.present?
       end
+
+      prepare_value(default_value) || prepare_value(default_proc)
+    end
+
+    def fetch_value(name)
+      value = @attributes[name]
+      prepare_value(value) unless value.nil?
     end
 
     def prepare_value(value)

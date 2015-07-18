@@ -11,6 +11,7 @@ module SharingTags
         @networks = {}
         @config = config # @note need for running context
         @main_context = main_context
+        # @main_context = @config.main_context
         @share_context = ShareContext.new(self, @main_context.try(:share_context))
       end
 

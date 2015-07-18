@@ -51,7 +51,16 @@ module SharingTags
         @share_context = context.share_context
 
         # add network to share context
-        @network = (@share_context[@name] ||= self.class.network_class.new(name, parent.try(:network)))
+        @network = (@share_context[@name] ||= self.class.network_class.new(name, self))
+      end
+
+      def self_and_parents
+        c_network = self
+        loop do
+          yield(c_network)
+          c_network = c_network.send(:parent, @name)
+          break unless c_network
+        end
       end
     end
   end

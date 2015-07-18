@@ -4,16 +4,17 @@ module SharingTags
     attr_accessor :asset_finder
     attr_accessor :language
     attr_accessor :networks
+    attr_accessor :contexts
     attr_reader :main_context
 
     def initialize
       clear!
     end
 
-    def context(name, &block)
-      fail "please define context block params" unless block_given?
-      (@contexts[name] ||= CContext.new(name, self, main_context)).instance_exec(&block)
-    end
+    # def context(name, &block)
+    #   fail "please define context block params" unless block_given?
+    #   (@contexts[name] ||= CContext.new(name, self, main_context)).instance_exec(&block)
+    # end
 
     # def switch_context(name = nil, *args, &block)
     #   prev_context = current_context
@@ -42,7 +43,8 @@ module SharingTags
       @networks = Config::CNetwork::AVAILABLE_NETWORKS
     end
 
-    def params
+    def params(context = nil)
+      @current_context = @contexts[context]
       current_context.share_context
     end
 
