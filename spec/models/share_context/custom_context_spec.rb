@@ -82,5 +82,4 @@ describe SharingTags::ShareContext, "custom context" do
     its(:description) { is_expected.to be == "main desc" }
     its(:caption) { is_expected.to be == "facebook caption" }
   end
-
 end

@@ -11,6 +11,7 @@ module SharingTags
                        image_url image )
 
       attr_reader :name, :attributes, :network
+      attr_reader :share_context
 
       class Error < ::SharingTags::Config::CError
       end

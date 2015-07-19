@@ -16,22 +16,23 @@ module SharingTags
     #   (@contexts[name] ||= CContext.new(name, self, main_context)).instance_exec(&block)
     # end
 
-    # def switch_context(name = nil, *args, &block)
-    #   prev_context = current_context
-    #   prev_context_params = @current_context_params
-    #
-    #   @current_context_params = args
-    #   @current_context = name && @contexts[name] || main_context
-    #   return unless block_given?
-    #
-    #   result = block.call
-    #
-    #   @current_context = prev_context
-    #   @current_context_params = prev_context_params
-    #
-    #   result
-    # end
-    # alias_method :switch_context_to, :switch_context
+    def switch_context(name = nil, *args, &block)
+      prev_context = current_context
+      # prev_context_params = @current_context_params
+
+      # @current_context_params = args
+      @current_context = name && @contexts[name] || main_context
+      @current_context.share_context.context_params =  args
+      return unless block_given?
+
+      result = block.call
+
+      @current_context = prev_context
+      # @current_context_params = prev_context_params
+
+      result
+    end
+    alias_method :switch_context_to, :switch_context
 
     def clear!
       @contexts = {}
@@ -44,7 +45,7 @@ module SharingTags
     end
 
     def params(context = nil)
-      @current_context = @contexts[context]
+      @current_context = @contexts[context] if context
       current_context.share_context
     end
 

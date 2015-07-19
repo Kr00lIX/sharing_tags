@@ -9,7 +9,6 @@ module SharingTags
 
     def initialize
       @attributes = {}
-      super
     end
 
     def assign(attribute, value, &proc_value)
@@ -17,6 +16,10 @@ module SharingTags
     end
 
     protected
+
+    def running_context
+      @running_context ||= SharingTags::Network::RunningContext.new(self, @share_context)
+    end
 
     def get_value(name, default_value = nil, &default_proc)
       @c_network.self_and_parents do |c_network|
@@ -34,7 +37,7 @@ module SharingTags
 
     def prepare_value(value)
       if value.is_a? Proc
-        value.call
+        running_context.instance_exec(*@share_context.context_params, &value)
       else
         value
       end  

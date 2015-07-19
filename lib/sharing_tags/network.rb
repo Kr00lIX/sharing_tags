@@ -3,6 +3,7 @@ module SharingTags
     ## default values
     ## ref to share context
     attr_accessor :image
+    attr_reader :name
 
     # network_attribute :title
     # network_attribute :description
@@ -12,8 +13,10 @@ module SharingTags
 
     def initialize(name, c_network)
       @name = name
-      @attributes = {}
       @c_network = c_network
+      @share_context = c_network.share_context
+      # @attributes = {}
+      super()
     end
 
     def image

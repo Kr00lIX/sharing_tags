@@ -1,6 +1,8 @@
 module SharingTags
   class ShareContext
     ## ref to parent context
+    attr_reader :name
+    attr_accessor :context_params
 
     ## todo iterable? each by each network
 
@@ -12,6 +14,7 @@ module SharingTags
     end
 
     def initialize(config_context, _parent_context = nil)
+      @name = config_context.name
       @config_context = config_context
       # @running_context = SharingTags::Network::RunningContext.new(self, context)
       @context_params = nil
