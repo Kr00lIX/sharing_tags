@@ -22,6 +22,10 @@ module SharingTags
     end
 
     def get_value(name, default_value = nil, &default_proc)
+      # self network in context ->
+      #   default network in context ->
+      #   network in main context ->
+      #   default network in  main context
       @c_network.self_and_parents do |c_network|
         value = c_network.network.fetch_value(name)
         return value if value.present?

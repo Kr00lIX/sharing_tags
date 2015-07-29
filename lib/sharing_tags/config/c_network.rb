@@ -10,21 +10,19 @@ module SharingTags
       assign_to_network :share_url_params, aliases: :link_params
       assign_to_network :image_url, aliases: :image
 
-      # # image_url(new_image = nil, size = nil, content_type = nil, options, &block)
-      # # def image_url(*arguments, &block)
-      # # def image_url(size = nil, content_type = nil, new_image = nil, &image_block)
-      def image_url(new_image = nil, &image_block)
-        #   # options = arguments.extract_options!
-        #   # new_image, size, content_type = arguments
-        #
-
+      # image_url(new_image = nil, size = nil, content_type = nil, options, &block)
+      # def image_url(*arguments, &block)
+      # def image_url(size = nil, content_type = nil, new_image = nil, &image_block)
+      def image_url(new_image = nil, size = nil, content_type = nil, &image_block)
+        # options = arguments.extract_options!
+        # new_image, size, content_type = arguments
         @network.assign :image_url, new_image, &image_block
 
-        # # add size and content type for block value
-        # size, content_type = new_image, size if block_given?
-        #
-        # attributes[:image_size] = store_value(size.split("x").map(&:to_i)) if size
-        # attributes[:image_content_type] = store_value(content_type) if content_type
+        # add size and content type for block value
+        size, content_type = new_image, size if block_given?
+
+        @network.assign :image_size, size.split("x").map(&:to_i) if size
+        @network.assign :image_content_type, content_type if content_type
       end
 
       # TODO: add image_size

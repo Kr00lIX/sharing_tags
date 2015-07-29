@@ -35,13 +35,13 @@ module SharingTags
           # define getter method for network class
           network_class.define_attribute attribute
 
-          self.available_attributes ||= []
-          self.available_attributes << attribute
+          (self.available_attributes ||= []) << attribute
 
           # define aliases
           Array(aliases).each do |alias_name|
             self.available_attributes << alias_name
             define_method alias_name, &attribute
+            network_class.send :define_method, alias_name, &attribute
           end
         end
       end
