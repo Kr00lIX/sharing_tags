@@ -22,23 +22,23 @@ class @SharingTags
         popup_params: null
       )
 
-    @facebook: ({url, app_id, caption, title, description, image, return_url, provider}) ->
+    @facebook: ({url, app_id, caption, title, description, image, return_url, provider, network}) ->
       @_debug("Facebook sharing", arguments[0])
       (new SharingTags.FacebookShare(arguments[0])).share()
 
-    @twitter: ({url, title}) ->
+    @twitter: ({url, title, context, network}) ->
       @share_popup(
-        network: "twitter"
         url: url
         popup_url: "http://twitter.com/intent/tweet"
         popup_params:
           text: title
           url: url
+        network: network
+        context: context
       )
 
-    @vkontakte: ({title, url, description, image}) ->
+    @vkontakte: ({title, url, description, image, context, network}) ->
       @share_popup(
-        network: 'vkontakte'
         url: url,
         popup_url: "http://vk.com/share.php",
         popup_params:
@@ -46,33 +46,47 @@ class @SharingTags
           title: title,
           description: description,
           image: image
+        network: network
+        context: context
       )
 
-    @google: ({url}) ->
-      @share_popup(network: 'google', url: url, popup_url: "https://plus.google.com/share", popup_params: {url: url})
+    @google: ({url, context, network}) ->
+      @share_popup(
+        url: url,
+        popup_url: "https://plus.google.com/share",
+        popup_params: {url: url}
+        network: network
+        context: context
+      )
 
-    @odnoklassniki: ({url, description}) ->
+    @odnoklassniki: ({url, description, context, network}) ->
       @share_popup(
         network: 'odnoklassniki'
         url: url,
         popup_url: "http://www.odnoklassniki.ru/dk",
         popup_params: {'st._surl': url, 'st.comments': description, 'st.cmd': 'addShare', 'st.s': 1}
+        network: network
+        context: context
       )
 
-    @mailru: ({url, title, image, description}) ->
+    @mailru: ({url, title, image, description, context, network}) ->
       @share_popup(
         network: 'mailru'
         url: url,
         popup_url: 'http://connect.mail.ru/share',
         popup_params: {url: url, title: title, description: description, imageurl: image}
+        network: network
+        context: context
       )
 
-    @linkedin: ({url, title, description}) ->
+    @linkedin: ({url, title, description, context, network}) ->
       @share_popup(
         network: 'linkedin'
         url: url,
         popup_url: 'http://www.linkedin.com/shareArticle',
         popup_params: {mini: true, url: url, title: title, summary: description}
+        network: network
+        context: context
       )
 
     @share_popup: ({network, url, popup_url, popup_params})->
@@ -86,9 +100,7 @@ class @SharingTags
     constructor: ({@network, @context, @url, @title, @description, @image})->
       @_assert_vars 'url'
       @callback = new SharingTags.Share.Callback(@)
-
       @constructor._debug("Init sharing #{@network}", {@url, @title, @description})
-
 
     open_popup: (api_url, params, popup_attrs = 'width=550,height=420,toolbar=no')->
       share_url = if params then "#{api_url}?#{$.param(params)}" else api_url

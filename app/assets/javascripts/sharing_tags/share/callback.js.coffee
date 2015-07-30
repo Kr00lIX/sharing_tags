@@ -20,8 +20,7 @@ class @SharingTags.Share.Callback
 
   trigger: (trigger_name, params...)->
     trigger_params = @_share_params(params)
-
-    jQuery?(window).trigger("sharing_tags.#{trigger_name}", trigger_params)
+    jQuery?(window).trigger("sharing_tags.#{trigger_name}", [trigger_params])
 
   _share_params: (params)->
     properties = {
