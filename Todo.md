@@ -14,3 +14,4 @@
 * Add twitter card settings
 * Add sharing through Vk js SDK
 * Generate sass styles only for choiced icons
+* if return nil in proc try get variable from parent settings
