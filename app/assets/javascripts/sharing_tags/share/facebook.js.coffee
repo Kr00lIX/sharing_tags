@@ -79,9 +79,9 @@ class @SharingTags.FacebookShare extends @SharingTags.Share
       @_prepare_params(
         method:      'feed'
         link:         @url
-        name:         @caption   # The name of the link attachment.
-        caption:      @title
-        description:  @description
+        name:         @title       # The name of the link attachment.
+        caption:      @caption     # The caption of the link (appears beneath the link name). If not specified, this field is automatically populated with the URL of the link.
+        description:  @description # The description of the link (appears beneath the link caption). If not specified, this field is automatically populated by information scraped from the link, typically the title of the page.
         picture:      @image
         redirect_uri: @return_url
       ), @_fb_ui_callback

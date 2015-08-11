@@ -36,7 +36,7 @@ For the simplest way of using this gem, add this helper method to head in your v
 ```
 
 
-### Example configuration
+### Usage example
 ```ruby 
 # initializers/sharings_tags.rb
 SharingTags.configure do
@@ -129,14 +129,6 @@ jQuery(window).on "sharing_tags.open_popup", ({network, context, url, popup_wind
   # your code
 
 ```
-
-### Wave-animations
-''' sass
-@import 'sharing_tags/wave_animation'
-
-+create_wave_animation_on_sharing_buttons(4)
-'''
-
 
 ## Recommendations
 Facebook sharing images 1200x630 and add mimetype and size
