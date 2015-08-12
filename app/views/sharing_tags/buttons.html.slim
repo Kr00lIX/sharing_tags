@@ -1,3 +1,3 @@
-ul.sharing_tags-buttons class="sharing_tags-buttons__#{context.name} #{options[:class]}"
+ul.sharing_tags-buttons class="sharing_tags-buttons__#{context.name} #{options[:class]}" role="sharing_tags_share_#{context.name}"
   - networks.each do |network|
     li.sharing_tags-buttons__item class="sharing_tags-#{network}_buttons__item"= render "sharing_tags/button/#{network}"
