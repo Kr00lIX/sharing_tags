@@ -213,8 +213,8 @@ describe "SharingTags.FacebookShare", ->
       expect(FB.ui).toHaveBeenCalled()
       expect(FB.ui).toHaveBeenCalledWith(
         jasmine.objectContaining(
-          link: @fb.url, method: 'feed', caption: @fb.title,
-          description: @fb.description, name: @fb.caption,
+          link: @fb.url, method: 'feed', caption: @fb.caption,
+          description: @fb.description, name: @fb.title,
           picture: @fb.image, redirect_uri: @fb.return_url
         ),
         jasmine.any(Function)
@@ -227,8 +227,8 @@ describe "SharingTags.FacebookShare", ->
       expect(FB.ui).toHaveBeenCalled()
       expect(FB.ui).toHaveBeenCalledWith(
         jasmine.objectContaining(
-          link: @fb.url, method: 'feed', caption: @fb.title,
-          name: @fb.caption, picture: @fb.image
+          link: @fb.url, method: 'feed', caption: @fb.caption,
+          name: @fb.title, picture: @fb.image
         ),
         jasmine.any(Function)
       )

@@ -3,6 +3,7 @@
     "url":         "http://full.url",
     "title":       "Title full",
     "description": "Description",
-    "image":       "http://image.url"
+    "image":       "http://image.url",
+    "network":     "vkontakte"
   }
 }
