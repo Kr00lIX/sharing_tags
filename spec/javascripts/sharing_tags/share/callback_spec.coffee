@@ -26,6 +26,12 @@ describe "SharingTags.Share.Callback", ->
       spyOn(@callback, "trigger")
       @response = jasmine.createSpy('response')
 
+    it "#click_action", ->
+      @callback.click_action(target: "target_object")
+      expect(@callback.trigger).toHaveBeenCalledWith(
+        "click_action", jasmine.objectContaining(target: "target_object")
+      )
+
     it "#before_share", ->
       @callback.before_share("auto")
       expect(@callback.trigger).toHaveBeenCalledWith(

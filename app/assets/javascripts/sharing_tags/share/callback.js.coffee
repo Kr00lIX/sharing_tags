@@ -3,6 +3,9 @@ class @SharingTags.Share.Callback
     @network = @share.network
     @context = @share.context
 
+  click_action: (params)=>
+    @trigger("click_action", params)
+
   before_share: (provider)=>
     @trigger("before_share", provider: provider)
 
@@ -19,8 +22,10 @@ class @SharingTags.Share.Callback
     @trigger("open_popup", url: open_url, popup_window: popup_window)
 
   trigger: (trigger_name, params...)->
+    params['type'] = "sharing_tags.#{trigger_name}"
     trigger_params = @_share_params(params)
-    jQuery?(window).trigger("sharing_tags.#{trigger_name}", [trigger_params])
+    jQuery?(window).trigger(trigger_params)
+    jQuery?(document).trigger(trigger_params)
 
   _share_params: (params)->
     properties = {

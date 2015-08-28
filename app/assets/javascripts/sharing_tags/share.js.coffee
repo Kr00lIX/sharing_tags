@@ -89,6 +89,7 @@ class @SharingTags
 
     @share_popup: ({network, url, popup_url, popup_params})->
       social_share = new Share(arguments[0])
+      social_share.callback.before_share()
       social_share.open_popup(popup_url, popup_params)
       social_share
 
