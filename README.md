@@ -105,27 +105,27 @@ You can subscribe to javascript events
 
 ```coffeescript
 # click on sharing link
-jQuery("body").on "sharing_tags.click_action", ({network, context, target})->
+jQuery(document).on "sharing_tags.click_action", ({network, context, target})->
   # your code
 
 # on start sharing
-jQuery(window).on "sharing_tags.before_share", ({network, context, target})->
+jQuery(document).on "sharing_tags.before_share", ({network, context, target})->
   # your code
 
 # on successful sharing
-jQuery(window).on "sharing_tags.success_share", ({network, context, target, response})->
+jQuery(document).on "sharing_tags.success_share", ({network, context, target, response})->
   # your code
 
 # on cancel sharing
-jQuery(window).on "sharing_tags.cancel_share", ({network, context, target, response})->
+jQuery(document).on "sharing_tags.cancel_share", ({network, context, target, response})->
   # your code
 
 # on success or cancel sharing
-jQuery(window).on "sharing_tags.after_share", ({network, context, target, response})->
+jQuery(document).on "sharing_tags.after_share", ({network, context, target, response})->
   # your code
 
 # on open sharing popup
-jQuery(window).on "sharing_tags.open_popup", ({network, context, url, popup_window})->
+jQuery(document).on "sharing_tags.open_popup", ({network, context, url, popup_window})->
   # your code
 
 ```
